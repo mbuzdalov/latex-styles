@@ -54,8 +54,8 @@
 \setlist{nosep}
 
 %% Полуторный межстрочный интервал
-
-\renewcommand{\baselinestretch}{1.5}
+\RequirePackage{setspace}
+\onehalfspace
 
 %% Абзацный отступ по ГОСТу - пять букв. Это примерно столько.
 
@@ -166,7 +166,7 @@
   \let\thelstlisting\thealgorithm
   \let\ftype@lstlisting\ftype@algorithm % give the floats the same precedence
 }
-      
+     
 
 %% "Тонкая" настройка теховских штрафов при формировании абзацев.
 
@@ -314,7 +314,9 @@
 \RequirePackage[normalem]{ulem}
 
 \newcommand{\titletabutwo}[2]{{\setlength{\tabcolsep}{0.1em}%
-    \noindent\begin{tabu}to\textwidth{lX[r]}#1&#2\\\end{tabu}}}
+    \noindent\begin{tabu}to\textwidth{lX[p]}#1&#2\\\end{tabu}}}
+\newcommand{\titletabutwow}[2]{{\setlength{\tabcolsep}{0.1em}%
+    \noindent\begin{tabu}to\textwidth{lcX[p]}#1&~&#2\\\end{tabu}}}
 \newcommand{\titletabufour}[4]{{\setlength{\tabcolsep}{0.1em}%
     \noindent\begin{tabu}to\textwidth{lX[6,c]lX[1,r]}#1&%
     \uline{\hfill#2\hfill~}&#3&\uline{\hfill#4\hfill~}\\\end{tabu}}}
@@ -349,19 +351,32 @@
 \newcommand{\thecity}{Санкт-Петербург}
 \newcommand{\city}[1]{\renewcommand{\thecity}{#1}}
 
+\newcommand{\theconsultantwithdegree}{}
+\newcommand{\consultantwithdegree}[1]{\renewcommand{\theconsultantwithdegree}{#1}}
+
 %% Команды без значений по умолчанию
 
 \newcommand{\studygroup}[1]{\newcommand{\thestudygroup}{#1}}
 \renewcommand{\title}[1]{\newcommand{\thetitle}{#1}}
 \renewcommand{\author}[1]{\renewcommand{\theauthor}{#1}}
 \newcommand{\supervisor}[1]{\newcommand{\thesupervisor}{#1}}
+\newcommand{\supervisordegree}[1]{\newcommand{\thesupervisordegree}{#1}}
 \newcommand{\publishyear}[1]{\newcommand{\theyear}{#1}}
 
-%%%% БАКАЛАВРЫ
+%% Команды для аннотации
 
-%% Вспомогательная команда для следующей
+\newcommand{\researchdirections}[1]{\newcommand{\theresearchdirections}{#1}}
+\newcommand{\researchpart}[1]{\newcommand{\theresearchpart}{#1}}
+\newcommand{\economicpart}[1]{\newcommand{\theeconomicpart}{#1}}
+\newcommand{\ecologypart}[1]{\newcommand{\theecologypart}{#1}}
+\newcommand{\novelty}[1]{\newcommand{\thenovelty}{#1}}
+\newcommand{\cwpublications}[1]{\newcommand{\thecwpublications}{#1}}
+\newcommand{\practicalimplications}[1]{\newcommand{\thepracticalimplications}{#1}}
+
+%% Создание титульной страницы и аннотации для бакалавров
 
 \newcommand{\makebachelortitle}{
+	\pagenumbering{gobble}
     \begin{titlepage}
         \begin{center}\theuniversity\end{center}
         \vspace{0cm plus 1fill minus 0cm}
@@ -397,12 +412,77 @@
         Листов хранения \infiniteuhspace\\
         Чертежей хранения \infiniteuhspace\\
     \end{titlepage}
+    \if@shouldmakeannotation
+    \begin{titlepage}\begin{small}
+        \begin{center}\theuniversity\end{center}
+        \begin{center}\textbf{АННОТАЦИЯ}\\\textbf{ПО ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЕ}\end{center}
+        \titletabutwo{Студент}{\uline{\hfill\theauthor\hfill~}}\\
+        \titletabutwo{Факультет}{\uline{\hfill\thefaculty\hfill~}}\\
+        \titletabufour{Кафедра}{\thechair}{Группа}{\thestudygroup}\\
+        \titletabutwo{Направление (специальность)}{\uline{\hfill\thespecialty\hfill~}}\\
+        \titletabutwo{Квалификация (степень)}{\uline{\hfillБакалавр \thedegreetail\hfill~}}\\
+		\titletabutwow{Наименование темы}{\thetitle}\\
+		\titletabutwo{Руководитель}{\uline{\hfill\thesupervisor, \thesupervisordegree\hfill~}}\\
+		\titletabutwo{Консультант}{\uline{\hfill\theconsultantwithdegree\hfill~}}\\
+		\begin{center}
+			\MakeUppercase{\textbf{Краткое содержание выпускной квалификационной работы и основные выводы}}
+		\end{center}
+		\noindent\textbf{объем} \uline{\hfill\pageref{LastPage}\hfill~} стр.,
+			\textbf{графический материал} \uline{\hfill--\hfill~} стр.,
+			\textbf{библиография} \uline{\hfill\total{citnum}\hfill~} наим.
+
+		\noindent\textbf{Направление и задача исследований}
+		
+		\theresearchdirections
+		
+		\noindent\textbf{Проектная или исследовательская часть (с указанием основных методов исследований, 
+		расчетов и результатов)}
+		
+		\theresearchpart
+		
+		\noindent\textbf{Экономическая часть (какие использованы методики, экономическая эффективность 
+		результатов)}
+		
+		\theeconomicpart
+		
+		\noindent\textbf{Характеристика вопросов экологии, техники безопасности и др.}
+		
+		\theecologypart
+
+		\@ifundefined{thenovelty}{}{%
+			\noindent\textbf{Новизна полученных результатов}
+		
+			\thenovelty}
+		
+		\noindent\textbf{Является ли работа продолжением курсовых проектов (работ), есть ли публикации}
+		
+		\thecwpublications
+		
+		\noindent\textbf{Практическая ценность работы. Рекомендации по внедрению}
+		
+		\thepracticalimplications
+		
+		~
+				
+		{\setlength{\tabcolsep}{0pt}
+		\begin{tabular}{p{5cm}r}
+		Выпускник & \signatureplace\\
+		Научный руководитель & \signatureplace\\
+		\end{tabular}}
+		
+		~
+		
+		\datequoteplace~\uhspace{10em} \theyear~г.
+    \end{small}\end{titlepage}
+    \fi
+    \pagenumbering{arabic}
     \setcounter{page}{3}
 }
 
-%%%% МАГИСТРЫ
+%% Создание титульной страницы и аннотации для магистров
 
 \newcommand{\makemastertitle}{
+	\pagenumbering{gobble}
     \begin{titlepage}
         \begin{center}\theuniversity\end{center}
         \vspace{0cm plus 1fill minus 0cm}
@@ -435,6 +515,66 @@
         Листов хранения \infiniteuhspace\\
         Чертежей хранения \infiniteuhspace\\
     \end{titlepage}
+    \if@shouldmakeannotation
+    \begin{titlepage}\begin{small}
+        \begin{center}\theuniversity\end{center}
+        \begin{center}\textbf{АННОТАЦИЯ}\\\textbf{ПО МАГИСТЕРСКОЙ ДИССЕРТАЦИИ}\end{center}
+        \titletabutwo{Студент}{\uline{\hfill\theauthor\hfill~}}\\
+        \titletabutwo{Факультет}{\uline{\hfill\thefaculty\hfill~}}\\
+        \titletabufour{Кафедра}{\thechair}{Группа}{\thestudygroup}\\
+        \titletabutwo{Направление подготовки}{\uline{\hfill\thespecialty\hfill~}}\\
+        \titletabutwo{Квалификация (степень)}{\uline{\hfillМагистр \thedegreetail\hfill~}}\\
+		\titletabutwo{Специальное звание}{\uline{~\hfill~}}\\
+		\titletabutwow{Наименование темы}{\thetitle}\\
+		\titletabutwo{Научный руководитель}{\uline{\hfill\thesupervisor, \thesupervisordegree\hfill~}}\\
+		\titletabutwo{Консультант}{\uline{\hfill\theconsultantwithdegree\hfill~}}\\
+		\begin{center}
+			\MakeUppercase{\textbf{Краткое содержание магистерской диссертации и основные выводы}}
+		\end{center}
+		\noindent\textbf{объем} \uline{\hfill\pageref{LastPage}\hfill~} стр.,
+			\textbf{графический материал} \uline{\hfill--\hfill~} стр.,
+			\textbf{библиография} \uline{\hfill\total{citnum}\hfill~} наим.
+
+		\noindent\textbf{Направление и задача исследований}
+		
+		\theresearchdirections
+		
+		\noindent\textbf{Проектная или исследовательская часть (с указанием основных методов исследований, 
+		расчетов и результатов)}
+		
+		\theresearchpart
+		
+		\noindent\textbf{Экономическая часть (какие использованы методики, экономическая эффективность 
+		результатов)}
+		
+		\theeconomicpart
+		
+		\noindent\textbf{Новизна полученных результатов}
+		
+		\thenovelty
+		
+		\noindent\textbf{Является ли работа продолжением курсовых проектов (работ), есть ли публикации}
+		
+		\thecwpublications
+		
+		\noindent\textbf{Практическая ценность работы. Рекомендации по внедрению}
+		
+		\thepracticalimplications
+		
+		~
+				
+		{\setlength{\tabcolsep}{0pt}
+		\begin{tabular}{p{5cm}r}
+		Выпускник & \signatureplace\\
+		Научный руководитель & \signatureplace\\
+		\end{tabular}}
+		
+		~
+		
+		\datequoteplace~\uhspace{10em} \theyear~г.
+    \end{small}\end{titlepage}
+	\fi
+    \pagenumbering{arabic}
     \setcounter{page}{3}
 }
 
@@ -467,8 +607,10 @@
 %% Обработка опций пакета
 
 \newif\if@shouldusetimes
+\newif\if@shouldmakeannotation
 
 \DeclareOption{times}{\@shouldusetimestrue}
+\DeclareOption{annotation}{\@shouldmakeannotationtrue}
 
 \ProcessOptions
 
