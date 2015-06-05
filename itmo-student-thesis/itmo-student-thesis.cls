@@ -13,7 +13,7 @@
 %% Теперь можно писать по-русски.
 %% Формируем отступы
 
-\RequirePackage[top=2cm, bottom=2cm, left=3cm, right=1.3cm]{geometry}
+\RequirePackage[top=2cm, bottom=2cm, left=2.7cm, right=1.2cm]{geometry}
 
 %% Эти пакеты слишком часто используются, чтобы их не включать
 
@@ -323,160 +323,120 @@
 \newcommand{\datequoteplace}{<<\uhspace{2em}>>}
 \newcommand{\infiniteuhspace}{\uhspace{0 cm plus 1fill}}
 
+%% Команды со значениями по умолчанию
+
+\newcommand{\theuniversity}{федеральное государственное автономное образовательное учреждение высшего профессионального образования <<Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики>>}
+\newcommand{\university}[1]{\renewcommand{\theuniversity}{#1}}
+
+\newcommand{\thefaculty}{информационных технологий и программирования}
+\newcommand{\faculty}[1]{\renewcommand{\thefaculty}{#1}}
+
+\newcommand{\thespecialty}{Прикладная математика и информатика}
+\newcommand{\specialty}[1]{\renewcommand{\thespecialty}{#1}}
+
+\newcommand{\thechair}{компьютерных технологий}
+\newcommand{\chair}[1]{\renewcommand{\thechair}{#1}}
+
+\newcommand{\thechairhead}{Васильев В.Н.}
+\newcommand{\chairhead}[1]{\renewcommand{\thechairhead}{#1}}
+
+\newcommand{\themasterhead}{Васильев В.Н.}
+\newcommand{\masterhead}[1]{\renewcommand{\themasterhead}{#1}}
+
+\newcommand{\thedegreetail}{прикладной математики и информатики}
+\newcommand{\degreetail}[1]{\renewcommand{\thedegreetail}{#1}}
+
+\newcommand{\thecity}{Санкт-Петербург}
+\newcommand{\city}[1]{\renewcommand{\thecity}{#1}}
+
+%% Команды без значений по умолчанию
+
+\newcommand{\studygroup}[1]{\newcommand{\thestudygroup}{#1}}
+\renewcommand{\title}[1]{\newcommand{\thetitle}{#1}}
+\renewcommand{\author}[1]{\renewcommand{\theauthor}{#1}}
+\newcommand{\supervisor}[1]{\newcommand{\thesupervisor}{#1}}
+\newcommand{\publishyear}[1]{\newcommand{\theyear}{#1}}
+
 %%%% БАКАЛАВРЫ
 
 %% Вспомогательная команда для следующей
 
-\newcommand{\makebachelortitlebottom}[9]{
-        \titletabufour{Кафедра}{#1}{Группа}{#4}\\
+\newcommand{\makebachelortitle}{
+    \begin{titlepage}
+        \begin{center}\theuniversity\end{center}
+        \vspace{0cm plus 1fill minus 0cm}
+        \titletabutwo{Факультет}{\uline{\hfill\thefaculty\hfill~}}\\
+        \titletabutwo{Направление (специальность)}{\uline{\hfill\thespecialty\hfill~}}\\
+        \titletabutwo{Квалификация (степень)}{\uline{\hfillБакалавр \thedegreetail\hfill~}}\\
+        \titletabufour{Кафедра}{\thechair}{Группа}{\thestudygroup}\\
         \vspace{0cm plus 1fill minus 0cm}
         \begin{center}
             \textbf{\MakeUppercase{\LARGE Пояснительная записка}}\\
-            \textbf{\large к выпускной квалификационной работе}\\{\large #5}\\
+            \textbf{\large к выпускной квалификационной работе}\\{\large \thetitle}\\
         \end{center}
         \vspace{0cm plus 1fill minus 0cm}
         \noindent\begin{tabular}{p{8.5cm}p{4.5cm}r}
-            Автор квалификационной работы & #6 & \signatureplace \\
-            Научный руководитель & #7 & \signatureplace \\
+            Автор квалификационной работы & \theauthor & \signatureplace \\
+            Научный руководитель & \thesupervisor & \signatureplace \\
             \textbf{Консультанты}: & &\\
             а) По экономике и организации производства & & \signatureplace \\
             б) По безопасности жизнедеятельности и экологии & & \signatureplace \\
             в) & & \signatureplace \\
             \vspace{0cm plus 1fill minus 0cm}
             \textbf{К защите допустить} & &\\
-            Заведующий кафедрой & #2 & \signatureplace \\
-            & \multicolumn{2}{l}{\datequoteplace~\signatureplace{} #8~г.}
+            Заведующий кафедрой & \thechairhead & \signatureplace \\
+            & \multicolumn{2}{l}{\datequoteplace~\signatureplace{} \theyear~г.}
         \end{tabular}\\
         \vspace{0cm plus 1fill}
-        \begin{center}#3, #8~г.\end{center}
+        \begin{center}\thecity, \theyear~г.\end{center}
     \end{titlepage}
     \begin{titlepage}
         \noindent Квалификационная работа выполнена с оценкой \infiniteuhspace\\
-        Дата защиты \hspace{0cm plus 1fill}\datequoteplace~\uhspace{10em} #8~г.\\
+        Дата защиты \hspace{0cm plus 1fill}\datequoteplace~\uhspace{10em} \theyear~г.\\
         Секретарь ГАК \infiniteuhspace\\
         Листов хранения \infiniteuhspace\\
         Чертежей хранения \infiniteuhspace\\
     \end{titlepage}
     \setcounter{page}{3}
 }
-
-%% Команда для общей генерации бакалаврской титульной страницы 
-%% 1 - университет
-%% 2 - факультет
-%% 3 - специальность
-%% 4 - квалификация (степень)
-%% 5 - кафедра
-%% 6 - заведующий кафедрой
-%% 7 - город
-%% 8 - группа
-%% 9 - тема
-%% 10 - автор
-%% 11 - руководитель
-%% 12 - год
-
-\newcommand{\makebachelortitle}[4]{%
-    \begin{titlepage}
-        \begin{center}#1\end{center}
-        \vspace{0cm plus 1fill minus 0cm}
-        \titletabutwo{Факультет}{\uline{\hfill#2\hfill~}}\\
-        \titletabutwo{Направление (специальность)}{\uline{\hfill#3\hfill~}}\\
-        \titletabutwo{Квалификация (степень)}{\uline{\hfill#4\hfill~}}\\
-    \makebachelortitlebottom
-}
-
-%% Короткая команда для состояния на 2015 год
-%% 1 - группа
-%% 2 - тема
-%% 3 - автор (Фамилия И.О.)
-%% 4 - руководитель (Фамилия И.О.)
-%% 5 - год
-\newcommand{\makebachelortitleitmo}{\makebachelortitle%
-{федеральное государственное автономное образовательное учреждение
- высшего профессионального образования\\<<Санкт-Петербургский национальный
- исследовательский университет информационных технологий, механики и оптики>>}
-{информационных технологий и программирования}
-{Прикладная математика и информатика}
-{бакалавр прикладной математики и информатики}
-{компьютерных технологий}
-{Васильев В.Н.}
-{Санкт-Петербург}}
 
 %%%% МАГИСТРЫ
 
-%% Вспомогательная команда для следующей
-
-\newcommand{\makemastertitlebottom}[9]{
-        \titletabufour{Кафедра}{#1}{Группа}{#5}\\
+\newcommand{\makemastertitle}{
+    \begin{titlepage}
+        \begin{center}\theuniversity\end{center}
+        \vspace{0cm plus 1fill minus 0cm}
+        \titletabutwo{Факультет}{\uline{\hfill\thefaculty\hfill~}}\\
+        \titletabutwo{Направление (специальность)}{\uline{\hfill\thespecialty\hfill~}}\\
+        \titletabutwo{Квалификация (степень)}{\uline{\hfillМагистр \thedegreetail\hfill~}}\\
+        \titletabufour{Кафедра}{\thechair}{Группа}{\thestudygroup}\\
         \vspace{0cm plus 1fill minus 0cm}
         \begin{center}
             \textbf{\MakeUppercase{\LARGE Магистерская диссертация}}\\
-            \textbf{\large на тему}\\{\large #6}\\
+            \textbf{\large на тему}\\{\large \thetitle}\\
         \end{center}
         \vspace{1cm plus 1fill minus 1cm}
         \noindent\begin{tabular}{p{9cm}p{4cm}r}
-            Автор магистерской диссертации & #7 & \signatureplace \\
-            Научный руководитель & #8 & \signatureplace \\
-            Руководитель магистерской программы & #2 & \signatureplace \\
+            Автор магистерской диссертации & \theauthor & \signatureplace \\
+            Научный руководитель & \thesupervisor & \signatureplace \\
+            Руководитель магистерской программы & \themasterhead & \signatureplace \\
             \vspace{1cm plus 1fill minus 1cm}
             \textbf{К защите допустить} & &\\
-            Заведующий кафедрой & #3 & \signatureplace \\
-            & \multicolumn{2}{l}{\datequoteplace~\signatureplace{} #9~г.}
+            Заведующий кафедрой & \thechairhead & \signatureplace \\
+            & \multicolumn{2}{l}{\datequoteplace~\signatureplace{} \theyear~г.}
         \end{tabular}\\
         \vspace{2cm plus 1fill minus 2cm}
-        \begin{center}#4, #9~г.\end{center}
+        \begin{center}\thecity, \theyear~г.\end{center}
     \end{titlepage}
     \begin{titlepage}
         \noindent Магистерская диссертация выполнена с оценкой \infiniteuhspace\\
-        Дата защиты \hspace{0cm plus 1fill}\datequoteplace~\uhspace{10em} #9~г.\\
+        Дата защиты \hspace{0cm plus 1fill}\datequoteplace~\uhspace{10em} \theyear~г.\\
         Секретарь ГАК \infiniteuhspace\\
         Листов хранения \infiniteuhspace\\
         Чертежей хранения \infiniteuhspace\\
     \end{titlepage}
     \setcounter{page}{3}
 }
-
-%% Команда для общей генерации магистерской страницы 
-%% 1 - университет
-%% 2 - факультет
-%% 3 - специальность
-%% 4 - квалификация (степень)
-%% 5 - кафедра
-%% 6 - руководитель магистерской программы
-%% 7 - заведующий кафедрой
-%% 8 - город
-%% 9 - группа
-%% 10 - тема
-%% 11 - автор
-%% 12 - руководитель
-%% 13 - год
-
-\newcommand{\makemastertitle}[4]{%
-    \begin{titlepage}
-        \begin{center}#1\end{center}
-        \vspace{0cm plus 1fill minus 0cm}
-        \titletabutwo{Факультет}{\uline{\hfill#2\hfill~}}\\
-        \titletabutwo{Направление (специальность)}{\uline{\hfill#3\hfill~}}\\
-        \titletabutwo{Квалификация (степень)}{\uline{\hfill#4\hfill~}}\\
-    \makemastertitlebottom
-}
-
-%% Короткая команда для состояния на 2015 год
-%% 1 - группа
-%% 2 - тема
-%% 3 - автор (Фамилия И.О.)
-%% 4 - руководитель (Фамилия И.О.)
-%% 5 - год
-\newcommand{\makemastertitleitmo}{\makemastertitle%
-{федеральное государственное автономное образовательное учреждение
- высшего профессионального образования\\<<Санкт-Петербургский национальный
- исследовательский университет информационных технологий, механики и оптики>>}
-{информационных технологий и программирования}
-{Прикладная математика и информатика}
-{магистр прикладной математики и информатики}
-{компьютерных технологий}
-{Васильев В.Н.}
-{Васильев В.Н.}
-{Санкт-Петербург}}
 
 %% Веселый способ работать с метапостом
 
