@@ -411,7 +411,7 @@
         Чертежей хранения \infiniteuhspace\\
     \end{titlepage}
     \if@shouldmakeannotation
-    \begin{titlepage}
+    \begin{titlepage}\begin{small}
         \begin{center}\theuniversity\end{center}
         \begin{center}\textbf{АННОТАЦИЯ}\\\textbf{ПО ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЕ}\end{center}
         \titletabutwo{Студент}{\uline{\hfill\theauthor\hfill~}}\\
@@ -471,7 +471,7 @@
 		~
 		
 		\datequoteplace~\uhspace{10em} \theyear~г.
-    \end{titlepage}
+    \end{small}\end{titlepage}
     \fi
     \pagenumbering{arabic}
     \setcounter{page}{3}
@@ -514,7 +514,7 @@
         Чертежей хранения \infiniteuhspace\\
     \end{titlepage}
     \if@shouldmakeannotation
-    \begin{titlepage}
+    \begin{titlepage}\begin{small}
         \begin{center}\theuniversity\end{center}
         \begin{center}\textbf{АННОТАЦИЯ}\\\textbf{ПО МАГИСТЕРСКОЙ ДИССЕРТАЦИИ}\end{center}
         \titletabutwo{Студент}{\uline{\hfill\theauthor\hfill~}}\\
@@ -570,7 +570,7 @@
 		~
 		
 		\datequoteplace~\uhspace{10em} \theyear~г.
-    \end{titlepage}
+    \end{small}\end{titlepage}
 	\fi
     \pagenumbering{arabic}
     \setcounter{page}{3}
