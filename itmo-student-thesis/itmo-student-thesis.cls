@@ -108,11 +108,11 @@
 \RequirePackage{lastpage}
 \RequirePackage{totcount}
 \RequirePackage{longtable}
-\regtotcounter[auxfile=totals.aux]{figure}
-\regtotcounter[auxfile=totals.aux]{table}
-\regtotcounter[auxfile=totals.aux]{algorithm}
-\newtotcounter[auxfile=totals.aux]{citnum}
-\newtotcounter[auxfile=totals.aux]{appendix}
+\regtotcounter[auxfile=\jobname.tct]{figure}
+\regtotcounter[auxfile=\jobname.tct]{table}
+\regtotcounter[auxfile=\jobname.tct]{algorithm}
+\newtotcounter[auxfile=\jobname.tct]{citnum}
+\newtotcounter[auxfile=\jobname.tct]{appendix}
 \AtEveryBibitem{\stepcounter{citnum}}
 \AtEveryBibitem{\clearfield{addendum}}
 
@@ -229,9 +229,7 @@
 
 \setcounter{secnumdepth}{3}
 \titleformat{\chapter}[block]{\normalsize\bfseries\center}{ГЛАВА~\thechapter.~}%
-{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}%
-%\thispagestyle{\TheOnlyTruePageStyle}
-]
+{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}]
 \titlespacing{\chapter}{0pt}{-30pt}{0pt}
 \titleformat{\section}[block]{\normalsize\bfseries\center}{\thesection.~}{0pt}{}
 \titlespacing{\section}{0pt}{0pt}{0pt}
@@ -246,12 +244,12 @@
 \renewcommand{\appendix}{
 \oldappendix
 \renewcommand{\thechapter}{\Asbuk{chapter}}
-\titleformat{\chapter}[hang]{\normalsize}{
-\hspace{1cm}\stepcounter{appendix}ПРИЛОЖЕНИЕ~\thechapter~}{0pt}{}
+\titleformat{\chapter}[block]{\normalsize\bfseries\center\stepcounter{appendix}}%
+{ПРИЛОЖЕНИЕ~\thechapter.~}{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}]
 \titlecontents{chapter}
     [8.5em]
     {}
-    {\contentslabel[ПРИЛОЖЕНИЕ \thecontentslabel]{8.5em}}
+    {\contentslabel[ПРИЛОЖЕНИЕ \thecontentslabel.]{8.5em}}
     {\hspace*{-8.5em}}
     {\titlerule*[0.5pc]{.}\contentspage}
 }
@@ -413,7 +411,7 @@
         Чертежей хранения \infiniteuhspace\\
     \end{titlepage}
     \if@shouldmakeannotation
-    \begin{titlepage}\begin{small}
+    \begin{titlepage}
         \begin{center}\theuniversity\end{center}
         \begin{center}\textbf{АННОТАЦИЯ}\\\textbf{ПО ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЕ}\end{center}
         \titletabutwo{Студент}{\uline{\hfill\theauthor\hfill~}}\\
@@ -473,7 +471,7 @@
 		~
 		
 		\datequoteplace~\uhspace{10em} \theyear~г.
-    \end{small}\end{titlepage}
+    \end{titlepage}
     \fi
     \pagenumbering{arabic}
     \setcounter{page}{3}
@@ -516,7 +514,7 @@
         Чертежей хранения \infiniteuhspace\\
     \end{titlepage}
     \if@shouldmakeannotation
-    \begin{titlepage}\begin{small}
+    \begin{titlepage}
         \begin{center}\theuniversity\end{center}
         \begin{center}\textbf{АННОТАЦИЯ}\\\textbf{ПО МАГИСТЕРСКОЙ ДИССЕРТАЦИИ}\end{center}
         \titletabutwo{Студент}{\uline{\hfill\theauthor\hfill~}}\\
@@ -572,7 +570,7 @@
 		~
 		
 		\datequoteplace~\uhspace{10em} \theyear~г.
-    \end{small}\end{titlepage}
+    \end{titlepage}
 	\fi
     \pagenumbering{arabic}
     \setcounter{page}{3}
