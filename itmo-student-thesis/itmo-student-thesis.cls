@@ -165,6 +165,9 @@
   \let\c@lstlisting\c@algorithm
   \let\thelstlisting\thealgorithm
   \let\ftype@lstlisting\ftype@algorithm % give the floats the same precedence
+  \counterwithout{lstlisting}{chapter}
+  \counterwithout{lstlisting}{section}
+  \counterwithout{lstlisting}{subsection}
 }
      
 

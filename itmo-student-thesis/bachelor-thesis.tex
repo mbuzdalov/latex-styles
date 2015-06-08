@@ -88,7 +88,7 @@
 В данном разделе размещается введение.
 
 %% Начало содержательной части.
-\chapter{Первая (и единственная) глава}
+\chapter{Первая глава}
 
 Пример ссылок на литературные источники: \cite{example-english, example-russian}.
 
@@ -189,6 +189,49 @@ public class HelloWorld {
 }
 \end{lstlisting}
 \end{algorithm}
+
+\chapter{Проверка сквозной нумерации}
+
+Листинг~\ref{lst4} должен иметь номер 4.
+
+\begin{algorithm}[!h]
+\caption{Исходный код и флоат \texttt{algorithm}}\label{lst4}
+\begin{lstlisting}
+public class HelloWorld {
+	public static void main(String[] args) {
+		System.out.println("Hello, world!");
+	}
+}
+\end{lstlisting}
+\end{algorithm}
+
+Рисунок~\ref{fig2} должен иметь номер 2.
+
+\begin{figure}[!h]
+\caption{Пример рисунка}\label{fig2}
+\centering
+\begin{tikzpicture}[scale=0.7]
+\draw[thick,->] (0,0)--(3.5,0);
+\draw[thick,->] (0,0)--(0,3.5);
+\draw[very thick, red] (0,0)--(3,3);
+\draw[dashed] (3,0)--(3,3);
+\draw[dashed] (1.5,0)--(1.5,1.5);
+\end{tikzpicture}
+\end{figure}
+
+Таблица~\ref{tab3} должна иметь номер 3.
+
+\begin{table}[!h]
+\caption{Таблица умножения с помощью \texttt{tabu} (фрагмент)}\label{tab3}
+\centering
+\begin{tabu}{|*{18}{X[c]|}}\hline
+-- & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\\hline
+1  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\\hline
+2  & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 18 & 20 & 22 & 24 & 26 & 28 & 30 & 32 & 34 \\\hline
+3  & 3 & 6 & 9 & 12 & 15 & 18 & 21 & 24 & 27 & 30 & 33 & 36 & 39 & 42 & 45 & 48 & 51 \\\hline
+4  & 4 & 8 & 12 & 16 & 20 & 24 & 28 & 32 & 36 & 40 & 44 & 48 & 52 & 56 & 60 & 64 & 68 \\\hline
+\end{tabu}
+\end{table}
 
 %% Макрос для заключения. Совместим со старым стилевиком.
 \startconclusionpage
