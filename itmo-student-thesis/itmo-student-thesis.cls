@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2015/06/08 v1.0.2]
+\ProvidesClass{itmo-student-thesis}[2015/06/10 v1.0.3]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -477,7 +477,7 @@
     \end{small}\end{titlepage}
     \fi
     \pagenumbering{arabic}
-    \setcounter{page}{3}
+    \setcounter{page}{\firstcontentspage}
 }
 
 %% Создание титульной страницы и аннотации для магистров
@@ -576,7 +576,7 @@
     \end{small}\end{titlepage}
 	\fi
     \pagenumbering{arabic}
-    \setcounter{page}{3}
+    \setcounter{page}{\firstcontentspage}
 }
 
 %% Веселый способ работать с метапостом
@@ -609,9 +609,11 @@
 
 \newif\if@shouldusetimes
 \newif\if@shouldmakeannotation
+\newif\if@contentspagefour
 
 \DeclareOption{times}{\@shouldusetimestrue}
 \DeclareOption{annotation}{\@shouldmakeannotationtrue}
+\DeclareOption{page4}{\@contentspagefourtrue}
 
 \ProcessOptions
 
@@ -621,3 +623,10 @@
 	\RequirePackage{pscyr}
 	\def\rmdefault{ftm}
 \fi	
+
+%% Про четвертую страницу
+
+\newcommand{\firstcontentspage}{3}
+\if@contentspagefour
+    \renewcommand{\firstcontentspage}{4}
+\fi
