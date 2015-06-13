@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2015/06/10 v1.0.3]
+\ProvidesClass{itmo-student-thesis}[2015/06/13 v1.0.4]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -294,6 +294,10 @@
     {\hspace*{-\subsectionW}}
     {\titlerule*[0.5pc]{.}\contentspage}
 
+
+%% Выводы по главе - удобная команда
+
+\newcommand{\chapterconclusion}{\section*{Выводы по главе~\thechapter}\addcontentsline{toc}{section}{Выводы по главе~\thechapter}}
 
 %% Обратная совместимость со стилем, который у всех есть.
 
