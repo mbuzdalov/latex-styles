@@ -33,9 +33,10 @@
 
 \RequirePackage{tabu}
 
-%% Делаем правильные подписи.
+%% Делаем правильные подписи в правильных местах.
 
 \RequirePackage{caption}
+\RequirePackage{floatrow}
 
 %% Тем, кому нужны листинги, должны использовать \begin{algorithm}\end{algorithm}
 %% в качестве флоатов.
@@ -201,29 +202,38 @@
 
 \floatstyle{plaintop}
 \restylefloat{algorithm}
+
+\floatsetup[figure]{style=plain, capposition=bottom}
 \captionsetup[figure]{
     labelsep=endash,
     singlelinecheck=false,
     labelfont={normalsize,md},
-    justification=centering
+    justification=centering,
+    position=bottom
 }
+\floatsetup[table]{style=plain, capposition=top}
 \captionsetup[table]{
     labelsep=endash,
     singlelinecheck=false,
     labelfont={normalsize,md},
-    justification=justified
+    justification=justified,
+    position=top
 }
+\floatsetup[algorithm]{style=plain, capposition=top}
 \captionsetup[algorithm]{
     labelsep=endash,
     singlelinecheck=false,
     labelfont={normalsize,md},
-    justification=justified
+    justification=justified,
+    position=top
 }
+\floatsetup[lstlisting]{style=plain, capposition=top}
 \captionsetup[lstlisting]{
     labelsep=endash,
     singlelinecheck=false,
     labelfont={normalsize,md},
-    justification=justified
+    justification=justified,
+    position=top
 }
 
 %% Переопределение библиографии. Может, можно и проще, но сделал так.
@@ -264,6 +274,12 @@
 \let\oldappendix\appendix
 \renewcommand{\appendix}{
 \oldappendix
+%% Нумерация в приложениях идет по приложениям
+\counterwithin{figure}{chapter}
+\counterwithin{table}{chapter}
+\counterwithin{algorithm}{chapter}
+\counterwithin{lstlisting}{chapter}
+%%
 \renewcommand{\thechapter}{\Asbukx{chapter}}
 \titleformat{\chapter}[block]{\normalsize\bfseries\center\stepcounter{appendix}}%
 {ПРИЛОЖЕНИЕ~\thechapter.~}{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}]
