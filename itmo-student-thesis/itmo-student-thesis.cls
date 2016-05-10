@@ -657,7 +657,6 @@
 
 \DeclareOption{times}{\@shouldusetimestrue}
 \DeclareOption{annotation}{\@shouldmakeannotationtrue}
-\DeclareOption{page4}{\@contentspagefourtrue}
 
 \ProcessOptions
 
@@ -670,9 +669,9 @@
     \RequirePackage{paratype}
 \fi	
 
-%% Про четвертую страницу
+%% Содержательная часть начинается с четвертой страницы, так как есть:
+%% - титульная страница (стр. 1)
+%% - задание на работу (стр. 2)
+%% - аннотация (стр. 3)
 
-\newcommand{\firstcontentspage}{3}
-\if@contentspagefour
-    \renewcommand{\firstcontentspage}{4}
-\fi
+\newcommand{\firstcontentspage}{4}
