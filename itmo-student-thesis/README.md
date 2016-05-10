@@ -121,7 +121,7 @@
 ## Описание изменений в версиях
 Версия | Изменения
 -------|----------
-1.1.0.b5 | Теперь генерируются и задания тоже (Issue [#7](https://github.com/mbuzdalov/latex-styles/issues/7). В связи с полной сменой шаблонов сгорела необходимость в правильных подчеркиваниях (Issue [#1](https://github.com/mbuzdalov/latex-styles/issues/1). Пока не считаются источники по категориям (Issue [#10](https://github.com/mbuzdalov/latex-styles/issues/10)).
+1.1.0.b5 | Теперь генерируются и задания тоже (Issue [#7](https://github.com/mbuzdalov/latex-styles/issues/7)). В связи с полной сменой шаблонов сгорела необходимость в правильных подчеркиваниях (Issue [#1](https://github.com/mbuzdalov/latex-styles/issues/1)). Пока не считаются источники по категориям (Issue [#10](https://github.com/mbuzdalov/latex-styles/issues/10)).
 1.1.0.b4 | Удалена опция `page4`, так как теперь содержательная часть всегда должна начинаться с четвертой страницы.
 1.1.0.b3 | Исправлена фиксированная ширина слова ПРИЛОЖЕНИЕ в оглавлении (Issue [#2](https://github.com/mbuzdalov/latex-styles/issues/2)). Также в качестве набора шрифтов по умолчанию теперь используется Paratype.
 1.1.0.b2 | Исправлена нумерация флоатов в приложениях (Issue [#6](https://github.com/mbuzdalov/latex-styles/issues/6)).
