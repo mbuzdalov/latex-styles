@@ -282,12 +282,12 @@
 %%
 \renewcommand{\thechapter}{\Asbukx{chapter}}
 \titleformat{\chapter}[block]{\normalsize\bfseries\center\stepcounter{appendix}}%
-{ПРИЛОЖЕНИЕ~\thechapter.~}{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}]
+    {ПРИЛОЖЕНИЕ~\thechapter.~}{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}]
 \titlecontents{chapter}
-    [8.5em]
+    [\appendixPrefix]
     {}
-    {\contentslabel[ПРИЛОЖЕНИЕ \thecontentslabel.]{8.5em}}
-    {\hspace*{-8.5em}}
+    {\contentslabel[ПРИЛОЖЕНИЕ \thecontentslabel.]{\the\appendixPrefix}}
+    {\hspace*{-\the\appendixPrefix}}
     {\titlerule*[0.5pc]{.}\contentspage}
 }
 
@@ -297,6 +297,12 @@
 \newcommand{\chapterW}{1.2em}
 \newcommand{\sectionW}{2.2em}
 \newcommand{\subsectionW}{2.6em}
+
+\AtBeginDocument{
+    %% Длина "приложения" нормально определяется только теперь
+    \newlength{\appendixPrefix}
+    \settowidth{\appendixPrefix}{ПРИЛОЖЕНИЕ Ж.}
+}
 
 \newlength{\chapterPrefix}
 \addtolength{\chapterPrefix}{\chapterW}
@@ -660,6 +666,8 @@
 \if@shouldusetimes
 	\RequirePackage{pscyr}
 	\def\rmdefault{ftm}
+\else
+    \RequirePackage{paratype}
 \fi	
 
 %% Про четвертую страницу
