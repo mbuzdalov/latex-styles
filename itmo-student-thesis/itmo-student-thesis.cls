@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2015/06/13 v1.0.4]
+\ProvidesClass{itmo-student-thesis}[2016/05/10 v1.1.0.b5]
 
 \LoadClass[14pt,a4paper]{extreport}
 
