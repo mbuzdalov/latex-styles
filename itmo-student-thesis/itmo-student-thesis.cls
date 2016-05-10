@@ -65,6 +65,24 @@
 
 \renewcommand\labelitemi{---}
 
+%% На первом уровне нумерованных списков ставим русские буквы, на втором - цифры.
+
+%%% asbuk работал бы неплохо, но он включает в нумерацию букву "з", которую ГОСТ не разрешает. И, может быть, что-то еще.
+
+\def\asbukx#1{\expandafter\@asbukx\csname c@#1\endcsname}
+\def\@asbukx#1{\ifcase#1\or a\or б\or в\or г\or д\or е\or ж\or и\or к\or л\or м\or н\or п\or р\or с\or т\or у\or ф\or х\or ц\or ш\or щ\or э\or ю\or я\fi}
+
+\def\Asbukx#1{\expandafter\@Asbukx\csname c@#1\endcsname}
+\def\@Asbukx#1{\ifcase#1\or А\or Б\or В\or Г\or Д\or Е\or Ж\or И\or К\or Л\or М\or Н\or П\or Р\or С\or Т\or У\or Ф\or Х\or Ц\or Ш\or Щ\or Э\or Ю\or Я\fi}
+
+\AddEnumerateCounter{\Asbukx}{\@Asbukx}{М}
+\AddEnumerateCounter{\asbukx}{\@asbukx}{м}
+
+\renewcommand\labelenumi{\asbukx{enumi})}
+\renewcommand\theenumi{\asbukx{enumi}}
+\renewcommand\labelenumii{\arabic{enumii})}
+\renewcommand\theenumii{\arabic{enumii}}
+
 %% Рис. => Рисунок
 
 \addto{\captionsrussian}{\renewcommand*{\figurename}{Рисунок}}
@@ -246,7 +264,7 @@
 \let\oldappendix\appendix
 \renewcommand{\appendix}{
 \oldappendix
-\renewcommand{\thechapter}{\Asbuk{chapter}}
+\renewcommand{\thechapter}{\Asbukx{chapter}}
 \titleformat{\chapter}[block]{\normalsize\bfseries\center\stepcounter{appendix}}%
 {ПРИЛОЖЕНИЕ~\thechapter.~}{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}]
 \titlecontents{chapter}
