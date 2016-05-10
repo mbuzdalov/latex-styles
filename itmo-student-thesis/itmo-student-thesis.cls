@@ -242,6 +242,9 @@
 \chapter*{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}%
 \addcontentsline{toc}{chapter}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}}
 
+\newcommand{\printmainbibliography}{\printbibliography[heading=trueHeading]}
+\newcommand{\printannobibliography}{\renewcommand*{\bibfont}{\small}\printbibliography[heading=none]}
+
 %% Делаем русские варианты знаков неравенств.
 
 \let\le\leqslant
@@ -356,24 +359,33 @@
 
 %% Титульная страница
 
+\newcommand{\hfilll}{\hspace{0pt plus 1filll}}
+
 \RequirePackage[normalem]{ulem}
 
-\newcommand{\titletabutwo}[2]{{\setlength{\tabcolsep}{0.1em}%
-    \noindent\begin{tabu}to\textwidth{lX[p]}#1&#2\\\end{tabu}}}
-\newcommand{\titletabutwow}[2]{{\setlength{\tabcolsep}{0.1em}%
-    \noindent\begin{tabu}to\textwidth{lcX[p]}#1&~&#2\\\end{tabu}}}
-\newcommand{\titletabufour}[4]{{\setlength{\tabcolsep}{0.1em}%
-    \noindent\begin{tabu}to\textwidth{lX[6,c]lX[1,r]}#1&%
-    \uline{\hfill#2\hfill~}&#3&\uline{\hfill#4\hfill~}\\\end{tabu}}}
+%\newcommand{\titletabutwo}[2]{{\setlength{\tabcolsep}{0.1em}%
+%    \noindent\begin{tabu}to\textwidth{lX[p]}#1&#2\\\end{tabu}}}
+%\newcommand{\titletabutwow}[2]{{\setlength{\tabcolsep}{0.1em}%
+%    \noindent\begin{tabu}to\textwidth{lcX[p]}#1&~&#2\\\end{tabu}}}
+%\newcommand{\titletabufour}[4]{{\setlength{\tabcolsep}{0.1em}%
+%    \noindent\begin{tabu}to\textwidth{lX[6,c]lX[1,r]}#1&%
+%    \uline{\hfill#2\hfill~}&#3&\uline{\hfill#4\hfill~}\\\end{tabu}}}
+
 \newcommand{\uhspace}[1]{\uline{\hspace{#1}}}
-\newcommand{\signatureplace}{\uhspace{5em}}
+\newcommand{\signatureplace}{\uhspace{8em}}
 \newcommand{\datequoteplace}{<<\uhspace{2em}>>}
 \newcommand{\infiniteuhspace}{\uhspace{0 cm plus 1fill}}
+\newcommand{\unknowndate}{\datequoteplace~\signatureplace~20\uhspace{3em}~г.}
 
-%% Команды со значениями по умолчанию
+%% Контентные команды со значениями по умолчанию
 
-\newcommand{\theuniversity}{федеральное государственное автономное образовательное учреждение высшего образования <<Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики>>}
+\newcommand{\theuniversity}{{\bfseries Министерство образования и науки Российской Федерации\par
+{\scriptsize\MakeUppercase{федеральное государственное автономное образовательное учреждение высшего образования}\par}
+\MakeUppercase{<<Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики>>}}}
 \newcommand{\university}[1]{\renewcommand{\theuniversity}{#1}}
+
+\newcommand{\thedegreehost}{Университет ИТМО}
+\newcommand{\degreehost}[1]{\renewcommand{\thedegreehost}{#1}}
 
 \newcommand{\thefaculty}{информационных технологий и программирования}
 \newcommand{\faculty}[1]{\renewcommand{\thefaculty}{#1}}
@@ -381,14 +393,16 @@
 \newcommand{\thespecialty}{Прикладная математика и информатика}
 \newcommand{\specialty}[1]{\renewcommand{\thespecialty}{#1}}
 
+\newcommand{\thespecialization}{\infiniteuhspace}
+\newcommand{\specialization}[1]{\renewcommand{\thespecialization}{#1}}
+
 \newcommand{\thechair}{компьютерных технологий}
 \newcommand{\chair}[1]{\renewcommand{\thechair}{#1}}
 
 \newcommand{\thechairhead}{Васильев В.Н.}
-\newcommand{\chairhead}[1]{\renewcommand{\thechairhead}{#1}}
-
-\newcommand{\themasterhead}{Васильев В.Н.}
-\newcommand{\masterhead}[1]{\renewcommand{\themasterhead}{#1}}
+\newcommand{\thechairheaddegree}{докт. техн. наук, проф.}
+\newcommand{\chairhead}[2]{\renewcommand{\thechairhead}{#1}
+                           \renewcommand{\thechairheaddegree}{#2}}
 
 \newcommand{\thedegreetail}{прикладной математики и информатики}
 \newcommand{\degreetail}[1]{\renewcommand{\thedegreetail}{#1}}
@@ -396,231 +410,176 @@
 \newcommand{\thecity}{Санкт-Петербург}
 \newcommand{\city}[1]{\renewcommand{\thecity}{#1}}
 
-\newcommand{\theconsultantwithdegree}{}
-\newcommand{\consultantwithdegree}[1]{\renewcommand{\theconsultantwithdegree}{#1}}
+%%% Перечень графического материала
+\newcommand{\theplannedgraphics}{Не предусмотрено}
+\newcommand{\plannedgraphics}[1]{\renewcommand{\theplannedgraphics}{#1}}
 
-%% Команды без значений по умолчанию
+%% Контентные команды без значений по умолчанию
 
 \newcommand{\studygroup}[1]{\newcommand{\thestudygroup}{#1}}
 \renewcommand{\title}[1]{\newcommand{\thetitle}{#1}}
-\renewcommand{\author}[1]{\renewcommand{\theauthor}{#1}}
-\newcommand{\supervisor}[1]{\newcommand{\thesupervisor}{#1}}
-\newcommand{\supervisordegree}[1]{\newcommand{\thesupervisordegree}{#1}}
+\renewcommand{\author}[2]{\renewcommand{\theauthor}{#1}
+                          \newcommand{\theauthorshort}{#2}}
+\newcommand{\supervisor}[4]{\newcommand{\thesupervisor}{#1}
+                            \newcommand{\thesupervisorshort}{#2}
+                            \newcommand{\thesupervisordegree}{#3}
+                            \newcommand{\thesupervisorwork}{#4}}
 \newcommand{\publishyear}[1]{\newcommand{\theyear}{#1}}
 
-%% Команды для аннотации
+%%% Техническое задание и исходные данные к работе
+\newcommand{\technicalspec}[1]{\newcommand{\thetechnicalspec}{#1}}
+%%% Содержание выпускной квалификационной работы
+\newcommand{\plannedcontents}[1]{\newcommand{\theplannedcontents}{#1}}
+%%% Исходные материалы и пособия
+\newcommand{\plannedsources}[1]{\newcommand{\theplannedsources}{#1}}
+%%% Цель исследования
+\newcommand{\researchaim}[1]{\newcommand{\theresearchaim}{#1}}
+%%% Задачи, решаемые в ВКР
+\newcommand{\researchtargets}[1]{\newcommand{\theresearchtargets}{#1}}
+%%% Использование современных пакетов
+\newcommand{\advancedtechnologyusage}[1]{\newcommand{\theadvancedtechnologyusage}{#1}}
+%%% Краткая характеристика полученных результатов
+\newcommand{\researchsummary}[1]{\newcommand{\theresearchsummary}{#1}}
+%%% Гранты, полученные при выполнении работы
+\newcommand{\researchfunding}[1]{\newcommand{\theresearchfunding}{#1}}
+%%% Наличие публикаций и выступлений на конференциях
+\newcommand{\researchpublications}[1]{\newcommand{\theresearchpublications}{#1}}
 
-\newcommand{\researchdirections}[1]{\newcommand{\theresearchdirections}{#1}}
-\newcommand{\researchpart}[1]{\newcommand{\theresearchpart}{#1}}
-\newcommand{\economicpart}[1]{\newcommand{\theeconomicpart}{#1}}
-\newcommand{\ecologypart}[1]{\newcommand{\theecologypart}{#1}}
-\newcommand{\novelty}[1]{\newcommand{\thenovelty}{#1}}
-\newcommand{\cwpublications}[1]{\newcommand{\thecwpublications}{#1}}
-\newcommand{\practicalimplications}[1]{\newcommand{\thepracticalimplications}{#1}}
+%% Контентные команды пополнения списков
 
-%% Создание титульной страницы и аннотации для бакалавров
+\newbool{hasconsultants}
+\newcommand{\thelistofconsultants}{}
+\newcommand{\thelistofstages}{}
+\newcounter{numofstages}
 
-\newcommand{\makebachelortitle}{
-	\pagenumbering{gobble}
-    \begin{titlepage}
-        \begin{center}\theuniversity\end{center}
-        \vspace{0cm plus 1fill minus 0cm}
-        \titletabutwo{Факультет}{\uline{\hfill\thefaculty\hfill~}}\\
-        \titletabutwo{Направление (специальность)}{\uline{\hfill\thespecialty\hfill~}}\\
-        \titletabutwo{Квалификация (степень)}{\uline{\hfillБакалавр \thedegreetail\hfill~}}\\
-        \titletabufour{Кафедра}{\thechair}{Группа}{\thestudygroup}\\
-        \vspace{0cm plus 1fill minus 0cm}
-        \begin{center}
-            \textbf{\MakeUppercase{\LARGE Пояснительная записка}}\\
-            \textbf{\large к выпускной квалификационной работе}\\{\large \thetitle}\\
-        \end{center}
-        \vspace{0cm plus 1fill minus 0cm}
-        \noindent\begin{tabular}{p{8.5cm}p{4.5cm}r}
-            Автор квалификационной работы & \theauthor & \signatureplace \\
-            Научный руководитель & \thesupervisor & \signatureplace \\
-            \textbf{Консультанты}: & &\\
-            а) По экономике и организации производства & & \signatureplace \\
-            б) По безопасности жизнедеятельности и экологии & & \signatureplace \\
-            в) & & \signatureplace \\
-            \vspace{0cm plus 1fill minus 0cm}
-            \textbf{К защите допустить} & &\\
-            Заведующий кафедрой & \thechairhead & \signatureplace \\
-            & \multicolumn{2}{l}{\datequoteplace~\signatureplace{} \theyear~г.}
-        \end{tabular}\\
-        \vspace{0cm plus 1fill}
-        \begin{center}\thecity, \theyear~г.\end{center}
-    \end{titlepage}
-    \begin{titlepage}
-        \noindent Квалификационная работа выполнена с оценкой \infiniteuhspace\\
-        Дата защиты \hspace{0cm plus 1fill}\datequoteplace~\uhspace{10em} \theyear~г.\\
-        Секретарь ГАК \infiniteuhspace\\
-        Листов хранения \infiniteuhspace\\
-        Чертежей хранения \infiniteuhspace\\
-    \end{titlepage}
-    \if@shouldmakeannotation
-    \begin{titlepage}\begin{small}
-        \begin{center}\theuniversity\end{center}
-        \begin{center}\textbf{АННОТАЦИЯ}\\\textbf{ПО ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЕ}\end{center}
-        \titletabutwo{Студент}{\uline{\hfill\theauthor\hfill~}}\\
-        \titletabutwo{Факультет}{\uline{\hfill\thefaculty\hfill~}}\\
-        \titletabufour{Кафедра}{\thechair}{Группа}{\thestudygroup}\\
-        \titletabutwo{Направление (специальность)}{\uline{\hfill\thespecialty\hfill~}}\\
-        \titletabutwo{Квалификация (степень)}{\uline{\hfillБакалавр \thedegreetail\hfill~}}\\
-		\titletabutwow{Наименование темы}{\thetitle}\\
-		\titletabutwo{Руководитель}{\uline{\hfill\thesupervisor, \thesupervisordegree\hfill~}}\\
-		\titletabutwo{Консультант}{\uline{\hfill\theconsultantwithdegree\hfill~}}\\
-		\begin{center}
-			\MakeUppercase{\textbf{Краткое содержание выпускной квалификационной работы и основные выводы}}
-		\end{center}
-		\noindent\textbf{объем} \uline{\hfill\pageref{LastPage}\hfill~} стр.,
-			\textbf{графический материал} \uline{\hfill--\hfill~} стр.,
-			\textbf{библиография} \uline{\hfill\total{citnum}\hfill~} наим.
-
-		\noindent\textbf{Направление и задача исследований}
-		
-		\theresearchdirections
-		
-		\noindent\textbf{Проектная или исследовательская часть (с указанием основных методов исследований, 
-		расчетов и результатов)}
-		
-		\theresearchpart
-		
-		\noindent\textbf{Экономическая часть (какие использованы методики, экономическая эффективность 
-		результатов)}
-		
-		\theeconomicpart
-		
-		\noindent\textbf{Характеристика вопросов экологии, техники безопасности и др.}
-		
-		\theecologypart
-
-		\@ifundefined{thenovelty}{}{%
-			\noindent\textbf{Новизна полученных результатов}
-		
-			\thenovelty}
-		
-		\noindent\textbf{Является ли работа продолжением курсовых проектов (работ), есть ли публикации}
-		
-		\thecwpublications
-		
-		\noindent\textbf{Практическая ценность работы. Рекомендации по внедрению}
-		
-		\thepracticalimplications
-		
-		~
-				
-		{\setlength{\tabcolsep}{0pt}
-		\begin{tabular}{p{5cm}r}
-		Выпускник & \signatureplace\\
-		Научный руководитель & \signatureplace\\
-		\end{tabular}}
-		
-		~
-		
-		\datequoteplace~\uhspace{10em} \theyear~г.
-    \end{small}\end{titlepage}
-    \fi
-    \pagenumbering{arabic}
-    \setcounter{page}{\firstcontentspage}
+%%% Добавить консультанта: (Фамилия И.О.) (степень, звание)
+\newcommand{\addconsultant}[2]{
+\booltrue{hasconsultants}
+\appto{\thelistofconsultants}{\item #1, #2 \hfill\signatureplace\par\bigskip}
 }
 
-%% Создание титульной страницы и аннотации для магистров
+%%% Добавить этап в календарный план: (Название этапа) (Срок выполнения)
+\newcommand{\addstage}[2]{\appto{\thelistofstages}{\stepcounter{numofstages}\arabic{numofstages} & #1 & #2 & \\\hline\par}}
 
-\newcommand{\makemastertitle}{
+%% Создание титульной страницы, задания и аннотации
+
+%%% Параметр: бакалавр/магистр/инженер/...
+\renewcommand{\maketitle}[1]{
 	\pagenumbering{gobble}
     \begin{titlepage}
         \begin{center}\theuniversity\end{center}
+        {\centering\bfseries \MakeUppercase{Пояснительная записка}\par\MakeUppercase{выпускной квалификационной работы}\par}
         \vspace{0cm plus 1fill minus 0cm}
-        \titletabutwo{Факультет}{\uline{\hfill\thefaculty\hfill~}}\\
-        \titletabutwo{Направление (специальность)}{\uline{\hfill\thespecialty\hfill~}}\\
-        \titletabutwo{Квалификация (степень)}{\uline{\hfillМагистр \thedegreetail\hfill~}}\\
-        \titletabufour{Кафедра}{\thechair}{Группа}{\thestudygroup}\\
+        {\centering\bfseries <<\thetitle>>\par}
         \vspace{0cm plus 1fill minus 0cm}
-        \begin{center}
-            \textbf{\MakeUppercase{\LARGE Магистерская диссертация}}\\
-            \textbf{\large на тему}\\{\large \thetitle}\\
-        \end{center}
-        \vspace{1cm plus 1fill minus 1cm}
-        \noindent\begin{tabular}{p{9cm}p{4cm}r}
-            Автор магистерской диссертации & \theauthor & \signatureplace \\
-            Научный руководитель & \thesupervisor & \signatureplace \\
-            Руководитель магистерской программы & \themasterhead & \signatureplace \\
-            \vspace{1cm plus 1fill minus 1cm}
-            \textbf{К защите допустить} & &\\
-            Заведующий кафедрой & \thechairhead & \signatureplace \\
-            & \multicolumn{2}{l}{\datequoteplace~\signatureplace{} \theyear~г.}
-        \end{tabular}\\
-        \vspace{2cm plus 1fill minus 2cm}
+        {\setlength{\tabcolsep}{0.1em}
+         \noindent\small\begin{tabu}to\textwidth{X[p]l}
+            & Автор: \theauthor \hfilll \signatureplace \\
+            & Направление подготовки (специальность): \thespecialty \\
+            & Квалификация: #1 \\
+            & Руководитель: \thesupervisorshort, \thesupervisordegree \hfilll \signatureplace \\
+            & \\
+            & \\
+            & \textbf{К защите допустить} \\
+            & Зав. кафедрой \thechairhead, \thechairheaddegree \hfilll \signatureplace \\
+        \end{tabu}\par}
+        \begin{flushright}\small\unknowndate\end{flushright}
+        \vspace{0cm plus 1fill minus 0cm}
         \begin{center}\thecity, \theyear~г.\end{center}
     \end{titlepage}
     \begin{titlepage}
-        \noindent Магистерская диссертация выполнена с оценкой \infiniteuhspace\\
-        Дата защиты \hspace{0cm plus 1fill}\datequoteplace~\uhspace{10em} \theyear~г.\\
-        Секретарь ГАК \infiniteuhspace\\
-        Листов хранения \infiniteuhspace\\
-        Чертежей хранения \infiniteuhspace\\
+        \noindent \textbf{Студент} \theauthorshort\ \textbf{Группа} \thestudygroup\ \textbf{Кафедра} \thechair\ \textbf{Факультет} \thefaculty\par\bigskip\par
+        \noindent Направленность (профиль), специализация \thespecialization \par\bigskip\par
+        \noindent Консультанты:
+        \ifbool{hasconsultants}{\begin{enumerate}
+            \thelistofconsultants
+        \end{enumerate}}{\textbf{консультанты не указаны!}}\par\bigskip\par\bigskip\par
+        \noindent Квалификационная работа выполнена с оценкой \infiniteuhspace\par\bigskip\par
+        \noindent Дата защиты \hspace{0cm plus 1fill}\datequoteplace~\uhspace{10em} \theyear~г.\par\bigskip\par
+        \noindent Секретарь ГЭК \infiniteuhspace\par\bigskip\par
+        \noindent Листов хранения \infiniteuhspace\par\bigskip\par
+        \noindent Демонстрационных материалов/Чертежей хранения \infiniteuhspace\par\bigskip\par
     \end{titlepage}
+    \if@shouldmakespecification
+    \begin{titlepage}
+    \begin{center}\theuniversity\end{center}
+    \begin{small}
+        \noindent\begin{tabu}to\textwidth{X[p]r}
+            & \hfilll \textbf{УТВЕРЖДАЮ} \hfilll\ \\
+            & Зав.~каф. \thechair \\
+            & \thechairheaddegree \\
+            & \signatureplace\ \thechairhead \\
+            & \unknowndate \\
+        \end{tabu}
+        \begin{center}\bfseries {\normalsize ЗАДАНИЕ} \\ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ \end{center}
+        \bigskip
+        \noindent \textbf{Студенту} \theauthorshort\ \textbf{Группа} \thestudygroup\ \textbf{Кафедра} \thechair\ \textbf{Факультет} \thefaculty\
+        \textbf{Руководитель} \thesupervisor, \thesupervisordegree, \thesupervisorwork\par
+        \noindent \textbf{1 Наименование темы:} \thetitle\par
+        \noindent \textbf{Направление подготовки (специальность):} \thespecialty\par
+        \noindent \textbf{Направленность (профиль):} \thespecialization\par
+        \noindent \textbf{Квалификация:} #1\par\bigskip\par
+        \noindent \textbf{2 Срок сдачи студентом законченной работы:} \unknowndate \par
+        \noindent \textbf{3 Техническое задание и исходные данные к работе.}\par \thetechnicalspec\par
+        \noindent \textbf{4 Содержание выпускной квалификационной работы (перечень подлежащих разработке вопросов)}\par \theplannedcontents\par
+        \noindent \textbf{5 Перечень графического материала (с указанием обязательного материала)}\par \theplannedgraphics\par
+        \noindent \textbf{6 Исходные материалы и пособия}\par \theplannedsources\par
+        \begin{center}
+            \textbf{7 Календарный план}
+            \begin{tabu}to\textwidth{|l|X[3.5p]|X[p]|X[p]|}\hline
+            №№ пп. & Наименование этапов выпускной квалификационной работы & Срок выполнения этапов работы & Отметка о выполнении, подпись руков. \\\hline
+            \thelistofstages
+            \end{tabu}
+        \end{center}
+        \noindent \textbf{8 Дата выдачи задания:} \unknowndate\par\bigskip\par
+        \noindent Руководитель \signatureplace\par\bigskip\par
+        \noindent Задание принял к исполнению \signatureplace\ \unknowndate\par
+    \end{small}
+    \end{titlepage}
+    \fi
     \if@shouldmakeannotation
-    \begin{titlepage}\begin{small}
-        \begin{center}\theuniversity\end{center}
-        \begin{center}\textbf{АННОТАЦИЯ}\\\textbf{ПО МАГИСТЕРСКОЙ ДИССЕРТАЦИИ}\end{center}
-        \titletabutwo{Студент}{\uline{\hfill\theauthor\hfill~}}\\
-        \titletabutwo{Факультет}{\uline{\hfill\thefaculty\hfill~}}\\
-        \titletabufour{Кафедра}{\thechair}{Группа}{\thestudygroup}\\
-        \titletabutwo{Направление подготовки}{\uline{\hfill\thespecialty\hfill~}}\\
-        \titletabutwo{Квалификация (степень)}{\uline{\hfillМагистр \thedegreetail\hfill~}}\\
-		\titletabutwo{Специальное звание}{\uline{~\hfill~}}\\
-		\titletabutwow{Наименование темы}{\thetitle}\\
-		\titletabutwo{Научный руководитель}{\uline{\hfill\thesupervisor, \thesupervisordegree\hfill~}}\\
-		\titletabutwo{Консультант}{\uline{\hfill\theconsultantwithdegree\hfill~}}\\
-		\begin{center}
-			\MakeUppercase{\textbf{Краткое содержание магистерской диссертации и основные выводы}}
-		\end{center}
-		\noindent\textbf{объем} \uline{\hfill\pageref{LastPage}\hfill~} стр.,
-			\textbf{графический материал} \uline{\hfill--\hfill~} стр.,
-			\textbf{библиография} \uline{\hfill\total{citnum}\hfill~} наим.
-
-		\noindent\textbf{Направление и задача исследований}
-		
-		\theresearchdirections
-		
-		\noindent\textbf{Проектная или исследовательская часть (с указанием основных методов исследований, 
-		расчетов и результатов)}
-		
-		\theresearchpart
-		
-		\noindent\textbf{Экономическая часть (какие использованы методики, экономическая эффективность 
-		результатов)}
-		
-		\theeconomicpart
-		
-		\noindent\textbf{Новизна полученных результатов}
-		
-		\thenovelty
-		
-		\noindent\textbf{Является ли работа продолжением курсовых проектов (работ), есть ли публикации}
-		
-		\thecwpublications
-		
-		\noindent\textbf{Практическая ценность работы. Рекомендации по внедрению}
-		
-		\thepracticalimplications
-		
-		~
-				
-		{\setlength{\tabcolsep}{0pt}
-		\begin{tabular}{p{5cm}r}
-		Выпускник & \signatureplace\\
-		Научный руководитель & \signatureplace\\
-		\end{tabular}}
-		
-		~
-		
-		\datequoteplace~\uhspace{10em} \theyear~г.
-    \end{small}\end{titlepage}
-	\fi
+    \begin{titlepage}
+    \begin{center}\theuniversity\end{center}
+    {\centering\bfseries АННОТАЦИЯ \par}
+    \begin{small}
+        {\centering\bfseries ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ \par}
+        \bigskip
+        \noindent \textbf{Студент:} \theauthor\par
+        \noindent \textbf{Наименование темы ВКР:} \thetitle\par
+        \noindent \textbf{Наименование организации, где выполнена ВКР:} \thedegreehost\par
+        \bigskip
+        {\centering\bfseries ХАРАКТЕРИСТИКА ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ \par}
+        \bigskip
+        \noindent \textbf{1 Цель исследования:} \theresearchaim \par
+        \noindent \textbf{2 Задачи, решаемые в ВКР:} \theresearchtargets \par
+        \noindent \textbf{3 Число источников, использованных при составлении обзора:} \uhspace{4em} \par
+        \noindent \textbf{4 Полное число источников, использованных в работе:} \total{citnum} \par
+        \noindent \textbf{5 В том числе источников по годам} \par
+        \begin{tabular}{|c|c|c|c|c|c|}\hline
+            \multicolumn{3}{|c|}{Отечественных} & \multicolumn{3}{c|}{Иностранных} \\\hline
+            Последние & От 5      & Более  & Последние & От 5 & Более \\
+            5 лет     & до 10 лет & 10 лет & 5 лет     & до 10 лет & 10 лет \\\hline
+            ~ & ~ & ~ & ~ & ~ & ~ \\\hline
+        \end{tabular}\par
+        \noindent \textbf{6 Использование информационных ресурсов Internet:} \uhspace{4em} \par
+        \noindent \textbf{7 Использование современных пакетов компьютерных программ и технологий:}
+            \theadvancedtechnologyusage\par
+        \noindent \textbf{8 Краткая характеристика полученных результатов:}
+            \theresearchsummary\par        
+        \noindent \textbf{9 Гранты, полученные при выполнении работы:}
+            \theresearchfunding\par
+        \noindent \textbf{10 Наличие публикаций и выступлений на конференциях по теме выпускной работы:}
+            \theresearchpublications\par
+        \bigskip
+        \noindent Выпусник: \theauthorshort\ \signatureplace\par\bigskip\par
+        \noindent Руководитель: \thesupervisorshort\ \signatureplace\par\bigskip\par
+        \noindent \unknowndate\par
+    \end{small}
+    \end{titlepage}
+    \fi
     \pagenumbering{arabic}
-    \setcounter{page}{\firstcontentspage}
+    \setcounter{page}{4}
+    \setcounter{citnum}{0} %to get rid of my own publications counted twice
 }
 
 %% Веселый способ работать с метапостом
@@ -652,10 +611,11 @@
 %% Обработка опций пакета
 
 \newif\if@shouldusetimes
+\newif\if@shouldmakespecification
 \newif\if@shouldmakeannotation
-\newif\if@contentspagefour
 
 \DeclareOption{times}{\@shouldusetimestrue}
+\DeclareOption{specification}{\@shouldmakespecificationtrue}
 \DeclareOption{annotation}{\@shouldmakeannotationtrue}
 
 \ProcessOptions
@@ -669,9 +629,3 @@
     \RequirePackage{paratype}
 \fi	
 
-%% Содержательная часть начинается с четвертой страницы, так как есть:
-%% - титульная страница (стр. 1)
-%% - задание на работу (стр. 2)
-%% - аннотация (стр. 3)
-
-\newcommand{\firstcontentspage}{4}
