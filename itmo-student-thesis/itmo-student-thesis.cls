@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2016/05/10 v1.1.0.b5]
+\ProvidesClass{itmo-student-thesis}[2016/05/29 v1.1.0.b6]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -580,6 +580,9 @@
     \pagenumbering{arabic}
     \setcounter{page}{4}
     \setcounter{citnum}{0} %to get rid of my own publications counted twice
+    % Выключаем переносы в оглавлении
+    \pretocmd{\tableofcontents}{\begingroup \hyphenpenalty=10000 \exhyphenpenalty=10000}{}{}
+    \apptocmd{\tableofcontents}{\endgroup}{}{}
 }
 
 %% Веселый способ работать с метапостом
