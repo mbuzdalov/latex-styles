@@ -119,6 +119,7 @@
 ## Описание изменений в версиях
 Версия | Изменения
 -------|----------
+1.1.0.b7 | Нумерация страниц --- сверху по центру (Issue [#12](https://github.com/mbuzdalov/latex-styles/issues/12)).
 1.1.0.b6 | Выключены переносы в оглавлении (Issue [#5](https://github.com/mbuzdalov/latex-styles/issues/5)).
 1.1.0.b5 | Теперь генерируются и задания тоже (Issue [#7](https://github.com/mbuzdalov/latex-styles/issues/7)). В связи с полной сменой шаблонов сгорела необходимость в правильных подчеркиваниях (Issue [#1](https://github.com/mbuzdalov/latex-styles/issues/1)). Пока не считаются источники по категориям (Issue [#10](https://github.com/mbuzdalov/latex-styles/issues/10)).
 1.1.0.b4 | Удалена опция `page4`, так как теперь содержательная часть всегда должна начинаться с четвертой страницы.

@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2016/05/29 v1.1.0.b6]
+\ProvidesClass{itmo-student-thesis}[2016/06/12 v1.1.0.b7]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -32,6 +32,10 @@
 %% Титульная страница делается гораздо легче, если так
 
 \RequirePackage{tabu}
+
+%% Расположение номеров страниц - как и в диссертации.
+
+\RequirePackage{fancyhdr}
 
 %% Делаем правильные подписи в правильных местах.
 
@@ -263,7 +267,7 @@
 
 \setcounter{secnumdepth}{3}
 \titleformat{\chapter}[block]{\normalsize\bfseries\center}{ГЛАВА~\thechapter.~}%
-{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}]
+{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}\thispagestyle{\TheOnlyTruePageStyle}]
 \titlespacing{\chapter}{0pt}{-30pt}{0pt}
 \titleformat{\section}[block]{\normalsize\bfseries\center}{\thesection.~}{0pt}{}
 \titlespacing{\section}{0pt}{0pt}{0pt}
@@ -285,7 +289,7 @@
 %%
 \renewcommand{\thechapter}{\Asbukx{chapter}}
 \titleformat{\chapter}[block]{\normalsize\bfseries\center\stepcounter{appendix}}%
-    {ПРИЛОЖЕНИЕ~\thechapter.~}{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}]
+    {ПРИЛОЖЕНИЕ~\thechapter.~}{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}\thispagestyle{\TheOnlyTruePageStyle}]
 \titlecontents{chapter}
     [\appendixPrefix]
     {}
@@ -336,7 +340,6 @@
     {\contentslabel[\thecontentslabel.]{\subsectionW}~}
     {\hspace*{-\subsectionW}}
     {\titlerule*[0.5pc]{.}\contentspage}
-
 
 %% Выводы по главе - удобная команда
 
@@ -578,6 +581,21 @@
     \end{titlepage}
     \fi
     \pagenumbering{arabic}
+
+    %% Ставим номер страницы сверху по центру
+    \newcommand{\TheOnlyTruePageStyle}{fancy}
+    \pagestyle{\TheOnlyTruePageStyle}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \lhead{}
+    \chead{\thepage}
+    \rhead{}
+    \lfoot{}
+    \cfoot{}
+    \rfoot{}
+    \addtolength{\voffset}{3mm}
+    \addtolength{\headsep}{-3mm}
+
     \setcounter{page}{4}
     \setcounter{citnum}{0} %to get rid of my own publications counted twice
     % Выключаем переносы в оглавлении
