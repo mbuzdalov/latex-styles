@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2016/06/12 v1.1.0.b7]
+\ProvidesClass{itmo-student-thesis}[2016/06/13 v1.1.0.b8]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -124,6 +124,8 @@
 \DeclareFieldFormat*{pages}{\mkpageprefix[bookpagination][\mbox]{#1}}
 \DeclareFieldFormat*{labelnumberwidth}{#1}
 \DefineBibliographyStrings{english}{pages={p\adddot}}
+\DefineBibliographyExtras{russian}{\protected\def\bibrangedash{\textendash\penalty\hyphenpenalty}}
+
 
 %% Счетчики. Для всего, кроме страниц, используем totcount,
 %% для страниц lastpage, так как он нормально работает с кучей флоатов.
