@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2016/06/13 v1.1.0.b8]
+\ProvidesClass{itmo-student-thesis}[2016/06/14 v1.1.0.b9]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -433,7 +433,7 @@
 
 %%% Техническое задание и исходные данные к работе
 \newcommand{\technicalspec}[1]{\newcommand{\thetechnicalspec}{#1}}
-%%% Содержание выпускной квалификационной работы
+%%% Содержание работы
 \newcommand{\plannedcontents}[1]{\newcommand{\theplannedcontents}{#1}}
 %%% Исходные материалы и пособия
 \newcommand{\plannedsources}[1]{\newcommand{\theplannedsources}{#1}}
@@ -470,10 +470,22 @@
 
 %%% Параметр: бакалавр/магистр/инженер/...
 \renewcommand{\maketitle}[1]{
+    \ifstrequal{#1}{Магистр}{
+        \newcommand{\worktypeGenitive}{магистерской диссертации}
+        \newcommand{\worktypeAccusative}{магистерскую диссертацию}
+    }{
+        \ifstrequal{#1}{Бакалавр}{
+            \newcommand{\worktypeGenitive}{выпускной квалификационной работы}
+            \newcommand{\worktypeAccusative}{выпускную квалификационную работу}
+        }{
+            \ClassError{Unknown maketitle argument: #1, expected Магистр or Бакалавр}
+        }
+    }
+
 	\pagenumbering{gobble}
     \begin{titlepage}
         \begin{center}\theuniversity\end{center}
-        {\centering\bfseries \MakeUppercase{Пояснительная записка}\par\MakeUppercase{выпускной квалификационной работы}\par}
+        {\centering\bfseries \MakeUppercase{Пояснительная записка}\par\MakeUppercase{\worktypeGenitive}\par}
         \vspace{0cm plus 1fill minus 0cm}
         {\centering\bfseries <<\thetitle>>\par}
         \vspace{0cm plus 1fill minus 0cm}
@@ -516,7 +528,7 @@
             & \signatureplace\ \thechairhead \\
             & \unknowndate \\
         \end{tabu}
-        \begin{center}\bfseries {\normalsize ЗАДАНИЕ} \\ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ \end{center}
+        \begin{center}\bfseries {\normalsize ЗАДАНИЕ} \\ НА \MakeUppercase{\worktypeAccusative}\end{center}
         \bigskip
         \noindent \textbf{Студенту} \theauthorshort\ \textbf{Группа} \thestudygroup\ \textbf{Кафедра} \thechair\ \textbf{Факультет} \thefaculty\
         \textbf{Руководитель} \thesupervisor, \thesupervisordegree, \thesupervisorwork\par
@@ -526,13 +538,13 @@
         \noindent \textbf{Квалификация:} #1\par\bigskip\par
         \noindent \textbf{2 Срок сдачи студентом законченной работы:} \unknowndate \par
         \noindent \textbf{3 Техническое задание и исходные данные к работе.}\par \thetechnicalspec\par
-        \noindent \textbf{4 Содержание выпускной квалификационной работы (перечень подлежащих разработке вопросов)}\par \theplannedcontents\par
+        \noindent \textbf{4 Содержание \worktypeGenitive\ (перечень подлежащих разработке вопросов)}\par \theplannedcontents\par
         \noindent \textbf{5 Перечень графического материала (с указанием обязательного материала)}\par \theplannedgraphics\par
         \noindent \textbf{6 Исходные материалы и пособия}\par \theplannedsources\par
         \begin{center}
             \textbf{7 Календарный план}
             \begin{tabu}to\textwidth{|l|X[3.5p]|X[p]|X[p]|}\hline
-            №№ пп. & Наименование этапов выпускной квалификационной работы & Срок выполнения этапов работы & Отметка о выполнении, подпись руков. \\\hline
+            №№ пп. & Наименование этапов \worktypeGenitive & Срок выполнения этапов работы & Отметка о выполнении, подпись руков. \\\hline
             \thelistofstages
             \end{tabu}
         \end{center}
@@ -547,16 +559,16 @@
     \begin{center}\theuniversity\end{center}
     {\centering\bfseries АННОТАЦИЯ \par}
     \begin{small}
-        {\centering\bfseries ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ \par}
+        {\centering\bfseries \MakeUppercase{\worktypeGenitive} \par}
         \bigskip
         \noindent \textbf{Студент:} \theauthor\par
-        \noindent \textbf{Наименование темы ВКР:} \thetitle\par
-        \noindent \textbf{Наименование организации, где выполнена ВКР:} \thedegreehost\par
+        \noindent \textbf{Наименование темы работы:} \thetitle\par
+        \noindent \textbf{Наименование организации, где выполнена работа:} \thedegreehost\par
         \bigskip
-        {\centering\bfseries ХАРАКТЕРИСТИКА ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ \par}
+        {\centering\bfseries ХАРАКТЕРИСТИКА \MakeUppercase{\worktypeGenitive} \par}
         \bigskip
         \noindent \textbf{1 Цель исследования:} \theresearchaim \par
-        \noindent \textbf{2 Задачи, решаемые в ВКР:} \theresearchtargets \par
+        \noindent \textbf{2 Задачи, решаемые в работе:} \theresearchtargets \par
         \noindent \textbf{3 Число источников, использованных при составлении обзора:} \uhspace{4em} \par
         \noindent \textbf{4 Полное число источников, использованных в работе:} \total{citnum} \par
         \noindent \textbf{5 В том числе источников по годам} \par
@@ -573,7 +585,7 @@
             \theresearchsummary\par        
         \noindent \textbf{9 Гранты, полученные при выполнении работы:}
             \theresearchfunding\par
-        \noindent \textbf{10 Наличие публикаций и выступлений на конференциях по теме выпускной работы:}
+        \noindent \textbf{10 Наличие публикаций и выступлений на конференциях по теме работы:}
             \theresearchpublications\par
         \bigskip
         \noindent Выпусник: \theauthorshort\ \signatureplace\par\bigskip\par
