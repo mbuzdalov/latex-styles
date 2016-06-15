@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2016/06/14 v1.1.0.b9]
+\ProvidesClass{itmo-student-thesis}[2016/06/15 v1.1.0.b10]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -307,6 +307,8 @@
 \newcommand{\sectionW}{2.2em}
 \newcommand{\subsectionW}{2.6em}
 
+\newcommand{\banhyphens}{\hyphenpenalty=10000\exhyphenpenalty=10000{}}
+
 \AtBeginDocument{
     %% Длина "приложения" нормально определяется только теперь
     \newlength{\appendixPrefix}
@@ -368,14 +370,6 @@
 
 \RequirePackage[normalem]{ulem}
 
-%\newcommand{\titletabutwo}[2]{{\setlength{\tabcolsep}{0.1em}%
-%    \noindent\begin{tabu}to\textwidth{lX[p]}#1&#2\\\end{tabu}}}
-%\newcommand{\titletabutwow}[2]{{\setlength{\tabcolsep}{0.1em}%
-%    \noindent\begin{tabu}to\textwidth{lcX[p]}#1&~&#2\\\end{tabu}}}
-%\newcommand{\titletabufour}[4]{{\setlength{\tabcolsep}{0.1em}%
-%    \noindent\begin{tabu}to\textwidth{lX[6,c]lX[1,r]}#1&%
-%    \uline{\hfill#2\hfill~}&#3&\uline{\hfill#4\hfill~}\\\end{tabu}}}
-
 \newcommand{\uhspace}[1]{\uline{\hspace{#1}}}
 \newcommand{\signatureplace}{\uhspace{8em}}
 \newcommand{\datequoteplace}{<<\uhspace{2em}>>}
@@ -395,11 +389,10 @@
 \newcommand{\thefaculty}{информационных технологий и программирования}
 \newcommand{\faculty}[1]{\renewcommand{\thefaculty}{#1}}
 
-\newcommand{\thespecialty}{Прикладная математика и информатика}
+\newcommand{\thespecialty}{01.04.02~Прикладная математика и информатика}
 \newcommand{\specialty}[1]{\renewcommand{\thespecialty}{#1}}
 
-\newcommand{\thespecialization}{\infiniteuhspace}
-\newcommand{\specialization}[1]{\renewcommand{\thespecialization}{#1}}
+\newcommand{\specialization}[1]{\newcommand{\thespecialization}{#1}}
 
 \newcommand{\thechair}{компьютерных технологий}
 \newcommand{\chair}[1]{\renewcommand{\thechair}{#1}}
@@ -473,10 +466,14 @@
     \ifstrequal{#1}{Магистр}{
         \newcommand{\worktypeGenitive}{магистерской диссертации}
         \newcommand{\worktypeAccusative}{магистерскую диссертацию}
+        \newcommand{\worktypeTitle}{\MakeUppercase{Магистерская диссертация}}
+        \providecommand{\thespecialization}{Технологии проектирования и разработки программного обеспечения}
     }{
         \ifstrequal{#1}{Бакалавр}{
             \newcommand{\worktypeGenitive}{выпускной квалификационной работы}
             \newcommand{\worktypeAccusative}{выпускную квалификационную работу}
+            \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par\MakeUppercase{\worktypeGenitive}}
+            \providecommand{\thespecialization}{Математические модели и алгоритмы разработки программного обеспечения}
         }{
             \ClassError{Unknown maketitle argument: #1, expected Магистр or Бакалавр}
         }
@@ -484,15 +481,17 @@
 
 	\pagenumbering{gobble}
     \begin{titlepage}
+        \banhyphens
         \begin{center}\theuniversity\end{center}
-        {\centering\bfseries \MakeUppercase{Пояснительная записка}\par\MakeUppercase{\worktypeGenitive}\par}
+        {\centering\bfseries\worktypeTitle\par}
         \vspace{0cm plus 1fill minus 0cm}
         {\centering\bfseries <<\thetitle>>\par}
         \vspace{0cm plus 1fill minus 0cm}
         {\setlength{\tabcolsep}{0.1em}
          \noindent\small\begin{tabu}to\textwidth{X[p]l}
             & Автор: \theauthor \hfilll \signatureplace \\
-            & Направление подготовки (специальность): \thespecialty \\
+            & Направление подготовки (специальность):\; 
+                \begin{minipage}[t]{0.4\textwidth}\thespecialty\end{minipage} \\
             & Квалификация: #1 \\
             & Руководитель: \thesupervisorshort, \thesupervisordegree \hfilll \signatureplace \\
             & \\
@@ -505,12 +504,13 @@
         \begin{center}\thecity, \theyear~г.\end{center}
     \end{titlepage}
     \begin{titlepage}
-        \noindent \textbf{Студент} \theauthorshort\ \textbf{Группа} \thestudygroup\ \textbf{Кафедра} \thechair\ \textbf{Факультет} \thefaculty\par\bigskip\par
-        \noindent Направленность (профиль), специализация \thespecialization \par\bigskip\par
-        \noindent Консультанты:
-        \ifbool{hasconsultants}{\begin{enumerate}
-            \thelistofconsultants
-        \end{enumerate}}{\textbf{консультанты не указаны!}}\par\bigskip\par\bigskip\par
+        \banhyphens
+        \noindent \textbf{Студент}~\theauthorshort\; \textbf{Группа}~\thestudygroup\; \textbf{Кафедра}~\thechair\; \textbf{Факультет}~\thefaculty\par\bigskip\par
+        \noindent \textbf{Направленность (профиль), специализация} \thespecialization \par\bigskip\par
+        \ifbool{hasconsultants}{
+            \noindent \textbf{Консультанты}:
+            \begin{enumerate}\thelistofconsultants\end{enumerate}\par
+        }{}\bigskip\par\bigskip\par
         \noindent Квалификационная работа выполнена с оценкой \infiniteuhspace\par\bigskip\par
         \noindent Дата защиты \hspace{0cm plus 1fill}\datequoteplace~\uhspace{10em} \theyear~г.\par\bigskip\par
         \noindent Секретарь ГЭК \infiniteuhspace\par\bigskip\par
@@ -530,17 +530,23 @@
         \end{tabu}
         \begin{center}\bfseries {\normalsize ЗАДАНИЕ} \\ НА \MakeUppercase{\worktypeAccusative}\end{center}
         \bigskip
-        \noindent \textbf{Студенту} \theauthorshort\ \textbf{Группа} \thestudygroup\ \textbf{Кафедра} \thechair\ \textbf{Факультет} \thefaculty\
-        \textbf{Руководитель} \thesupervisor, \thesupervisordegree, \thesupervisorwork\par
+        \begingroup\banhyphens
+        \noindent \textbf{Студент}~\theauthorshort\; \textbf{Группа}~\thestudygroup\; \textbf{Кафедра}~\thechair\; \textbf{Факультет}~\thefaculty\;
+        \textbf{Руководитель}~\thesupervisor, \thesupervisordegree, \thesupervisorwork\par
         \noindent \textbf{1 Наименование темы:} \thetitle\par
         \noindent \textbf{Направление подготовки (специальность):} \thespecialty\par
         \noindent \textbf{Направленность (профиль):} \thespecialization\par
         \noindent \textbf{Квалификация:} #1\par\bigskip\par
+        \endgroup
         \noindent \textbf{2 Срок сдачи студентом законченной работы:} \unknowndate \par
         \noindent \textbf{3 Техническое задание и исходные данные к работе.}\par \thetechnicalspec\par
+        \pagebreak[3]
         \noindent \textbf{4 Содержание \worktypeGenitive\ (перечень подлежащих разработке вопросов)}\par \theplannedcontents\par
+        \pagebreak[3]
         \noindent \textbf{5 Перечень графического материала (с указанием обязательного материала)}\par \theplannedgraphics\par
+        \pagebreak[3]
         \noindent \textbf{6 Исходные материалы и пособия}\par \theplannedsources\par
+        \pagebreak[3]
         \begin{center}
             \textbf{7 Календарный план}
             \begin{tabu}to\textwidth{|l|X[3.5p]|X[p]|X[p]|}\hline
@@ -568,7 +574,9 @@
         {\centering\bfseries ХАРАКТЕРИСТИКА \MakeUppercase{\worktypeGenitive} \par}
         \bigskip
         \noindent \textbf{1 Цель исследования:} \theresearchaim \par
+        \pagebreak[3]
         \noindent \textbf{2 Задачи, решаемые в работе:} \theresearchtargets \par
+        \pagebreak[3]
         \noindent \textbf{3 Число источников, использованных при составлении обзора:} \uhspace{4em} \par
         \noindent \textbf{4 Полное число источников, использованных в работе:} \total{citnum} \par
         \noindent \textbf{5 В том числе источников по годам} \par
@@ -579,12 +587,16 @@
             ~ & ~ & ~ & ~ & ~ & ~ \\\hline
         \end{tabular}\par
         \noindent \textbf{6 Использование информационных ресурсов Internet:} \uhspace{4em} \par
+        \pagebreak[3]
         \noindent \textbf{7 Использование современных пакетов компьютерных программ и технологий:}
             \theadvancedtechnologyusage\par
+        \pagebreak[3]
         \noindent \textbf{8 Краткая характеристика полученных результатов:}
             \theresearchsummary\par        
+        \pagebreak[3]
         \noindent \textbf{9 Гранты, полученные при выполнении работы:}
             \theresearchfunding\par
+        \pagebreak[3]
         \noindent \textbf{10 Наличие публикаций и выступлений на конференциях по теме работы:}
             \theresearchpublications\par
         \bigskip
@@ -613,7 +625,7 @@
     \setcounter{page}{4}
     \setcounter{citnum}{0} %to get rid of my own publications counted twice
     % Выключаем переносы в оглавлении
-    \pretocmd{\tableofcontents}{\begingroup \hyphenpenalty=10000 \exhyphenpenalty=10000}{}{}
+    \pretocmd{\tableofcontents}{\begingroup\banhyphens}{}{}
     \apptocmd{\tableofcontents}{\endgroup}{}{}
 }
 
