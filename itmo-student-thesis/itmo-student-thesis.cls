@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2016/06/15 v1.1.0.b11]
+\ProvidesClass{itmo-student-thesis}[2016/06/15 v1.1.0.b12]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -389,8 +389,7 @@
 \newcommand{\thefaculty}{информационных технологий и программирования}
 \newcommand{\faculty}[1]{\renewcommand{\thefaculty}{#1}}
 
-\newcommand{\thespecialty}{01.04.02~Прикладная математика и информатика}
-\newcommand{\specialty}[1]{\renewcommand{\thespecialty}{#1}}
+\newcommand{\specialty}[1]{\newcommand{\thespecialty}{#1}}
 
 \newcommand{\specialization}[1]{\newcommand{\thespecialization}{#1}}
 
@@ -476,12 +475,14 @@
         \newcommand{\worktypeAccusative}{магистерскую диссертацию}
         \newcommand{\worktypeTitle}{\MakeUppercase{Магистерская диссертация}}
         \providecommand{\thespecialization}{Технологии проектирования и разработки программного обеспечения}
+        \providecommand{\thespecialty}{01.04.02~Прикладная математика и информатика}
     }{
         \ifstrequal{#1}{Бакалавр}{
             \newcommand{\worktypeGenitive}{выпускной квалификационной работы}
             \newcommand{\worktypeAccusative}{выпускную квалификационную работу}
             \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par\MakeUppercase{\worktypeGenitive}}
             \providecommand{\thespecialization}{Математические модели и алгоритмы разработки программного обеспечения}
+            \providecommand{\thespecialty}{01.03.02~Прикладная математика и информатика}
         }{
             \ClassError{Unknown maketitle argument: #1, expected Магистр or Бакалавр}
         }
