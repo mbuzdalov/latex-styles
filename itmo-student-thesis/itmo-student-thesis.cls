@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2016/06/15 v1.1.0.b10]
+\ProvidesClass{itmo-student-thesis}[2016/06/15 v1.1.0.b11]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -412,6 +412,14 @@
 \newcommand{\theplannedgraphics}{Не предусмотрено}
 \newcommand{\plannedgraphics}[1]{\renewcommand{\theplannedgraphics}{#1}}
 
+%%% Даты
+\newcommand{\thestartdate}{\unknowndate}
+\newcommand{\startdate}[3]{\renewcommand{\thestartdate}{<<#1>>~#2~#3~г.}}
+\newcommand{\thefinishdate}{\unknowndate}
+\newcommand{\finishdate}[3]{\renewcommand{\thefinishdate}{<<#1>>~#2~#3~г.}}
+\newcommand{\thedefencedate}{\unknowndate}
+\newcommand{\defencedate}[3]{\renewcommand{\thedefencedate}{<<#1>>~#2~#3~г.}}
+
 %% Контентные команды без значений по умолчанию
 
 \newcommand{\studygroup}[1]{\newcommand{\thestudygroup}{#1}}
@@ -512,7 +520,7 @@
             \begin{enumerate}\thelistofconsultants\end{enumerate}\par
         }{}\bigskip\par\bigskip\par
         \noindent Квалификационная работа выполнена с оценкой \infiniteuhspace\par\bigskip\par
-        \noindent Дата защиты \hspace{0cm plus 1fill}\datequoteplace~\uhspace{10em} \theyear~г.\par\bigskip\par
+        \noindent Дата защиты \hspace{0cm plus 1fill}\thedefencedate\par\bigskip\par
         \noindent Секретарь ГЭК \infiniteuhspace\par\bigskip\par
         \noindent Листов хранения \infiniteuhspace\par\bigskip\par
         \noindent Демонстрационных материалов/Чертежей хранения \infiniteuhspace\par\bigskip\par
@@ -538,7 +546,7 @@
         \noindent \textbf{Направленность (профиль):} \thespecialization\par
         \noindent \textbf{Квалификация:} #1\par\bigskip\par
         \endgroup
-        \noindent \textbf{2 Срок сдачи студентом законченной работы:} \unknowndate \par
+        \noindent \textbf{2 Срок сдачи студентом законченной работы:} \thefinishdate \par
         \noindent \textbf{3 Техническое задание и исходные данные к работе.}\par \thetechnicalspec\par
         \pagebreak[3]
         \noindent \textbf{4 Содержание \worktypeGenitive\ (перечень подлежащих разработке вопросов)}\par \theplannedcontents\par
@@ -554,9 +562,9 @@
             \thelistofstages
             \end{tabu}
         \end{center}
-        \noindent \textbf{8 Дата выдачи задания:} \unknowndate\par\bigskip\par
+        \noindent \textbf{8 Дата выдачи задания:} \thestartdate\par\bigskip\par
         \noindent Руководитель \signatureplace\par\bigskip\par
-        \noindent Задание принял к исполнению \signatureplace\ \unknowndate\par
+        \noindent Задание принял к исполнению \signatureplace\ \thestartdate\par
     \end{small}
     \end{titlepage}
     \fi
