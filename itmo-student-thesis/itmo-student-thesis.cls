@@ -62,6 +62,9 @@
 \RequirePackage{setspace}
 \onehalfspace
 
+%% Правильное отображение чисел, где в качестве разделителя используется запятая
+\RequirePackage{icomma} 
+
 %% Абзацный отступ по ГОСТу - пять букв. Это примерно столько.
 
 \setlength{\parindent}{1.25cm}
