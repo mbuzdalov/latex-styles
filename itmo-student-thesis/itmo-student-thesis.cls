@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2016/06/15 v1.1.0.b12]
+\ProvidesClass{itmo-student-thesis}[2017/01/21 v1.1.1]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -118,6 +118,15 @@
 ]{biblatex}
 
 %% Патчи к стилевику библиографии.
+
+% biblatex-3.4 и biblatex-gost
+% Эти штуки появились недавно, и кажется, что не во всех дистрибутивах они настроены правильно.
+% В любом случае, эта функциональность нам не нужна, ее можно заткнуть таким вот образом.
+\providecommand{\datecircaprint}{}
+\providecommand{\dateeraprintpre}[1]{}
+\providecommand{\mkyearzeros}{}
+\providecommand{\dateeraprint}[1]{}
+\providecommand{\dateuncertainprint}{}
 
 \renewbibmacro*{//}{\nopunct\printtext{\addspace\mbox{//}\addnbspace}}
 \renewcommand*{\newblockpunct}{\textemdash\addnbspace\bibsentence}
@@ -423,7 +432,8 @@
 
 \newcommand{\studygroup}[1]{\newcommand{\thestudygroup}{#1}}
 \renewcommand{\title}[1]{\newcommand{\thetitle}{#1}}
-\renewcommand{\author}[2]{\renewcommand{\theauthor}{#1}
+\renewcommand{\author}[2]{\providecommand{\theauthor}{~}  % some distributions have it, some not
+                          \renewcommand{\theauthor}{#1}
                           \newcommand{\theauthorshort}{#2}}
 \newcommand{\supervisor}[4]{\newcommand{\thesupervisor}{#1}
                             \newcommand{\thesupervisorshort}{#2}
