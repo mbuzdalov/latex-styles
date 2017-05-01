@@ -165,7 +165,9 @@
 \newtheorem{notation}[theorem]{Обозначение}
 \newtheorem{condition}[theorem]{Условие}
 \newtheorem{example}[theorem]{Пример}
-\renewcommand{\proof}{\textit{Доказательство}.~}
+\renewcommand{\proof}[1][]{\textit{Доказательство%
+\ifthenelse{\equal{#1}{}}{}{ (#1)}%
+}.~}
 
 %% Листинги, по умолчанию - Java
 
