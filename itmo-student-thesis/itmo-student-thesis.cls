@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2017/01/21 v1.1.1]
+\ProvidesClass{itmo-student-thesis}[2017/05/28 v1.1.2]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -383,9 +383,9 @@
 
 \newcommand{\uhspace}[1]{\uline{\hspace{#1}}}
 \newcommand{\signatureplace}{\uhspace{8em}}
-\newcommand{\datequoteplace}{<<\uhspace{2em}>>}
+\newcommand{\datequoteplace}{<<\uhspace{3ex}>>}
 \newcommand{\infiniteuhspace}{\uhspace{0 cm plus 1fill}}
-\newcommand{\unknowndate}{\datequoteplace~\signatureplace~20\uhspace{3em}~г.}
+\newcommand{\unknowndate}{\datequoteplace~\uhspace{10ex}~20\uhspace{3ex}~г.}
 
 %% Контентные команды со значениями по умолчанию
 
@@ -476,7 +476,7 @@
 }
 
 %%% Добавить этап в календарный план: (Название этапа) (Срок выполнения)
-\newcommand{\addstage}[2]{\appto{\thelistofstages}{\stepcounter{numofstages}\arabic{numofstages} & #1 & #2 & \\\hline\par}}
+\newcommand{\addstage}[2]{\appto{\thelistofstages}{\stepcounter{numofstages}\arabic{numofstages} & #1\strut & #2 & \\\hline\par}}
 
 %% Создание титульной страницы, задания и аннотации
 
@@ -526,17 +526,17 @@
     \end{titlepage}
     \begin{titlepage}
         \banhyphens
-        \noindent \textbf{Студент}~\theauthorshort\; \textbf{Группа}~\thestudygroup\; \textbf{Кафедра}~\thechair\; \textbf{Факультет}~\thefaculty\par\bigskip\par
-        \noindent \textbf{Направленность (профиль), специализация} \thespecialization \par\bigskip\par
+        \noindent\small \textbf{Студент}~\theauthorshort\; \textbf{Группа}~\thestudygroup\; \textbf{Кафедра}~\thechair\; \textbf{Факультет}~\thefaculty\par\bigskip\par
+        \noindent\small \textbf{Направленность (профиль), специализация} \thespecialization \par\bigskip\par
         \ifbool{hasconsultants}{
-            \noindent \textbf{Консультанты}:
+            \noindent\small \textbf{Консультанты}:
             \begin{enumerate}\thelistofconsultants\end{enumerate}\par
         }{}\bigskip\par\bigskip\par
-        \noindent Квалификационная работа выполнена с оценкой \infiniteuhspace\par\bigskip\par
-        \noindent Дата защиты \hspace{0cm plus 1fill}\thedefencedate\par\bigskip\par
-        \noindent Секретарь ГЭК \infiniteuhspace\par\bigskip\par
-        \noindent Листов хранения \infiniteuhspace\par\bigskip\par
-        \noindent Демонстрационных материалов/Чертежей хранения \infiniteuhspace\par\bigskip\par
+        \noindent\small Квалификационная работа выполнена с оценкой \infiniteuhspace\par\bigskip\par
+        \noindent\small Дата защиты \hspace{0cm plus 1fill}\thedefencedate\par\bigskip\par
+        \noindent\small Секретарь ГЭК \infiniteuhspace Принято: \unknowndate\par\bigskip\par
+        \noindent\small Листов хранения \infiniteuhspace\par\bigskip\par
+        \noindent\small Демонстрационных материалов/Чертежей хранения \infiniteuhspace\par\bigskip\par
     \end{titlepage}
     \if@shouldmakespecification
     \begin{titlepage}
@@ -571,7 +571,8 @@
         \begin{center}
             \textbf{7 Календарный план}
             \begin{tabu}to\textwidth{|l|X[3.5p]|X[p]|X[p]|}\hline
-            №№ пп. & Наименование этапов \worktypeGenitive & Срок выполнения этапов работы & Отметка о выполнении, подпись руков. \\\hline
+            №№ пп. & Наименование этапов \worktypeGenitive & Срок выполнения этапов работы & Отметка о выполнении, 
+            подпись руков.\strut \\\hline
             \thelistofstages
             \end{tabu}
         \end{center}
