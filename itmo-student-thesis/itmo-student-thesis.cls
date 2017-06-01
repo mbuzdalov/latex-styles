@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2017/05/28 v1.1.2]
+\ProvidesClass{itmo-student-thesis}[2017/06/01 v1.1.2.b1]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -442,6 +442,7 @@
                             \newcommand{\thesupervisordegree}{#3}
                             \newcommand{\thesupervisorwork}{#4}}
 \newcommand{\publishyear}[1]{\newcommand{\theyear}{#1}}
+\newcommand{\secretary}[1]{\newcommand{\thesecretary}{\textit{#1}}}
 
 %%% Техническое задание и исходные данные к работе
 \newcommand{\technicalspec}[1]{\newcommand{\thetechnicalspec}{#1}}
@@ -534,7 +535,7 @@
         }{}\bigskip\par\bigskip\par
         \noindent\small Квалификационная работа выполнена с оценкой \infiniteuhspace\par\bigskip\par
         \noindent\small Дата защиты \hspace{0cm plus 1fill}\thedefencedate\par\bigskip\par
-        \noindent\small Секретарь ГЭК \infiniteuhspace Принято: \unknowndate\par\bigskip\par
+        \noindent\small Секретарь ГЭК~\thesecretary \hspace{0cm plus 1fill} Принято: \unknowndate\par\bigskip\par
         \noindent\small Листов хранения \infiniteuhspace\par\bigskip\par
         \noindent\small Демонстрационных материалов/Чертежей хранения \infiniteuhspace\par\bigskip\par
     \end{titlepage}
