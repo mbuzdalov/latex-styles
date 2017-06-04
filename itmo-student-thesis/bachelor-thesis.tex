@@ -216,7 +216,7 @@ Metapost. Последний можно использовать и под \text
 В работах студентов кафедры <<Компьютерные технологии>> часто встречаются листинги. Листинги бывают
 двух основных видов~--- исходный код и псевдокод. Первый оформляется с помощью окружения \texttt{lstlisting}
 из пакета \texttt{listings}, который уже включается в стилевике и немного настроен. Пример Hello World на Java
-приведен на листинге~\ref{lst1}.
+приведен на листинге~\ref{lst1}. Пример большого листинга~--- в приложении (листинг~\ref{lstX}).
 
 \begin{lstlisting}[float=!h,caption={Пример исходного кода на Java},label={lst1}]
 public class HelloWorld {
@@ -228,8 +228,7 @@ public class HelloWorld {
 
 Псевдокод можно оформлять с помощью разных пакетов. В данном стилевике включается пакет \texttt{algorithmicx}.
 Сам по себе он не генерирует флоатов, поэтому для них используется пакет \texttt{algorithm}.
-Пример их совместного использования приведен на листинге~\ref{lst2}. Обратите внимание, что флоаты разные, а 
-нумерация~--- общая!
+Пример их совместного использования приведен на листинге~\ref{lst2}. 
 
 \begin{algorithm}[!h]
 \caption{Пример псевдокода}\label{lst2}
@@ -404,5 +403,59 @@ public class HelloWorld {
 4  & 4 & 8 & 12 & 16 & 20 & 24 & 28 & 32 & 36 & 40 & 44 & 48 & 52 & 56 & 60 & 64 & 68 \\\hline
 \end{tabu}
 \end{table}
+
+\chapter{Пример огромного листинга}
+
+\begin{lstlisting}[caption={Пример большого листинга},label={lstX}]
+import java.util.*;
+
+public class Example {
+    static int[] restoreOutgoing(int[] g, int[] outgoing,
+                                 int vertex, int mask) {
+        int[] rv = new int[1 + Integer.bitCount(mask)];
+        int n = g.length;
+        int current = rv.length - 1;
+        while (true) {
+            rv[current] = vertex;
+            if (current == 0) {
+                if (vertex != 0) {
+                    throw new AssertionError();
+                }
+                return rv;
+            }
+            mask ^= 1 << (vertex - 1);
+            int prevMask = outgoing[mask] & g[vertex];
+            if (prevMask == 0) {
+                throw new AssertionError();
+            }
+            vertex = Integer.numberOfTrailingZeros(prevMask);
+            --current;
+        }
+    }
+
+    static int[] restoreIncoming(int[] g, int[] incoming,
+                                 int vertex, int mask) {
+        int[] rv = new int[1 + Integer.bitCount(mask)];
+        int n = g.length;
+        int current = 0;
+        while (true) {
+            rv[current] = vertex;
+            if (current == rv.length - 1) {
+                if (vertex != 0) {
+                    throw new AssertionError();
+                }
+                return rv;
+            }
+            mask ^= 1 << (vertex - 1);
+            int nextMask = incoming[mask] & g[vertex];
+            if (nextMask == 0) {
+                throw new AssertionError();
+            }
+            vertex = Integer.numberOfTrailingZeros(nextMask);
+            ++current;
+        }
+    }
+}
+\end{lstlisting}
 
 \end{document}
