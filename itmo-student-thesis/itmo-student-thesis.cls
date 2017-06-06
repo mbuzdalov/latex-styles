@@ -485,15 +485,17 @@
 \renewcommand{\maketitle}[1]{
     \ifstrequal{#1}{Магистр}{
         \newcommand{\worktypeGenitive}{магистерской диссертации}
+        \newcommand{\worktypeDative}{магистерской диссертации}
         \newcommand{\worktypeAccusative}{магистерскую диссертацию}
-        \newcommand{\worktypeTitle}{\MakeUppercase{Магистерская диссертация}}
+        \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\parК {\worktypeDative}}
         \providecommand{\thespecialization}{Технологии проектирования и разработки программного обеспечения}
         \providecommand{\thespecialty}{01.04.02~Прикладная математика и информатика}
     }{
         \ifstrequal{#1}{Бакалавр}{
             \newcommand{\worktypeGenitive}{выпускной квалификационной работы}
+            \newcommand{\worktypeDative}{выпускной квалификационной работе}
             \newcommand{\worktypeAccusative}{выпускную квалификационную работу}
-            \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par\MakeUppercase{\worktypeGenitive}}
+            \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\parК {\worktypeDative}}
             \providecommand{\thespecialization}{Математические модели и алгоритмы разработки программного обеспечения}
             \providecommand{\thespecialty}{01.03.02~Прикладная математика и информатика}
         }{
