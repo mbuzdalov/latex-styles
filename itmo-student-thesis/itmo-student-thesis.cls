@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2017/06/06 v1.1.2.b3]
+\ProvidesClass{itmo-student-thesis}[2017/06/06 v1.1.2.b4]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -487,7 +487,7 @@
         \newcommand{\worktypeGenitive}{магистерской диссертации}
         \newcommand{\worktypeDative}{магистерской диссертации}
         \newcommand{\worktypeAccusative}{магистерскую диссертацию}
-        \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\parК {\worktypeDative}}
+        \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par К {\worktypeDative}}
         \providecommand{\thespecialization}{Технологии проектирования и разработки программного обеспечения}
         \providecommand{\thespecialty}{01.04.02~Прикладная математика и информатика}
     }{
@@ -495,7 +495,7 @@
             \newcommand{\worktypeGenitive}{выпускной квалификационной работы}
             \newcommand{\worktypeDative}{выпускной квалификационной работе}
             \newcommand{\worktypeAccusative}{выпускную квалификационную работу}
-            \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\parК {\worktypeDative}}
+            \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par К {\worktypeDative}}
             \providecommand{\thespecialization}{Математические модели и алгоритмы в разработке программного обеспечения}
             \providecommand{\thespecialty}{01.03.02~Прикладная математика и информатика}
         }{
@@ -682,11 +682,14 @@
 
 %% Обработка опций пакета
 
-\newif\if@shouldusetimes
+\newif\if@shouldusexelatex
+\newif\if@shouldusepscyr
 \newif\if@shouldmakespecification
 \newif\if@shouldmakeannotation
+\newif\if@shouldusexelatex
 
-\DeclareOption{times}{\@shouldusetimestrue}
+\DeclareOption{times}{\@shouldusexelatextrue}
+\DeclareOption{pscyr}{\@shouldusepscyrtrue}
 \DeclareOption{specification}{\@shouldmakespecificationtrue}
 \DeclareOption{annotation}{\@shouldmakeannotationtrue}
 
@@ -694,10 +697,18 @@
 
 %% Включаем times, если надо
 
-\if@shouldusetimes
-	\RequirePackage{pscyr}
-	\def\rmdefault{ftm}
+\if@shouldusexelatex
+    \RequirePackage{fontspec}
+    \defaultfontfeatures{Ligatures={TeX},Renderer=Basic}
+    \setmainfont[Ligatures={TeX,Historic}]{Times New Roman}
+    \setsansfont{Arial}
+    \setmonofont{Courier New}
 \else
-    \RequirePackage{paratype}
+    \if@shouldusepscyr
+        \RequirePackage{pscyr}
+	    \def\rmdefault{ftm}
+    \else
+        \RequirePackage{paratype}
+    \fi
 \fi	
 

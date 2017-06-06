@@ -1,10 +1,17 @@
 #!/bin/bash
 
 for i in bachelor master; do
-	pdflatex $i-thesis
-	biber 	 $i-thesis
-	pdflatex $i-thesis
-	pdflatex $i-thesis
+	xelatex $i-thesis
+	biber   $i-thesis
+	xelatex $i-thesis
+	xelatex $i-thesis
 done
 
-rm {bachelor,master}-thesis.{bib,aux,log,bbl,bcf,blg,run.xml,toc,tct}
+for i in bachelor; do
+    pdflatex $i-thesis-legacy
+    biber    $i-thesis-legacy
+    pdflatex $i-thesis-legacy
+    pdflatex $i-thesis-legacy
+done
+
+rm -f {bachelor,master}-thesis{,-legacy}.{bib,aux,log,bbl,bcf,blg,run.xml,toc,tct}
