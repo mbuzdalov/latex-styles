@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2017/06/06 v1.1.2.b4]
+\ProvidesClass{itmo-student-thesis}[2017/06/07 v1.1.2.b5]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -11,6 +11,7 @@
 \RequirePackage{csquotes}
 
 %% Теперь можно писать по-русски.
+
 %% Формируем отступы
 
 \RequirePackage[top=2cm, bottom=2cm, left=2.7cm, right=1.2cm]{geometry}
@@ -136,10 +137,10 @@
 \DefineBibliographyExtras{russian}{\protected\def\bibrangedash{\textendash\penalty\hyphenpenalty}}
 
 
-%% Счетчики. Для всего, кроме страниц, используем totcount,
-%% для страниц lastpage, так как он нормально работает с кучей флоатов.
+%% Счетчики. Для всего, кроме страниц, используем totcount, для страниц используем pageslts. Если надо.
 
-\RequirePackage{lastpage}
+%\RequirePackage{pageslts} % В текущей версии шаблона нет объема работы. Удивительно, но да.
+
 \RequirePackage{totcount}
 \RequirePackage{longtable}
 \regtotcounter[auxfile=\jobname.tct]{figure}
@@ -481,13 +482,13 @@
 
 %% Создание титульной страницы, задания и аннотации
 
-%%% Параметр: бакалавр/магистр/инженер/...
+%%% Параметр: Бакалавр/Магистр
 \renewcommand{\maketitle}[1]{
     \ifstrequal{#1}{Магистр}{
         \newcommand{\worktypeGenitive}{магистерской диссертации}
         \newcommand{\worktypeDative}{магистерской диссертации}
         \newcommand{\worktypeAccusative}{магистерскую диссертацию}
-        \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par К {\worktypeDative}}
+        \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par к {\worktypeDative}}
         \providecommand{\thespecialization}{Технологии проектирования и разработки программного обеспечения}
         \providecommand{\thespecialty}{01.04.02~Прикладная математика и информатика}
     }{
@@ -495,7 +496,7 @@
             \newcommand{\worktypeGenitive}{выпускной квалификационной работы}
             \newcommand{\worktypeDative}{выпускной квалификационной работе}
             \newcommand{\worktypeAccusative}{выпускную квалификационную работу}
-            \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par К {\worktypeDative}}
+            \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par к {\worktypeDative}}
             \providecommand{\thespecialization}{Математические модели и алгоритмы в разработке программного обеспечения}
             \providecommand{\thespecialty}{01.03.02~Прикладная математика и информатика}
         }{
@@ -694,8 +695,6 @@
 \DeclareOption{annotation}{\@shouldmakeannotationtrue}
 
 \ProcessOptions
-
-%% Включаем times, если надо
 
 \if@shouldusexelatex
     \RequirePackage{fontspec}

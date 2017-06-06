@@ -1,9 +1,12 @@
 \documentclass[specification,annotation]{itmo-student-thesis}
 
+\usepackage[implicit=false,unicode=true]{hyperref}
+
 %% Опции пакета:
 %% - specification - если есть, генерируется задание, иначе не генерируется
 %% - annotation - если есть, генерируется аннотация, иначе не генерируется
-%% - times - делает все шрифтом Times New Roman, требует пакета pscyr.
+%% - times - делает все шрифтом Times New Roman, собирается с помощью xelatex
+%% - pscyr - делает все шрифтом Times New Roman, требует пакета pscyr.
 
 %% Делает запятую в формулах более интеллектуальной, например: 
 %% $1,5x$ будет читаться как полтора икса, а не один запятая пять иксов. 
@@ -118,10 +121,10 @@
 
 %%% Использование современных пакетов компьютерных программ и технологий
 \advancedtechnologyusage{Была использована система компьютерной верстки \LaTeX, а в 
-рамках нее следующие пакеты, в порядке появления в стилевом файле: babel, csquotes, 
-geometry, amsmath, amssymb, amsthm, 
-amsfonts, amsextra, graphicx, xcolor, colortbl, tabu, caption, floatrow, algorithm, 
-algorithmicx, algpseudocode, enumitem, setspace, biblatex (а именно biber), lastpage, 
+рамках нее следующие пакеты, в порядке появления в стилевом файле: babel, csquotes,
+geometry, amsmath, amssymb, amsthm,
+amsfonts, amsextra, graphicx, xcolor, colortbl, tabu, caption, floatrow, algorithm,
+algorithmicx, algpseudocode, enumitem, setspace, biblatex (а именно biber),
 totcount, longtable, listings, chngcntr, titlesec, titletoc, ifpdf.}
 
 %%% Краткая характеристика полученных результатов 
