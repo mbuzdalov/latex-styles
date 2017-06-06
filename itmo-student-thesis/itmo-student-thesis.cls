@@ -496,7 +496,7 @@
             \newcommand{\worktypeDative}{выпускной квалификационной работе}
             \newcommand{\worktypeAccusative}{выпускную квалификационную работу}
             \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\parК {\worktypeDative}}
-            \providecommand{\thespecialization}{Математические модели и алгоритмы разработки программного обеспечения}
+            \providecommand{\thespecialization}{Математические модели и алгоритмы в разработке программного обеспечения}
             \providecommand{\thespecialty}{01.03.02~Прикладная математика и информатика}
         }{
             \ClassError{Unknown maketitle argument: #1, expected Магистр or Бакалавр}
