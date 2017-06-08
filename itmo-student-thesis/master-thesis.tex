@@ -18,6 +18,19 @@
 \usetikzlibrary{arrows}
 \usepackage{filecontents}
 \begin{filecontents}{master-thesis.bib}
+@incollection{ nsga-ii-steady-state,
+    year        = {2009},
+    booktitle   = {Nature-Inspired Algorithms for Optimisation},
+    number      = {193},
+    series      = {Studies in Computational Intelligence},
+    title       = {On the Effect of Applying a Steady-State Selection Scheme in the Multi-Objective Genetic Algorithm {NSGA}-{II}},
+    publisher   = {Springer Berlin Heidelberg},
+    author      = {Nebro, Antonio J. and Durillo, Juan J.},
+    pages       = {435-456},
+    langid      = {english}
+}
+
+
 @inproceedings{ example-english,
     year        = {2015},
     booktitle   = {Proceedings of IEEE Congress on Evolutionary Computation},
@@ -172,7 +185,7 @@ totcount, longtable, listings, chngcntr, titlesec, titletoc, ifpdf.}
 
 %% Так помечается начало обзора.
 \startrelatedwork
-Пример ссылок в рамках обзора: \cite{example-english, example-russian, unrestricted-jump-evco}.
+Пример ссылок в рамках обзора: \cite{example-english, example-russian, unrestricted-jump-evco, nsga-ii-steady-state}.
 %% Так помечается конец обзора.
 \finishrelatedwork
 Вне обзора:~\cite{bellman}.
