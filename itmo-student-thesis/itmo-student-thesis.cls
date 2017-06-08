@@ -262,12 +262,14 @@
 \newcommand{\printmainbibliography}{
 \printbibliography[heading=trueHeading]%
 %%% Считаем, какие границы у пяти- и десятилетней давности
-\newcounter{@yearminus}%
-\setcounter{@yearminus}{\theyear}%
-\addtocounter{@yearminus}{-5}%
-\def\@yearminusfive{\value{@yearminus}}%
-\addtocounter{@yearminus}{-5}%
-\def\@yearminusten{\value{@yearminus}}%
+\newcounter{@yearminusfive@src}%
+\newcounter{@yearminusten@src}%
+\setcounter{@yearminusfive@src}{\theyear}%
+\addtocounter{@yearminusfive@src}{-5}%
+\def\@yearminusfive{\value{@yearminusfive@src}}%
+\setcounter{@yearminusten@src}{\theyear}%
+\addtocounter{@yearminusten@src}{-10}%
+\def\@yearminusten{\value{@yearminusten@src}}%
 %%% Компоненты фильтров
 \newcommand{\@iffiveyears}{\iffieldint{year}{\ifnumless{\thefield{year}}{\@yearminusfive}{\skipentry}{}}{\skipentry}}%
 \newcommand{\@iftenyears}{\iffieldint{year}{\ifnumless{\thefield{year}}{\@yearminusfive}{\ifnumless{\thefield{year}}{\@yearminusten}{\skipentry}{}}{\skipentry}}{\skipentry}}%
