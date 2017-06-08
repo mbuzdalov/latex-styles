@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2017/06/07 v1.1.2.b5]
+\ProvidesClass{itmo-student-thesis}[2017/06/08 v1.2]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -148,7 +148,6 @@
 \regtotcounter[auxfile=\jobname.tct]{algorithm}
 \newtotcounter[auxfile=\jobname.tct]{citnum}
 \newtotcounter[auxfile=\jobname.tct]{appendix}
-\AtEveryBibitem{\stepcounter{citnum}}
 \AtEveryBibitem{\clearfield{addendum}}
 
 %% Большая пачка определений теорем.
@@ -260,8 +259,87 @@
 \chapter*{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}%
 \addcontentsline{toc}{chapter}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}}
 
-\newcommand{\printmainbibliography}{\printbibliography[heading=trueHeading]}
+\newcommand{\printmainbibliography}{
+\printbibliography[heading=trueHeading]%
+%%% Считаем, какие границы у пяти- и десятилетней давности
+\newcounter{@yearminus}%
+\setcounter{@yearminus}{\theyear}%
+\addtocounter{@yearminus}{-5}%
+\def\@yearminusfive{\value{@yearminus}}%
+\addtocounter{@yearminus}{-5}%
+\def\@yearminusten{\value{@yearminus}}%
+%%% Компоненты фильтров
+\newcommand{\@iffiveyears}{\iffieldint{year}{\ifnumless{\thefield{year}}{\@yearminusfive}{\skipentry}{}}{\skipentry}}%
+\newcommand{\@iftenyears}{\iffieldint{year}{\ifnumless{\thefield{year}}{\@yearminusfive}{\ifnumless{\thefield{year}}{\@yearminusten}{\skipentry}{}}{\skipentry}}{\skipentry}}%
+\newcommand{\@ifveryold}{\iffieldint{year}{\ifnumless{\thefield{year}}{\@yearminusten}{}{\skipentry}}{}}%
+\newcommand{\@ifrussian}{\iffieldundef{langid}{}{\iffieldequalstr{langid}{russian}{}{\skipentry}}}%
+\newcommand{\@ifforeign}{\iffieldundef{langid}{\skipentry}{\iffieldequalstr{langid}{russian}{\skipentry}{}}}%
+%%% Сами фильтры
+\defbibcheck{bibch@russiansourcesfiveyears}{\@iffiveyears\@ifrussian}%
+\defbibcheck{bibch@russiansourcestenyears}{\@iftenyears\@ifrussian}%
+\defbibcheck{bibch@russiansourcesveryold}{\@ifveryold\@ifrussian}%
+\defbibcheck{bibch@foreignsourcesfiveyears}{\@iffiveyears\@ifforeign}%
+\defbibcheck{bibch@foreignsourcestenyears}{\@iftenyears\@ifforeign}%
+\defbibcheck{bibch@foreignsourcesveryold}{\@ifveryold\@ifforeign}%
+\@countsourceswhere{}{citnum}%
+\@countsourceswhere{check=bibch@russiansourcesfiveyears}{c@russiansourcesfiveyears}%
+\@countsourceswhere{check=bibch@russiansourcestenyears}{c@russiansourcestenyears}%
+\@countsourceswhere{check=bibch@russiansourcesveryold}{c@russiansourcesveryold}%
+\@countsourceswhere{check=bibch@foreignsourcesfiveyears}{c@foreignsourcesfiveyears}%
+\@countsourceswhere{check=bibch@foreignsourcestenyears}{c@foreignsourcestenyears}%
+\@countsourceswhere{check=bibch@foreignsourcesveryold}{c@foreignsourcesveryold}%
+\@countsourceswhere{type=online}{c@internetsources}}
+
 \newcommand{\printannobibliography}{\renewcommand*{\bibfont}{\small}\printbibliography[heading=none]}
+
+%% Подсчет источников различных категорий. Это следующие команды:
+%%   \relatedworksourcecount   - число источников, использованных в обзоре
+%%   \russiansourcesfiveyears  - число отечественных источников за последние 5 лет
+%%   \russiansourcestenyears   - число отечественных источников от 5 (не включительно) до 10 лет
+%%   \russiansourcesveryold    - число отечественных источников старше 10 лет
+%%   \foreignsourcesfiveyears  - число иностранных источников за последние 5 лет
+%%   \foreignsourcestenyears   - число иностранных источников от 5 (не включительно) до 10 лет
+%%   \foreignsourcesveryold    - число иностранных источников старше 10 лет
+%%   \internetsources          - число интернет-источников
+
+%%% Сначала учимся считать источники вместо того, чтобы их печатать
+\newcounter{@bibliocounter}
+\defbibenvironment{@fillbibliocounter}
+    {\renewcommand{\blx@driver}[1]{}}
+    {}
+    {\stepcounter{@bibliocounter}}
+
+%%% Заводим счетчики под это все
+\newtotcounter[auxfile=\jobname.tct]{c@relatedworksourcecount}
+\newtotcounter[auxfile=\jobname.tct]{c@russiansourcesfiveyears}
+\newtotcounter[auxfile=\jobname.tct]{c@russiansourcestenyears}
+\newtotcounter[auxfile=\jobname.tct]{c@russiansourcesveryold}
+\newtotcounter[auxfile=\jobname.tct]{c@foreignsourcesfiveyears}
+\newtotcounter[auxfile=\jobname.tct]{c@foreignsourcestenyears}
+\newtotcounter[auxfile=\jobname.tct]{c@foreignsourcesveryold}
+\newtotcounter[auxfile=\jobname.tct]{c@internetsources}
+
+\defbibheading{reallynone}{}
+
+%%% Считаем в счетчик #2 число ссылок, удовлетворяющих фильтру #1
+\newcommand{\@countsourceswhere}[2]{%
+\setcounter{@bibliocounter}{0}%
+\printbibliography[env=@fillbibliocounter,heading=reallynone,#1]%
+\setcounter{#2}{\arabic{@bibliocounter}}}
+
+%%% Определяем команды через значения счетчиков
+\newcommand{\relatedworksourcecount}{\total{c@relatedworksourcecount}}
+\newcommand{\russiansourcesfiveyears}{\total{c@russiansourcesfiveyears}}
+\newcommand{\russiansourcestenyears}{\total{c@russiansourcestenyears}}
+\newcommand{\russiansourcesveryold}{\total{c@russiansourcesveryold}}
+\newcommand{\foreignsourcesfiveyears}{\total{c@foreignsourcesfiveyears}}
+\newcommand{\foreignsourcestenyears}{\total{c@foreignsourcestenyears}}
+\newcommand{\foreignsourcesveryold}{\total{c@foreignsourcesveryold}}
+\newcommand{\internetsources}{\ifthenelse{\equal{\totvalue{c@internetsources}}{0}}{нет}{да, число ресурсов: \total{c@internetsources}}}
+
+%%% Команды для начала и конца секции с обзором
+\newcommand{\startrelatedwork}{\newrefsegment}
+\newcommand{\finishrelatedwork}{\@countsourceswhere{segment=\arabic{refsegment}}{c@relatedworksourcecount}\endrefsegment}
 
 %% Делаем русские варианты знаков неравенств.
 
@@ -361,7 +439,7 @@
 
 \newcommand{\chapterconclusion}{\section*{Выводы по главе~\thechapter}\addcontentsline{toc}{section}{Выводы по главе~\thechapter}}
 
-%% Обратная совместимость со стилем, который у всех есть.
+%% Обратная совместимость со старым стилем
 
 \newcommand{\startthechapters}{}
 \newcommand{\startappendices}{\appendix}
@@ -603,16 +681,17 @@
         \pagebreak[3]
         \noindent \textbf{2 Задачи, решаемые в работе:} \theresearchtargets \par
         \pagebreak[3]
-        \noindent \textbf{3 Число источников, использованных при составлении обзора:} \uhspace{4em} \par
+        \noindent \textbf{3 Число источников, использованных при составлении обзора:} \relatedworksourcecount \par
         \noindent \textbf{4 Полное число источников, использованных в работе:} \total{citnum} \par
         \noindent \textbf{5 В том числе источников по годам} \par
         \begin{tabular}{|c|c|c|c|c|c|}\hline
             \multicolumn{3}{|c|}{Отечественных} & \multicolumn{3}{c|}{Иностранных} \\\hline
             Последние & От 5      & Более  & Последние & От 5 & Более \\
             5 лет     & до 10 лет & 10 лет & 5 лет     & до 10 лет & 10 лет \\\hline
-            ~ & ~ & ~ & ~ & ~ & ~ \\\hline
+            \russiansourcesfiveyears & \russiansourcestenyears & \russiansourcesveryold &
+            \foreignsourcesfiveyears & \foreignsourcestenyears & \foreignsourcesveryold \\\hline
         \end{tabular}\par
-        \noindent \textbf{6 Использование информационных ресурсов Internet:} \uhspace{4em} \par
+        \noindent \textbf{6 Использование информационных ресурсов Internet:} \internetsources \par
         \pagebreak[3]
         \noindent \textbf{7 Использование современных пакетов компьютерных программ и технологий:}
             \theadvancedtechnologyusage\par
@@ -649,7 +728,6 @@
     \addtolength{\headsep}{-3mm}
 
     \setcounter{page}{4}
-    \setcounter{citnum}{0} %to get rid of my own publications counted twice
     % Выключаем переносы в оглавлении
     \pretocmd{\tableofcontents}{\begingroup\banhyphens}{}{}
     \apptocmd{\tableofcontents}{\endgroup}{}{}
@@ -688,6 +766,7 @@
 \newif\if@shouldmakespecification
 \newif\if@shouldmakeannotation
 \newif\if@shouldusexelatex
+\newif\if@shouldsourcesbyhand
 
 \DeclareOption{times}{\@shouldusexelatextrue}
 \DeclareOption{pscyr}{\@shouldusepscyrtrue}
@@ -710,4 +789,3 @@
         \RequirePackage{paratype}
     \fi
 \fi	
-

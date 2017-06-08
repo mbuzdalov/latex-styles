@@ -48,6 +48,16 @@
     langid      = {english}
 }
 
+@book{ bellman,
+    author      = {R. E. Bellman},
+    title       = {Dynamic Programming},
+    address     = {Princeton, NJ},
+    publisher   = {Princeton University Press},
+    numpages    = {342},
+    pagetotal   = {342},
+    year        = {1957},
+    langid      = {english}
+}
 \end{filecontents}
 %% Конец
 
@@ -160,7 +170,12 @@ totcount, longtable, listings, chngcntr, titlesec, titletoc, ifpdf.}
 %% Начало содержательной части.
 \chapter{Первая глава}
 
-Пример ссылок на литературные источники: \cite{example-english, example-russian, unrestricted-jump-evco}.
+%% Так помечается начало обзора.
+\startrelatedwork
+Пример ссылок в рамках обзора: \cite{example-english, example-russian, unrestricted-jump-evco}.
+%% Так помечается конец обзора.
+\finishrelatedwork
+Вне обзора:~\cite{bellman}.
 
 \section{Таблицы}
 

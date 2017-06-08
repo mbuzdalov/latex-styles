@@ -18,6 +18,16 @@
 \usetikzlibrary{arrows}
 \usepackage{filecontents}
 \begin{filecontents}{bachelor-thesis.bib}
+@online{ doerr-doerr-lambda-lambda-self-adjustment-arxiv,
+    year        = {2015},
+    title       = {Optimal Parameter Choices Through Self-Adjustment: Applying the 1/5-th Rule in
+                   Discrete Settings},
+    author      = {Benjamin Doerr and Carola Doerr},
+    url         = {http://arxiv.org/abs/1504.03212},
+    year        = {2015},
+    langid      = {english}
+}
+
 @inproceedings{ example-english,
     year        = {2015},
     booktitle   = {Proceedings of IEEE Congress on Evolutionary Computation},
@@ -45,8 +55,18 @@
     journal     = {Evolutionary Computation},
     year        = {2016},
     note        = {Accepted for publication},
-    langid      = {english},
-    keywords    = {index:wos, index:scopus, labauthor:buzdalov}
+    langid      = {english}
+}
+
+@book{ bellman,
+    author      = {R. E. Bellman},
+    title       = {Dynamic Programming},
+    address     = {Princeton, NJ},
+    publisher   = {Princeton University Press},
+    numpages    = {342},
+    pagetotal   = {342},
+    year        = {1957},
+    langid      = {english}
 }
 \end{filecontents}
 %% Конец
@@ -160,7 +180,12 @@ totcount, longtable, listings, chngcntr, titlesec, titletoc, ifpdf.}
 %% Начало содержательной части.
 \chapter{Первая глава}
 
-Пример ссылок на литературные источники: \cite{example-english, example-russian, unrestricted-jump-evco}.
+%% Так помечается начало обзора.
+\startrelatedwork
+Пример ссылок в рамках обзора: \cite{example-english, example-russian, unrestricted-jump-evco, doerr-doerr-lambda-lambda-self-adjustment-arxiv}.
+%% Так помечается конец обзора.
+\finishrelatedwork
+Вне обзора:~\cite{bellman}.
 
 \section{Таблицы}
 
