@@ -707,7 +707,7 @@
         \noindent \textbf{10 Наличие публикаций и выступлений на конференциях по теме работы:}
             \theresearchpublications\par
         \bigskip
-        \noindent Выпусник: \theauthorshort\ \signatureplace\par\bigskip\par
+        \noindent Выпускник: \theauthorshort\ \signatureplace\par\bigskip\par
         \noindent Руководитель: \thesupervisorshort\ \signatureplace\par\bigskip\par
         \noindent \unknowndate\par
     \end{small}
