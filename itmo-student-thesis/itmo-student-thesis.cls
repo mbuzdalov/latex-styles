@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2019/04/22 v1.3.b3]
+\ProvidesClass{itmo-student-thesis}[2019/04/22 v1.3.rc1]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -596,8 +596,6 @@
 \newcommand{\researchaim}[1]{\newcommand{\theresearchaim}{#1}}
 %%% Задачи, решаемые в ВКР
 \newcommand{\researchtargets}[1]{\newcommand{\theresearchtargets}{#1}}
-%%% Использование современных пакетов
-\newcommand{\advancedtechnologyusage}[1]{\newcommand{\theadvancedtechnologyusage}{#1}}
 %%% Краткая характеристика полученных результатов
 \newcommand{\researchsummary}[1]{\newcommand{\theresearchsummary}{#1}}
 %%% Гранты, полученные при выполнении работы
@@ -611,11 +609,14 @@
 \newcommand{\thelistofconsultants}{}
 \newcounter{numofstages}
 
-%%% Добавить консультанта: (Фамилия И.О.) (степень, звание)
-\newcommand{\addconsultant}[2]{
-\booltrue{hasconsultants}
-\appto{\thelistofconsultants}{\item #1, #2 \hfill\signatureplace\par\bigskip}
-}
+%%% Добавить консультанта: (Фамилия И.О.) (звание, степень)
+\newcommand{\addconsultant}[2]{\booltrue{hasconsultants}\appto{\thelistofconsultants}{\item #1, #2 \hfill\signatureplace\par\bigskip}}
+
+\newbool{hasadvancedsoftware}
+\newcommand{\thelistofadvancedsoftware}{}
+
+%%% Добавить пакет программ: (Название) (Ссылки на разделы)
+\newcommand{\addadvancedsoftware}[2]{\booltrue{hasadvancedsoftware}\appto{\thelistofadvancedsoftware}{#1 & #2 \strut\\\hline}}
 
 %% Создание титульной страницы, задания и аннотации
 
@@ -725,33 +726,36 @@
         \bigskip
         {\centering\bfseries ХАРАКТЕРИСТИКА ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ \par}
         \bigskip
-        \noindent \textbf{1 Цель исследования:} \theresearchaim \par
+        \noindent 1 Цель исследования: \theresearchaim \par
         \pagebreak[3]
-        \noindent \textbf{2 Задачи, решаемые в ВКР:} \theresearchtargets \par
+        \noindent 2 Задачи, решаемые в ВКР: \theresearchtargets \par
         \pagebreak[3]
-        \noindent \textbf{3 Число источников, использованных при составлении обзора:} \relatedworksourcecount \par
-        \noindent \textbf{4 Полное число источников, использованных в работе:} \total{citnum} \par
-        \noindent \textbf{5 В том числе источников по годам} \par
+        \noindent 3 Число источников, использованных при составлении обзора: \relatedworksourcecount \par
+        \noindent 4 Полное число источников, использованных в работе: \total{citnum} \par
+        \noindent 5 В том числе источников по годам: \par\vspace{3pt}
         \noindent\begin{tabu}to\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}\hline
-            \multicolumn{3}{|c|}{Отечественных} & \multicolumn{3}{c|}{Иностранных} \\\hline
+            \multicolumn{3}{|c|}{\textbf{Отечественных}} & \multicolumn{3}{c|}{\textbf{Иностранных}} \\\hline
             Последние & От 5      & Более  & Последние & От 5 & Более \\
             5 лет     & до 10 лет & 10 лет & 5 лет     & до 10 лет & 10 лет \\\hline
             \russiansourcesfiveyears & \russiansourcestenyears & \russiansourcesveryold &
             \foreignsourcesfiveyears & \foreignsourcestenyears & \foreignsourcesveryold \\\hline
         \end{tabu}\par\vspace{6pt}
-        \noindent \textbf{6 Использование информационных ресурсов Internet:} \internetsources \par
+        \noindent 6 Использование информационных ресурсов Internet: \internetsources \par
         \pagebreak[3]
-        \noindent \textbf{7 Использование современных пакетов компьютерных программ и технологий:}
-            \theadvancedtechnologyusage\par
+        \noindent 7 Использование современных пакетов компьютерных программ и технологий:
+        \ifbool{hasadvancedsoftware}{
+            \par\vspace{3pt}
+            \noindent\begin{tabu}to\textwidth{|X[3p]|X[-1p]|}\hline
+                \multicolumn{1}{|c|}{\textbf{Пакеты компьютерных программ и технологий}} & \textbf{Раздел работы} \\\hline
+                \thelistofadvancedsoftware
+            \end{tabu}\par\vspace{6pt}
+        }{нет\par}
         \pagebreak[3]
-        \noindent \textbf{8 Краткая характеристика полученных результатов:}
-            \theresearchsummary\par        
-        \pagebreak[3]
-        \noindent \textbf{9 Гранты, полученные при выполнении работы:}
-            \theresearchfunding\par
-        \pagebreak[3]
-        \noindent \textbf{10 Наличие публикаций и выступлений на конференциях по теме работы:}
-            \theresearchpublications\par
+        \noindent 8 Краткая характеристика полученных результатов\par\theresearchsummary\par
+        \pagebreak[3]\vspace{1ex minus 1ex}
+        \noindent 9 Гранты, полученные при выполнении работы\par\theresearchfunding\par
+        \pagebreak[3]\vspace{1ex minus 1ex}
+        \noindent 10 Наличие публикаций и выступлений на конференциях по теме работы\par\theresearchpublications\par
         \bigskip
         \noindent\begingroup\renewcommand{\arraystretch}{1.5}\begin{tabular}{lll}
         Студент & \theauthorshort & \signatureplace \\

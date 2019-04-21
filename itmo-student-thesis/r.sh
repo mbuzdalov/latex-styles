@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ "$1" == "clean" ]]; then
-    rm -f {bachelor,master}-thesis{,-legacy}.{bib,aux,log,bbl,bcf,blg,run.xml,toc,tct,pdf,out}
+    rm -f {bachelor,master}-thesis.{bib,aux,log,bbl,bcf,blg,run.xml,toc,tct,pdf,out}
 else
     for i in bachelor master; do
         xelatex $i-thesis
@@ -10,12 +10,5 @@ else
         xelatex $i-thesis
     done
 
-    for i in bachelor; do
-        pdflatex $i-thesis-legacy
-        biber    $i-thesis-legacy
-        pdflatex $i-thesis-legacy
-        pdflatex $i-thesis-legacy
-    done
-
-    rm -f {bachelor,master}-thesis{,-legacy}.{bib,aux,log,bbl,bcf,blg,run.xml,toc,tct,out}
+    rm -f {bachelor,master}-thesis.{bib,aux,log,bbl,bcf,blg,run.xml,toc,tct,out}
 fi
