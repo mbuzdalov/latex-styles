@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2019/04/21 v1.3.b2]
+\ProvidesClass{itmo-student-thesis}[2019/04/22 v1.3.b3]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -534,9 +534,9 @@
 
 %% Контентные команды со значениями по умолчанию
 
-\newcommand{\theuniversity}{{\bfseries Министерство науки и высшего образования Российской Федерации\par
+\newcommand{\theuniversity}{{\small\bfseries Министерство науки и высшего образования Российской Федерации\par
 \MakeUppercase{\scriptsize федеральное государственное автономное образовательное учреждение высшего образования}\par
-\MakeUppercase{<<Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики>>}}}
+\begin{singlespace}\MakeUppercase{<<Санкт-Петербургский национальный исследовательский университет информационных технологий,}\par\MakeUppercase{механики и оптики>>}\end{singlespace}}}
 \newcommand{\university}[1]{\renewcommand{\theuniversity}{#1}}
 
 \newcommand{\thedegreehost}{Университет ИТМО}
@@ -609,7 +609,6 @@
 
 \newbool{hasconsultants}
 \newcommand{\thelistofconsultants}{}
-\newcommand{\thelistofstages}{}
 \newcounter{numofstages}
 
 %%% Добавить консультанта: (Фамилия И.О.) (степень, звание)
@@ -617,9 +616,6 @@
 \booltrue{hasconsultants}
 \appto{\thelistofconsultants}{\item #1, #2 \hfill\signatureplace\par\bigskip}
 }
-
-%%% Добавить этап в календарный план: (Название этапа) (Срок выполнения)
-\newcommand{\addstage}[2]{\appto{\thelistofstages}{\stepcounter{numofstages}\arabic{numofstages} & #1\strut & #2 & \\\hline\par}}
 
 %% Создание титульной страницы, задания и аннотации
 
