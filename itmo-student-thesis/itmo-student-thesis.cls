@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2019/04/21 v1.3.b1]
+\ProvidesClass{itmo-student-thesis}[2019/04/21 v1.3.b2]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -14,7 +14,7 @@
 
 %% Формируем отступы
 
-\RequirePackage[top=2cm, bottom=2cm, left=2.7cm, right=1.2cm]{geometry}
+\RequirePackage[top=2cm, bottom=2cm, left=2.7cm, right=1.5cm]{geometry}
 
 %% Эти пакеты слишком часто используются, чтобы их не включать
 
@@ -90,8 +90,12 @@
 \renewcommand\theenumii{\arabic{enumii}}
 
 %% Рис. => Рисунок
+%% Оглавление => Содержание
 
-\addto{\captionsrussian}{\renewcommand*{\figurename}{Рисунок}}
+\addto{\captionsrussian}{%
+\renewcommand*{\figurename}{Рисунок}%
+\renewcommand*{\contentsname}{Содержание}%
+}
 
 %% Многостраничные таблицы в гостовском формате. Аргументы:
 %% 1 - имя, по которому ссылаемся
@@ -111,7 +115,7 @@
 \RequirePackage[
     backend=biber,
     bibencoding=utf8,
-    sorting=none,
+    sorting=nyt,
     sortcites=true,
     bibstyle=gost-numeric,
     citestyle=numeric-comp,
@@ -136,6 +140,67 @@
 \DefineBibliographyStrings{english}{pages={p\adddot}}
 \DefineBibliographyExtras{russian}{\protected\def\bibrangedash{\textendash\penalty\hyphenpenalty}}
 
+% Это ставит сначала русские, потом иностранные источники
+
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+        \map{
+            \step[fieldsource=langid, match=russian, final]
+            \step[fieldset=presort, fieldvalue={a}]
+         }
+         \map{
+            \step[fieldsource=langid, notmatch=russian, final]
+            \step[fieldset=presort, fieldvalue={z}]
+         }
+    }
+}
+
+% Добавляем чей-то драйвер от online, чтобы "электронный ресурс" отражался по ГОСТу.
+
+\DeclareBibliographyDriver{online}{%
+\usebibmacro{bibindex}%
+\usebibmacro{begentry}%
+\usebibmacro{heading}%
+\newunit
+\usebibmacro{author/editor}%
+\setunit*{\labelnamepunct}%
+\usebibmacro{title}%
+\addspace\foreignlanguage{russian}{[Электронный ресурс]}
+\setunit{\addcolondelim}%
+\usebibmacro{translation}%
+\def\bbx@gost@respdelim{\setunit{\respdelim}}% ----- Resp starts -----
+\usebibmacro{byauthor}%
+\setunit*{\resppunct}%
+\iflistundef{organization}
+  {}
+  {\setrespdelim%
+   \printlist{organization}%
+   \setunit*{\resppunct}}%
+\usebibmacro{credits}%
+\setunit*{\resppunct}%
+\usebibmacro{byeditor}%
+\setunit*{\resppunct}%
+\usebibmacro{bytranslator+others}%
+\newunit\newblock
+\printfield{version}%
+\newunit\newblock
+\printlist[semicolondelim]{specdata}%
+\newunit\newblock
+\usebibmacro{date}%
+\newunit\newblock
+\printupdate%
+\newunit\newblock
+\printfield{systemreq}%
+\newunit\newblock
+\usebibmacro{doi+eprint+url+note}%
+\newunit\newblock
+\usebibmacro{addendum+pubstate}%
+\setunit{\bibpagerefpunct}\newblock
+\usebibmacro{pageref}%
+\newunit\newblock
+\usebibmacro{related:init}%
+\usebibmacro{related}%
+\usebibmacro{finentry}}
 
 %% Счетчики. Для всего, кроме страниц, используем totcount, для страниц используем pageslts. Если надо.
 
@@ -462,22 +527,22 @@
 \RequirePackage[normalem]{ulem}
 
 \newcommand{\uhspace}[1]{\uline{\hspace{#1}}}
-\newcommand{\signatureplace}{\uhspace{8em}}
-\newcommand{\datequoteplace}{<<\uhspace{3ex}>>}
+\newcommand{\signatureplace}{\uhspace{7em}}
+\newcommand{\datequoteplace}{<<\uhspace{5ex}>>}
 \newcommand{\infiniteuhspace}{\uhspace{0 cm plus 1fill}}
-\newcommand{\unknowndate}{\datequoteplace~\uhspace{10ex}~20\uhspace{3ex}~г.}
+\newcommand{\unknowndate}{\datequoteplace~\uhspace{13ex}~20\uhspace{3ex}~г.}
 
 %% Контентные команды со значениями по умолчанию
 
-\newcommand{\theuniversity}{{\bfseries Министерство образования и науки Российской Федерации\par
-{\scriptsize\MakeUppercase{федеральное государственное автономное образовательное учреждение высшего образования}\par}
+\newcommand{\theuniversity}{{\bfseries Министерство науки и высшего образования Российской Федерации\par
+\MakeUppercase{\scriptsize федеральное государственное автономное образовательное учреждение высшего образования}\par
 \MakeUppercase{<<Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики>>}}}
 \newcommand{\university}[1]{\renewcommand{\theuniversity}{#1}}
 
 \newcommand{\thedegreehost}{Университет ИТМО}
 \newcommand{\degreehost}[1]{\renewcommand{\thedegreehost}{#1}}
 
-\newcommand{\thefaculty}{информационных технологий и программирования}
+\newcommand{\thefaculty}{ИТиП}
 \newcommand{\faculty}[1]{\renewcommand{\thefaculty}{#1}}
 
 \newcommand{\specialty}[1]{\newcommand{\thespecialty}{#1}}
@@ -487,19 +552,16 @@
 \newcommand{\thechair}{компьютерных технологий}
 \newcommand{\chair}[1]{\renewcommand{\thechair}{#1}}
 
-\newcommand{\thechairhead}{Васильев В.Н.}
-\newcommand{\thechairheaddegree}{докт. техн. наук, проф.}
+\newcommand{\thechairhead}{Парфенов В.Г.}
+\newcommand{\thechairheaddegree}{проф., д.т.н.}
 \newcommand{\chairhead}[2]{\renewcommand{\thechairhead}{#1}
                            \renewcommand{\thechairheaddegree}{#2}}
-
-\newcommand{\thedegreetail}{прикладной математики и информатики}
-\newcommand{\degreetail}[1]{\renewcommand{\thedegreetail}{#1}}
 
 \newcommand{\thecity}{Санкт-Петербург}
 \newcommand{\city}[1]{\renewcommand{\thecity}{#1}}
 
 %%% Перечень графического материала
-\newcommand{\theplannedgraphics}{Не предусмотрено}
+\newcommand{\theplannedgraphics}{Графические материалы и чертежи работой не предусмотрены}
 \newcommand{\plannedgraphics}[1]{\renewcommand{\theplannedgraphics}{#1}}
 
 %%% Даты
@@ -522,7 +584,7 @@
                             \newcommand{\thesupervisordegree}{#3}
                             \newcommand{\thesupervisorwork}{#4}}
 \newcommand{\publishyear}[1]{\newcommand{\theyear}{#1}}
-\newcommand{\secretary}[1]{\newcommand{\thesecretary}{\textit{#1}}}
+\newcommand{\secretary}[1]{\newcommand{\thesecretary}{#1}}
 
 %%% Техническое задание и исходные данные к работе
 \newcommand{\technicalspec}[1]{\newcommand{\thetechnicalspec}{#1}}
@@ -564,18 +626,10 @@
 %%% Параметр: Бакалавр/Магистр
 \renewcommand{\maketitle}[1]{
     \ifstrequal{#1}{Магистр}{
-        \newcommand{\worktypeGenitive}{магистерской диссертации}
-        \newcommand{\worktypeDative}{магистерской диссертации}
-        \newcommand{\worktypeAccusative}{магистерскую диссертацию}
-        \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par к {\worktypeDative}}
-        \providecommand{\thespecialization}{Технологии проектирования и разработки программного обеспечения}
+        \providecommand{\thespecialization}{Технологии разработки программного обеспечения}
         \providecommand{\thespecialty}{01.04.02~Прикладная математика и информатика}
     }{
         \ifstrequal{#1}{Бакалавр}{
-            \newcommand{\worktypeGenitive}{выпускной квалификационной работы}
-            \newcommand{\worktypeDative}{выпускной квалификационной работе}
-            \newcommand{\worktypeAccusative}{выпускную квалификационную работу}
-            \newcommand{\worktypeTitle}{\MakeUppercase{Пояснительная записка}\par к {\worktypeDative}}
             \providecommand{\thespecialization}{Математические модели и алгоритмы в разработке программного обеспечения}
             \providecommand{\thespecialty}{01.03.02~Прикладная математика и информатика}
         }{
@@ -587,81 +641,78 @@
     \begin{titlepage}
         \banhyphens
         \begin{center}\theuniversity\end{center}
-        {\centering\bfseries\worktypeTitle\par}
+        \vspace{0cm plus 0.66fill minus 0cm}
+        {\centering\bfseries\MakeUppercase{Выпускная квалификационная работа}\par}
+        \vspace{0cm plus 0.66fill minus 0cm}
+        {\centering\MakeUppercase{\thetitle}\par}
         \vspace{0cm plus 1fill minus 0cm}
-        {\centering\bfseries <<\thetitle>>\par}
-        \vspace{0cm plus 1fill minus 0cm}
-        {\setlength{\tabcolsep}{0.1em}
-         \noindent\small\begin{tabu}to\textwidth{X[p]l}
+        {\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.5}
+         \noindent\begin{tabu}to\textwidth{X[p]l}
             & Автор: \theauthor \hfilll \signatureplace \\
-            & Направление подготовки (специальность):\; 
-                \begin{minipage}[t]{0.4\textwidth}\thespecialty\end{minipage} \\
+            & Направление подготовки:\;
+                \begin{minipage}[t]{0.4\textwidth}\begin{flushleft}\thespecialty\end{flushleft}\end{minipage} \\
             & Квалификация: #1 \\
-            & Руководитель: \thesupervisorshort, \thesupervisordegree \hfilll \signatureplace \\
-            & \\
-            & \\
+            & Руководитель: \thesupervisorshort, \thesupervisordegree~ \hfilll \signatureplace \\
             & \textbf{К защите допустить} \\
-            & Зав. кафедрой \thechairhead, \thechairheaddegree \hfilll \signatureplace \\
+            & Руководитель ОП \thechairhead, \thechairheaddegree~ \hfilll \signatureplace \\
         \end{tabu}\par}
-        \begin{flushright}\small\unknowndate\end{flushright}
+        \begin{flushright}\unknowndate\end{flushright}
         \vspace{0cm plus 1fill minus 0cm}
         \begin{center}\thecity, \theyear~г.\end{center}
     \end{titlepage}
     \begin{titlepage}
         \banhyphens
-        \noindent\small \textbf{Студент}~\theauthorshort\; \textbf{Группа}~\thestudygroup\; \textbf{Кафедра}~\thechair\; \textbf{Факультет}~\thefaculty\par\bigskip\par
-        \noindent\small \textbf{Направленность (профиль), специализация} \thespecialization \par\bigskip\par
+        \noindent Студент~\theauthorshort\;\hfilll Группа~\thestudygroup\; Факультет~\thefaculty\par\bigskip\par
+        \noindent Направленность (профиль), специализация\par
+        \noindent \thespecialization \par\bigskip\par
         \ifbool{hasconsultants}{
-            \noindent\small \textbf{Консультанты}:
+            \noindent Консультанты:
             \begin{enumerate}\thelistofconsultants\end{enumerate}\par
         }{}\bigskip\par\bigskip\par
-        \noindent\small Квалификационная работа выполнена с оценкой \infiniteuhspace\par\bigskip\par
-        \noindent\small Дата защиты \hspace{0cm plus 1fill}\thedefencedate\par\bigskip\par
-        \noindent\small Секретарь ГЭК~\thesecretary \hspace{0cm plus 1fill} Принято: \unknowndate\par\bigskip\par
-        \noindent\small Листов хранения \infiniteuhspace\par\bigskip\par
-        \noindent\small Демонстрационных материалов/Чертежей хранения \infiniteuhspace\par\bigskip\par
+        \noindent ВКР принята \unknowndate\par\bigskip\par
+        \noindent Оригинальность ВКР \uhspace{5ex}\%\par\bigskip\par
+        \noindent ВКР выполнена с оценкой \infiniteuhspace\par\bigskip\par
+        \noindent Дата защиты \unknowndate\par\bigskip\par
+        \noindent Секретарь ГЭК~\thesecretary\hfill\signatureplace\par\bigskip\par
+        \noindent Листов хранения \infiniteuhspace\par\bigskip\par
+        \noindent Демонстрационных материалов/Чертежей хранения \infiniteuhspace\par\bigskip\par
     \end{titlepage}
     \if@shouldmakespecification
     \begin{titlepage}
     \begin{center}\theuniversity\end{center}
     \begin{small}
-        \noindent\begin{tabu}to\textwidth{X[p]r}
+        \noindent\begin{tabu}to\textwidth{X[p]l}
             & \hfilll \textbf{УТВЕРЖДАЮ} \hfilll\ \\
-            & Зав.~каф. \thechair \\
-            & \thechairheaddegree \\
-            & \signatureplace\ \thechairhead \\
+            & Руководитель ОП \\
+            & \thechairheaddegree\ \thechairhead\ \signatureplace \\
             & \unknowndate \\
         \end{tabu}
-        \begin{center}\bfseries {\normalsize ЗАДАНИЕ} \\ НА \MakeUppercase{\worktypeAccusative}\end{center}
+        \bigskip
+        \begin{center}\bfseries {\normalsize ЗАДАНИЕ} \\ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ\end{center}
         \bigskip
         \begingroup\banhyphens
-        \noindent \textbf{Студент}~\theauthorshort\; \textbf{Группа}~\thestudygroup\; \textbf{Кафедра}~\thechair\; \textbf{Факультет}~\thefaculty\;
-        \textbf{Руководитель}~\thesupervisorshort, \thesupervisordegree, \thesupervisorwork\par
+        \noindent \textbf{Студент}~\theauthorshort\;\hfilll \textbf{Группа}~\thestudygroup\; \textbf{Факультет}~\thefaculty\;\par
+        \noindent \textbf{Руководитель}~\thesupervisorshort, \thesupervisordegree, \thesupervisorwork\par
         \noindent \textbf{1 Наименование темы:} \thetitle\par
         \noindent \textbf{Направление подготовки (специальность):} \thespecialty\par
         \noindent \textbf{Направленность (профиль):} \thespecialization\par
-        \noindent \textbf{Квалификация:} #1\par\bigskip\par
+        \noindent \textbf{Квалификация:} #1\par
         \endgroup
         \noindent \textbf{2 Срок сдачи студентом законченной работы:} \thefinishdate \par
-        \noindent \textbf{3 Техническое задание и исходные данные к работе.}\par \thetechnicalspec\par
+        \noindent \textbf{3 Техническое задание и исходные данные к работе}\par \thetechnicalspec\par
         \pagebreak[3]
-        \noindent \textbf{4 Содержание \worktypeGenitive\ (перечень подлежащих разработке вопросов)}\par \theplannedcontents\par
+        \noindent \textbf{4 Содержание выпускной работы (перечень подлежащих разработке вопросов)}\par \theplannedcontents\par
         \pagebreak[3]
         \noindent \textbf{5 Перечень графического материала (с указанием обязательного материала)}\par \theplannedgraphics\par
         \pagebreak[3]
         \noindent \textbf{6 Исходные материалы и пособия}\par \theplannedsources\par
         \pagebreak[3]
-        \begin{center}
-            \textbf{7 Календарный план}
-            \begin{tabu}to\textwidth{|l|X[3.5p]|X[p]|X[p]|}\hline
-            №№ пп. & Наименование этапов \worktypeGenitive & Срок выполнения этапов работы & Отметка о выполнении, 
-            подпись руков.\strut \\\hline
-            \thelistofstages
-            \end{tabu}
-        \end{center}
-        \noindent \textbf{8 Дата выдачи задания:} \thestartdate\par\bigskip\par
-        \noindent Руководитель \signatureplace\par\bigskip\par
-        \noindent Задание принял к исполнению \signatureplace\ \thestartdate\par
+        \noindent \textbf{7 Дата выдачи задания} \thestartdate\par\bigskip\par
+        \noindent\begingroup\renewcommand{\arraystretch}{1.5}\begin{tabular}{ll}
+            Руководитель ВКР & \signatureplace \\
+            Задание принял к исполнению & \signatureplace \\
+            & \thestartdate
+        \end{tabular}\endgroup
     \end{small}
     \end{titlepage}
     \fi
@@ -670,28 +721,28 @@
     \begin{center}\theuniversity\end{center}
     {\centering\bfseries АННОТАЦИЯ \par}
     \begin{small}
-        {\centering\bfseries \MakeUppercase{\worktypeGenitive} \par}
+        {\centering\bfseries ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ \par}
         \bigskip
         \noindent \textbf{Студент:} \theauthor\par
-        \noindent \textbf{Наименование темы работы:} \thetitle\par
-        \noindent \textbf{Наименование организации, где выполнена работа:} \thedegreehost\par
+        \noindent \textbf{Наименование темы ВКР:} \thetitle\par
+        \noindent \textbf{Наименование организации, где выполнена ВКР:} \thedegreehost\par
         \bigskip
-        {\centering\bfseries ХАРАКТЕРИСТИКА \MakeUppercase{\worktypeGenitive} \par}
+        {\centering\bfseries ХАРАКТЕРИСТИКА ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ \par}
         \bigskip
         \noindent \textbf{1 Цель исследования:} \theresearchaim \par
         \pagebreak[3]
-        \noindent \textbf{2 Задачи, решаемые в работе:} \theresearchtargets \par
+        \noindent \textbf{2 Задачи, решаемые в ВКР:} \theresearchtargets \par
         \pagebreak[3]
         \noindent \textbf{3 Число источников, использованных при составлении обзора:} \relatedworksourcecount \par
         \noindent \textbf{4 Полное число источников, использованных в работе:} \total{citnum} \par
         \noindent \textbf{5 В том числе источников по годам} \par
-        \begin{tabular}{|c|c|c|c|c|c|}\hline
+        \noindent\begin{tabu}to\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}\hline
             \multicolumn{3}{|c|}{Отечественных} & \multicolumn{3}{c|}{Иностранных} \\\hline
             Последние & От 5      & Более  & Последние & От 5 & Более \\
             5 лет     & до 10 лет & 10 лет & 5 лет     & до 10 лет & 10 лет \\\hline
             \russiansourcesfiveyears & \russiansourcestenyears & \russiansourcesveryold &
             \foreignsourcesfiveyears & \foreignsourcestenyears & \foreignsourcesveryold \\\hline
-        \end{tabular}\par
+        \end{tabu}\par\vspace{6pt}
         \noindent \textbf{6 Использование информационных ресурсов Internet:} \internetsources \par
         \pagebreak[3]
         \noindent \textbf{7 Использование современных пакетов компьютерных программ и технологий:}
@@ -706,9 +757,11 @@
         \noindent \textbf{10 Наличие публикаций и выступлений на конференциях по теме работы:}
             \theresearchpublications\par
         \bigskip
-        \noindent Выпускник: \theauthorshort\ \signatureplace\par\bigskip\par
-        \noindent Руководитель: \thesupervisorshort\ \signatureplace\par\bigskip\par
-        \noindent \unknowndate\par
+        \noindent\begingroup\renewcommand{\arraystretch}{1.5}\begin{tabular}{lll}
+        Студент & \theauthorshort & \signatureplace \\
+        Руководитель & \thesupervisorshort &  \signatureplace \\
+        \multicolumn{3}{l}{\unknowndate}
+        \end{tabular}\endgroup
     \end{small}
     \end{titlepage}
     \fi
