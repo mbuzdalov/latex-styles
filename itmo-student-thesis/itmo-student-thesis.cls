@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2017/06/08 v1.2]
+\ProvidesClass{itmo-student-thesis}[2019/04/21 v1.3.b1]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -165,9 +165,8 @@
 \newtheorem{notation}[theorem]{Обозначение}
 \newtheorem{condition}[theorem]{Условие}
 \newtheorem{example}[theorem]{Пример}
-\renewcommand{\proof}[1][]{\textit{Доказательство%
-\ifthenelse{\equal{#1}{}}{}{ (#1)}%
-}.~}
+
+\renewcommand{\proof}[1][]{\textit{Доказательство\ifthenelse{\equal{#1}{}}{}{ (#1)}}.~}
 
 %% Листинги, по умолчанию - Java
 
@@ -764,14 +763,11 @@
 %% Обработка опций пакета
 
 \newif\if@shouldusexelatex
-\newif\if@shouldusepscyr
 \newif\if@shouldmakespecification
 \newif\if@shouldmakeannotation
-\newif\if@shouldusexelatex
 \newif\if@shouldsourcesbyhand
 
 \DeclareOption{times}{\@shouldusexelatextrue}
-\DeclareOption{pscyr}{\@shouldusepscyrtrue}
 \DeclareOption{specification}{\@shouldmakespecificationtrue}
 \DeclareOption{annotation}{\@shouldmakeannotationtrue}
 
@@ -784,10 +780,5 @@
     \setsansfont{Arial}
     \setmonofont{Courier New}
 \else
-    \if@shouldusepscyr
-        \RequirePackage{pscyr}
-	    \def\rmdefault{ftm}
-    \else
-        \RequirePackage{paratype}
-    \fi
+    \RequirePackage{paratype}
 \fi	
