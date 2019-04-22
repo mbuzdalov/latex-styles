@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2019/04/22 v1.3.rc1]
+\ProvidesClass{itmo-student-thesis}[2019/04/23 v1.3.rc2]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -30,9 +30,9 @@
 \RequirePackage{xcolor}
 \RequirePackage{colortbl}
 
-%% Титульная страница делается гораздо легче, если так
+%% Этот пакет используется для некоторых таблиц и других визуальных элементов.
 
-\RequirePackage{tabu}
+\RequirePackage{tabularx}
 
 %% Расположение номеров страниц - как и в диссертации.
 
@@ -616,7 +616,7 @@
 \newcommand{\thelistofadvancedsoftware}{}
 
 %%% Добавить пакет программ: (Название) (Ссылки на разделы)
-\newcommand{\addadvancedsoftware}[2]{\booltrue{hasadvancedsoftware}\appto{\thelistofadvancedsoftware}{#1 & #2 \strut\\\hline}}
+\newcommand{\addadvancedsoftware}[2]{\booltrue{hasadvancedsoftware}\appto{\thelistofadvancedsoftware}{#1 & #2 \\\hline}}
 
 %% Создание титульной страницы, задания и аннотации
 
@@ -644,7 +644,7 @@
         {\centering\MakeUppercase{\thetitle}\par}
         \vspace{0cm plus 1fill minus 0cm}
         {\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.5}
-         \noindent\begin{tabu}to\textwidth{X[p]l}
+         \noindent\begin{tabularx}{\textwidth}{Xl}
             & Автор: \theauthor \hfilll \signatureplace \\
             & Направление подготовки:\;
                 \begin{minipage}[t]{0.4\textwidth}\begin{flushleft}\thespecialty\end{flushleft}\end{minipage} \\
@@ -652,7 +652,7 @@
             & Руководитель: \thesupervisorshort, \thesupervisordegree~ \hfilll \signatureplace \\
             & \textbf{К защите допустить} \\
             & Руководитель ОП \thechairhead, \thechairheaddegree~ \hfilll \signatureplace \\
-        \end{tabu}\par}
+        \end{tabularx}\par}
         \begin{flushright}\unknowndate\end{flushright}
         \vspace{0cm plus 1fill minus 0cm}
         \begin{center}\thecity, \theyear~г.\end{center}
@@ -678,12 +678,12 @@
     \begin{titlepage}
     \begin{center}\theuniversity\end{center}
     \begin{small}
-        \noindent\begin{tabu}to\textwidth{X[p]l}
+        \noindent\begin{tabularx}{\textwidth}{Xl}
             & \hfilll \textbf{УТВЕРЖДАЮ} \hfilll\ \\
             & Руководитель ОП \\
             & \thechairheaddegree\ \thechairhead\ \signatureplace \\
             & \unknowndate \\
-        \end{tabu}
+        \end{tabularx}
         \bigskip
         \begin{center}\bfseries {\normalsize ЗАДАНИЕ} \\ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ\end{center}
         \bigskip
@@ -733,22 +733,22 @@
         \noindent 3 Число источников, использованных при составлении обзора: \relatedworksourcecount \par
         \noindent 4 Полное число источников, использованных в работе: \total{citnum} \par
         \noindent 5 В том числе источников по годам: \par\vspace{3pt}
-        \noindent\begin{tabu}to\textwidth {|X[c]|X[c]|X[c]|X[c]|X[c]|X[c]|}\hline
+        \noindent\begin{tabularx}{\textwidth}{|*{6}{>{\centering\arraybackslash}X|}}\hline
             \multicolumn{3}{|c|}{\textbf{Отечественных}} & \multicolumn{3}{c|}{\textbf{Иностранных}} \\\hline
             Последние & От 5      & Более  & Последние & От 5 & Более \\
             5 лет     & до 10 лет & 10 лет & 5 лет     & до 10 лет & 10 лет \\\hline
             \russiansourcesfiveyears & \russiansourcestenyears & \russiansourcesveryold &
             \foreignsourcesfiveyears & \foreignsourcestenyears & \foreignsourcesveryold \\\hline
-        \end{tabu}\par\vspace{6pt}
+        \end{tabularx}\par\vspace{6pt}
         \noindent 6 Использование информационных ресурсов Internet: \internetsources \par
         \pagebreak[3]
         \noindent 7 Использование современных пакетов компьютерных программ и технологий:
         \ifbool{hasadvancedsoftware}{
             \par\vspace{3pt}
-            \noindent\begin{tabu}to\textwidth{|X[3p]|X[-1p]|}\hline
-                \multicolumn{1}{|c|}{\textbf{Пакеты компьютерных программ и технологий}} & \textbf{Раздел работы} \\\hline
+            \noindent\begin{tabularx}{\textwidth}{|X|p{0.25\textwidth}|}\hline
+                \multicolumn{1}{|c|}{\textbf{Пакеты компьютерных программ и технологий}} & \multicolumn{1}{c|}{\textbf{Раздел работы}} \\\hline
                 \thelistofadvancedsoftware
-            \end{tabu}\par\vspace{6pt}
+            \end{tabularx}\par\vspace{6pt}
         }{нет\par}
         \pagebreak[3]
         \noindent 8 Краткая характеристика полученных результатов\par\theresearchsummary\par
