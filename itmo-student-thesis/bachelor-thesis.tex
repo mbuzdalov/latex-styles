@@ -6,10 +6,13 @@
 %% - times - делает все шрифтом Times New Roman, собирается с помощью xelatex
 %% - pscyr - делает все шрифтом Times New Roman, требует пакета pscyr.
 
-%% Делает запятую в формулах более интеллектуальной, например: 
-%% $1,5x$ будет читаться как полтора икса, а не один запятая пять иксов. 
+%% Делает запятую в формулах более интеллектуальной, например:
+%% $1,5x$ будет читаться как полтора икса, а не один запятая пять иксов.
 %% Однако если написать $1, 5x$, то все будет как прежде.
 \usepackage{icomma}
+
+%% Один из пакетов, позволяющий делать таблицы на всю ширину текста.
+\usepackage{tabularx}
 
 %% Данные пакеты необязательны к использованию в бакалаврских/магистерских
 %% Они нужны для иллюстративных целей
@@ -116,7 +119,7 @@
 \end{enumerate}}
 
 %%% Цель исследования
-\researchaim{Разработка удобного стилевого файла \LaTeX 
+\researchaim{Разработка удобного стилевого файла \LaTeX
              для бакалавров и магистров кафедры компьютерных технологий.}
 
 %%% Задачи, решаемые в ВКР
@@ -127,7 +130,7 @@
 \end{enumerate}}
 
 %%% Использование современных пакетов компьютерных программ и технологий
-\addadvancedsoftware{Пакет \texttt{tabu} для чуть более продвинутых таблиц}{\ref{sec:tables}, Приложения~\ref{sec:app:1}, \ref{sec:app:2}}
+\addadvancedsoftware{Пакет \texttt{tabularx} для чуть более продвинутых таблиц}{\ref{sec:tables}, Приложения~\ref{sec:app:1}, \ref{sec:app:2}}
 \addadvancedsoftware{Пакет \texttt{biblatex} и программное средство \texttt{biber}}{Список использованных источников}
 
 %%% Краткая характеристика полученных результатов 
@@ -137,7 +140,7 @@
 %%% Гранты, полученные при выполнении работы 
 \researchfunding{Автор разрабатывал этот стилевик исключительно за свой счет и на
 добровольных началах. Однако значительная его часть была бы невозможна, если бы
-автор не написал в свое время кандидатскую диссертацию в \LaTeX, 
+автор не написал в свое время кандидатскую диссертацию в \LaTeX,
 а также не отвечал за формирование кучи научно-технических отчетов по гранту,
 известному как <<5-в-100>>, что происходило при государственной финансовой поддержке
 ведущих университетов Российской Федерации (субсидия 074-U01).}
@@ -188,19 +191,19 @@
 \end{tabular}
 \end{table}
 
-Есть еще такое окружение \texttt{tabu}, его можно аккуратно растянуть на всю страницу.
+Есть еще такое окружение \texttt{tabularx}, его можно аккуратно растянуть на всю страницу.
 Приведем пример (таблица~\ref{tab2}).
 
 \begin{table}[!h]
-\caption{Таблица умножения с помощью \texttt{tabu} (фрагмент)}\label{tab2}
+\caption{Таблица умножения с помощью \texttt{tabularx} (фрагмент)}\label{tab2}
 \centering
-\begin{tabu}{|*{18}{X[c]|}}\hline
+\begin{tabularx}{\textwidth}{|*{18}{>{\centering\arraybackslash}X|}}\hline
 -- & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\\hline
 1  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\\hline
 2  & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 18 & 20 & 22 & 24 & 26 & 28 & 30 & 32 & 34 \\\hline
 3  & 3 & 6 & 9 & 12 & 15 & 18 & 21 & 24 & 27 & 30 & 33 & 36 & 39 & 42 & 45 & 48 & 51 \\\hline
 4  & 4 & 8 & 12 & 16 & 20 & 24 & 28 & 32 & 36 & 40 & 44 & 48 & 52 & 56 & 60 & 64 & 68 \\\hline
-\end{tabu}
+\end{tabularx}
 \end{table}
 
 \section{Рисунки}
@@ -231,15 +234,15 @@ Metapost. Последний можно использовать и под \text
 
 \begin{lstlisting}[float=!h,caption={Пример исходного кода на Java},label={lst1}]
 public class HelloWorld {
-	public static void main(String[] args) {
-		System.out.println("Hello, world!");
-	}
+    public static void main(String[] args) {
+        System.out.println("Hello, world!");
+    }
 }
 \end{lstlisting}
 
 Псевдокод можно оформлять с помощью разных пакетов. В данном стилевике включается пакет \texttt{algorithmicx}.
 Сам по себе он не генерирует флоатов, поэтому для них используется пакет \texttt{algorithm}.
-Пример их совместного использования приведен на листинге~\ref{lst2}. 
+Пример их совместного использования приведен на листинге~\ref{lst2}.
 
 \begin{algorithm}[!h]
 \caption{Пример псевдокода}\label{lst2}
@@ -262,9 +265,9 @@ public class HelloWorld {
 \caption{Исходный код и флоат \texttt{algorithm}}\label{lst3}
 \begin{lstlisting}
 public class HelloWorld {
-	public static void main(String[] args) {
-		System.out.println("Hello, world!");
-	}
+    public static void main(String[] args) {
+        System.out.println("Hello, world!");
+    }
 }
 \end{lstlisting}
 \end{algorithm}
@@ -277,9 +280,9 @@ public class HelloWorld {
 \caption{Исходный код и флоат \texttt{algorithm}}\label{lst4}
 \begin{lstlisting}
 public class HelloWorld {
-	public static void main(String[] args) {
-		System.out.println("Hello, world!");
-	}
+    public static void main(String[] args) {
+        System.out.println("Hello, world!");
+    }
 }
 \end{lstlisting}
 \end{algorithm}
@@ -301,15 +304,15 @@ public class HelloWorld {
 Таблица~\ref{tab3} должна иметь номер 3.
 
 \begin{table}[!h]
-\caption{Таблица умножения с помощью \texttt{tabu} (фрагмент)}\label{tab3}
+\caption{Таблица умножения с помощью \texttt{tabularx} (фрагмент)}\label{tab3}
 \centering
-\begin{tabu}{|*{18}{X[c]|}}\hline
+\begin{tabularx}{\textwidth}{|*{18}{>{\centering\arraybackslash}X|}}\hline
 -- & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\\hline
 1  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\\hline
 2  & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 18 & 20 & 22 & 24 & 26 & 28 & 30 & 32 & 34 \\\hline
 3  & 3 & 6 & 9 & 12 & 15 & 18 & 21 & 24 & 27 & 30 & 33 & 36 & 39 & 42 & 45 & 48 & 51 \\\hline
 4  & 4 & 8 & 12 & 16 & 20 & 24 & 28 & 32 & 36 & 40 & 44 & 48 & 52 & 56 & 60 & 64 & 68 \\\hline
-\end{tabu}
+\end{tabularx}
 \end{table}
 
 \chapterconclusion
@@ -337,9 +340,9 @@ public class HelloWorld {
 \caption{Исходный код и флоат \texttt{algorithm}}\label{lst4:apx}
 \begin{lstlisting}
 public class HelloWorld {
-	public static void main(String[] args) {
-		System.out.println("Hello, world!");
-	}
+    public static void main(String[] args) {
+        System.out.println("Hello, world!");
+    }
 }
 \end{lstlisting}
 \end{algorithm}
@@ -361,15 +364,15 @@ public class HelloWorld {
 Таблица~\ref{tab3:apx} должна иметь номер A.1.
 
 \begin{table}[!h]
-\caption{Таблица умножения с помощью \texttt{tabu} (фрагмент)}\label{tab3:apx}
+\caption{Таблица умножения с помощью \texttt{tabularx} (фрагмент)}\label{tab3:apx}
 \centering
-\begin{tabu}{|*{18}{X[c]|}}\hline
+\begin{tabularx}{\textwidth}{|*{18}{>{\centering\arraybackslash}X|}}\hline
 -- & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\\hline
 1  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\\hline
 2  & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 18 & 20 & 22 & 24 & 26 & 28 & 30 & 32 & 34 \\\hline
 3  & 3 & 6 & 9 & 12 & 15 & 18 & 21 & 24 & 27 & 30 & 33 & 36 & 39 & 42 & 45 & 48 & 51 \\\hline
 4  & 4 & 8 & 12 & 16 & 20 & 24 & 28 & 32 & 36 & 40 & 44 & 48 & 52 & 56 & 60 & 64 & 68 \\\hline
-\end{tabu}
+\end{tabularx}
 \end{table}
 
 Заодно проверим нумерованные и ненумерованные перечисления. Ненумерованные:
@@ -398,21 +401,21 @@ public class HelloWorld {
     \item десятый элемент.
 \end{enumerate}
 
-\chapter{Еще один пример приложения  с неимоверно длиннющим названием для тестирования переносов}\label{sec:app:2}
+\chapter{Еще один пример приложения с неимоверно длиннющим названием для тестирования переносов}\label{sec:app:2}
 
 Проверим на примере таблиц, что нумерация в приложениях~--- по приложениям.
 Таблица~\ref{tab3:apx2} должна иметь номер Б.1.
 
 \begin{table}[!h]
-\caption{Таблица умножения с помощью \texttt{tabu} (фрагмент)}\label{tab3:apx2}
+\caption{Таблица умножения с помощью \texttt{tabularx} (фрагмент)}\label{tab3:apx2}
 \centering
-\begin{tabu}{|*{18}{X[c]|}}\hline
+\begin{tabularx}{\textwidth}{|*{18}{>{\centering\arraybackslash}X|}}\hline
 -- & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\\hline
 1  & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\\hline
 2  & 2 & 4 & 6 & 8 & 10 & 12 & 14 & 16 & 18 & 20 & 22 & 24 & 26 & 28 & 30 & 32 & 34 \\\hline
 3  & 3 & 6 & 9 & 12 & 15 & 18 & 21 & 24 & 27 & 30 & 33 & 36 & 39 & 42 & 45 & 48 & 51 \\\hline
 4  & 4 & 8 & 12 & 16 & 20 & 24 & 28 & 32 & 36 & 40 & 44 & 48 & 52 & 56 & 60 & 64 & 68 \\\hline
-\end{tabu}
+\end{tabularx}
 \end{table}
 
 \chapter{Пример огромного листинга}
