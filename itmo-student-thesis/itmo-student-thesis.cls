@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2019/04/23 v1.3.rc2]
+\ProvidesClass{itmo-student-thesis}[2019/05/04 v1.3.rc2.1]
 
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -549,13 +549,10 @@
 
 \newcommand{\specialization}[1]{\newcommand{\thespecialization}{#1}}
 
-\newcommand{\thechair}{компьютерных технологий}
-\newcommand{\chair}[1]{\renewcommand{\thechair}{#1}}
-
-\newcommand{\thechairhead}{Парфенов В.Г.}
-\newcommand{\thechairheaddegree}{проф., д.т.н.}
-\newcommand{\chairhead}[2]{\renewcommand{\thechairhead}{#1}
-                           \renewcommand{\thechairheaddegree}{#2}}
+\newcommand{\theprogramhead}{Парфенов В.Г.}
+\newcommand{\theprogramheaddegree}{проф., д.т.н.}
+\newcommand{\programhead}[2]{\renewcommand{\theprogramhead}{#1}
+                             \renewcommand{\theprogramheaddegree}{#2}}
 
 \newcommand{\thecity}{Санкт-Петербург}
 \newcommand{\city}[1]{\renewcommand{\thecity}{#1}}
@@ -651,7 +648,7 @@
             & Квалификация: #1 \\
             & Руководитель: \thesupervisorshort, \thesupervisordegree~ \hfilll \signatureplace \\
             & \textbf{К защите допустить} \\
-            & Руководитель ОП \thechairhead, \thechairheaddegree~ \hfilll \signatureplace \\
+            & Руководитель ОП \theprogramhead, \theprogramheaddegree~ \hfilll \signatureplace \\
         \end{tabularx}\par}
         \begin{flushright}\unknowndate\end{flushright}
         \vspace{0cm plus 1fill minus 0cm}
@@ -681,7 +678,7 @@
         \noindent\begin{tabularx}{\textwidth}{Xl}
             & \hfilll \textbf{УТВЕРЖДАЮ} \hfilll\ \\
             & Руководитель ОП \\
-            & \thechairheaddegree\ \thechairhead\ \signatureplace \\
+            & \theprogramheaddegree\ \theprogramhead\ \signatureplace \\
             & \unknowndate \\
         \end{tabularx}
         \bigskip
