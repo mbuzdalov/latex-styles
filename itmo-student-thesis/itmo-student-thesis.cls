@@ -1,9 +1,9 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2019/05/28 v1.3.b4]
+\ProvidesClass{itmo-student-thesis}[2019/05/28 v1.3.b5]
 
 \LoadClass[14pt,a4paper]{extreport}
 
-\RequirePackage[russian,english]{babel}
+\RequirePackage[english,russian]{babel}
 \RequirePackage{csquotes}
 
 %% Формируем отступы
@@ -41,7 +41,7 @@
 %% в качестве флоатов.
 
 \RequirePackage{algorithm}
-\floatname{algorithm}{Листинг}
+\floatname{algorithm}{\@listingname}
 
 %% Не знаю, надо оно здесь или нет, но пусть будет.
 
@@ -78,17 +78,86 @@
 \AddEnumerateCounter{\Asbukx}{\@Asbukx}{М}
 \AddEnumerateCounter{\asbukx}{\@asbukx}{м}
 
-\renewcommand\labelenumi{\asbukx{enumi})}
-\renewcommand\theenumi{\asbukx{enumi}}
 \renewcommand\labelenumii{\arabic{enumii})}
 \renewcommand\theenumii{\arabic{enumii}}
 
-%% Рис. => Рисунок
-%% Оглавление => Содержание
+\newcommand*{\@tablecontinuation}[1]{Table~#1, continued}
+\newcommand*{\@chaptername}{CHAPTER}
+\newcommand*{\@introductionname}{INTRODUCTION}
+\newcommand*{\@conclusionname}{CONCLUSION}
+\newcommand*{\@appendixname}{APPENDIX}
+\newcommand*{\@appendixcounter}{\Alph{chapter}}
+\newcommand*{\@proofname}{Proof}
+\newcommand*{\@referencesname}{REFERENCES}
+\newcommand*{\@chapterconclusion}{Conclusions on Chapter}
+\newcommand*{\@listingname}{Listing}
+
+\newcommand*{\@theorem@theorem}{Theorem}
+\newcommand*{\@theorem@proposition}{Proposition}
+\newcommand*{\@theorem@corollary}{Corollary}
+\newcommand*{\@theorem@lemma}{Lemma}
+\newcommand*{\@theorem@question}{Question}
+\newcommand*{\@theorem@conjecture}{Conjecture}
+\newcommand*{\@theorem@assumption}{Assumption}
+\newcommand*{\@theorem@definition}{Definition}
+\newcommand*{\@theorem@notation}{Notation}
+\newcommand*{\@theorem@condition}{Condition}
+\newcommand*{\@theorem@example}{Example}
+
+\addto{\captionsenglish}{%
+\renewcommand*{\figurename}{Figure}%
+\renewcommand*{\contentsname}{Contents}%
+\renewcommand*{\labelenumi}{\alph{enumi})}%
+\renewcommand*{\theenumi}{\alph{enumi}}%
+\renewcommand*{\@tablecontinuation}[1]{Table~#1, continued}%
+\renewcommand*{\@chaptername}{CHAPTER}%
+\renewcommand*{\@introductionname}{INTRODUCTION}%
+\renewcommand*{\@conclusionname}{CONCLUSION}%
+\renewcommand*{\@appendixname}{APPENDIX}%
+\renewcommand*{\@appendixcounter}{\Alph{chapter}}%
+\renewcommand*{\@proofname}{Proof}%
+\renewcommand*{\@referencesname}{REFERENCES}%
+\renewcommand*{\@chapterconclusion}{Conclusions on Chapter}%
+\renewcommand*{\@listingname}{Listing}%
+\renewcommand*{\@theorem@theorem}{Theorem}%
+\renewcommand*{\@theorem@proposition}{Proposition}%
+\renewcommand*{\@theorem@corollary}{Corollary}%
+\renewcommand*{\@theorem@lemma}{Lemma}%
+\renewcommand*{\@theorem@question}{Question}%
+\renewcommand*{\@theorem@conjecture}{Conjecture}%
+\renewcommand*{\@theorem@assumption}{Assumption}%
+\renewcommand*{\@theorem@definition}{Definition}%
+\renewcommand*{\@theorem@notation}{Notation}%
+\renewcommand*{\@theorem@condition}{Condition}%
+\renewcommand*{\@theorem@example}{Example}%
+}
 
 \addto{\captionsrussian}{%
 \renewcommand*{\figurename}{Рисунок}%
 \renewcommand*{\contentsname}{Содержание}%
+\renewcommand*{\labelenumi}{\asbukx{enumi})}%
+\renewcommand*{\theenumi}{\asbukx{enumi}}%
+\renewcommand*{\@tablecontinuation}[1]{Продолжение таблицы~#1}%
+\renewcommand*{\@chaptername}{ГЛАВА}%
+\renewcommand*{\@introductionname}{ВВЕДЕНИЕ}%
+\renewcommand*{\@conclusionname}{ЗАКЛЮЧЕНИЕ}%
+\renewcommand*{\@appendixname}{ПРИЛОЖЕНИЕ}%
+\renewcommand*{\@appendixcounter}{\Asbukx{chapter}}%
+\renewcommand*{\@proofname}{Доказательство}%
+\renewcommand*{\@referencesname}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}%
+\renewcommand*{\@chapterconclusion}{Выводы по главе}%
+\renewcommand*{\@listingname}{Листинг}%
+\renewcommand*{\@theorem@theorem}{Теорема}%
+\renewcommand*{\@theorem@proposition}{Утверждение}%
+\renewcommand*{\@theorem@corollary}{Следствие}%
+\renewcommand*{\@theorem@lemma}{Лемма}%
+\renewcommand*{\@theorem@question}{Вопрос}%
+\renewcommand*{\@theorem@conjecture}{Гипотеза}%
+\renewcommand*{\@theorem@assumption}{Предположение}%
+\renewcommand*{\@theorem@definition}{Определение}%
+\renewcommand*{\@theorem@notation}{Обозначение}%
+\renewcommand*{\@theorem@condition}{Условие}%
+\renewcommand*{\@theorem@example}{Пример}%
 }
 
 %% Многостраничные таблицы в гостовском формате. Аргументы:
@@ -101,7 +170,7 @@
 \newenvironment{nirtable}[5]{
 \begin{longtable}{#3}\caption{#2}\label{#1}
 \\\hline #4 \\\hline \endfirsthead
-\multicolumn{#5}{r}{\normalsizeПродолжение таблицы \thetable{}} \\\hline #4 \endhead
+\multicolumn{#5}{r}{\normalsize\@tablecontinuation{\thetable}} \\\hline #4 \endhead
 }{\end{longtable}}
                     
 %% Библиография по ГОСТу. Используем только бибер.
@@ -213,19 +282,20 @@
 
 \newtheoremstyle{theoremstyle}{0pt}{0pt}{}{1cm}{\itshape}{.}{.5em}{}
 \theoremstyle{theoremstyle}
-\newtheorem{theorem}{Теорема}
-\newtheorem{prop}[theorem]{Утверждение}
-\newtheorem{corollary}[theorem]{Следствие}
-\newtheorem{lemma}[theorem]{Лемма}
-\newtheorem{question}[theorem]{Вопрос}
-\newtheorem{conjecture}[theorem]{Гипотеза}
-\newtheorem{assumption}[theorem]{Предположение}
-\newtheorem{definition}[theorem]{Определение}
-\newtheorem{notation}[theorem]{Обозначение}
-\newtheorem{condition}[theorem]{Условие}
-\newtheorem{example}[theorem]{Пример}
 
-\renewcommand{\proof}[1][]{\textit{Доказательство\ifthenelse{\equal{#1}{}}{}{ (#1)}}.~}
+\newtheorem{theorem}{\@theorem@theorem}
+\newtheorem{prop}[theorem]{\@theorem@proposition}
+\newtheorem{corollary}[theorem]{\@theorem@corollary}
+\newtheorem{lemma}[theorem]{\@theorem@lemma}
+\newtheorem{question}[theorem]{\@theorem@question}
+\newtheorem{conjecture}[theorem]{\@theorem@conjecture}
+\newtheorem{assumption}[theorem]{\@theorem@assumption}
+\newtheorem{definition}[theorem]{\@theorem@definition}
+\newtheorem{notation}[theorem]{\@theorem@notation}
+\newtheorem{condition}[theorem]{\@theorem@condition}
+\newtheorem{example}[theorem]{\@theorem@example}
+
+\renewcommand{\proof}[1][]{\textit{\@proofname\ifthenelse{\equal{#1}{}}{}{ (#1)}}.~}
 
 %% Листинги, по умолчанию - Java
 
@@ -314,8 +384,8 @@
 %% Переопределение библиографии. Может, можно и проще, но сделал так.
 
 \defbibheading{trueHeading}{%
-\chapter*{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}%
-\addcontentsline{toc}{chapter}{СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ}}
+\chapter*{\@referencesname}%
+\addcontentsline{toc}{chapter}{\@referencesname}}
 
 \newcommand{\printmainbibliography}{
 \printbibliography[heading=trueHeading]%
@@ -418,7 +488,7 @@
 \RequirePackage{titletoc}
 
 \setcounter{secnumdepth}{3}
-\titleformat{\chapter}[block]{\normalsize\bfseries\center}{ГЛАВА~\thechapter.~}%
+\titleformat{\chapter}[block]{\normalsize\bfseries\center}{\@chaptername~\thechapter.~}%
 {0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}\thispagestyle{\TheOnlyTruePageStyle}]
 \titlespacing{\chapter}{0pt}{-30pt}{0pt}
 \titleformat{\section}[block]{\normalsize\bfseries\center}{\thesection.~}{0pt}{}
@@ -439,13 +509,13 @@
 \counterwithin{algorithm}{chapter}
 \counterwithin{lstlisting}{chapter}
 %%
-\renewcommand{\thechapter}{\Asbukx{chapter}}
+\renewcommand{\thechapter}{\@appendixcounter}
 \titleformat{\chapter}[block]{\normalsize\bfseries\center\stepcounter{appendix}}%
-    {ПРИЛОЖЕНИЕ~\thechapter.~}{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}\thispagestyle{\TheOnlyTruePageStyle}]
+    {\@appendixname~\thechapter.~}{0pt}{\begin{MakeUppercase}}[\end{MakeUppercase}\thispagestyle{\TheOnlyTruePageStyle}]
 \titlecontents{chapter}
     [\appendixPrefix]
     {}
-    {\contentslabel[ПРИЛОЖЕНИЕ \thecontentslabel.]{\the\appendixPrefix}}
+    {\contentslabel[\@appendixname~\thecontentslabel.]{\the\appendixPrefix}}
     {\hspace*{-\the\appendixPrefix}}
     {\titlerule*[0.5pc]{.}\contentspage}
 }
@@ -462,7 +532,7 @@
 \AtBeginDocument{
     %% Длина "приложения" нормально определяется только теперь
     \newlength{\appendixPrefix}
-    \settowidth{\appendixPrefix}{ПРИЛОЖЕНИЕ Ж.}
+    \settowidth{\appendixPrefix}{\@appendixname~M.~}
 }
 
 \newlength{\chapterPrefix}
@@ -497,7 +567,7 @@
 
 %% Выводы по главе - удобная команда
 
-\newcommand{\chapterconclusion}{\section*{Выводы по главе~\thechapter}\addcontentsline{toc}{section}{Выводы по главе~\thechapter}}
+\newcommand{\chapterconclusion}{\section*{\@chapterconclusion~\thechapter}\addcontentsline{toc}{section}{\@chapterconclusion~\thechapter}}
 
 %% Обратная совместимость со старым стилем
 
@@ -508,11 +578,11 @@
 %% ...отдельным пунктом - введение и заключение
 
 \newcommand{\startprefacepage}{%
-\chapter*{ВВЕДЕНИЕ}\label{chapter:introduction}%
-\addcontentsline{toc}{chapter}{ВВЕДЕНИЕ}}
+\chapter*{\@introductionname}\label{chapter:introduction}%
+\addcontentsline{toc}{chapter}{\@introductionname}}
 \newcommand{\startconclusionpage}{%
-\chapter*{ЗАКЛЮЧЕНИЕ}\label{chapter:conclusion}%
-\addcontentsline{toc}{chapter}{ЗАКЛЮЧЕНИЕ}}
+\chapter*{\@conclusionname}\label{chapter:conclusion}%
+\addcontentsline{toc}{chapter}{\@conclusionname}}
 
 %% Титульная страница
 
@@ -806,7 +876,6 @@
 \newif\if@shouldusexelatex
 \newif\if@shouldmakespecification
 \newif\if@shouldmakeannotation
-\newif\if@shouldsourcesbyhand
 
 \DeclareOption{times}{\@shouldusexelatextrue}
 \DeclareOption{specification}{\@shouldmakespecificationtrue}
