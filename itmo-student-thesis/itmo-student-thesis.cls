@@ -1,9 +1,38 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2019/05/28 v1.3.b5]
-
+\ProvidesClass{itmo-student-thesis}[2019/05/28 v1.3.b6]
+\RequirePackage{xkvltxp}
 \LoadClass[14pt,a4paper]{extreport}
 
-\RequirePackage[english,russian]{babel}
+%% Обработка опций пакета
+
+\newif\if@shouldusexelatex
+\newif\if@shouldmakespecification
+\newif\if@shouldmakeannotation
+
+\newcommand{\@babeloptions}{english,russian}
+
+\RequirePackage{xkeyval}
+
+\DeclareOptionX{times}{\@shouldusexelatextrue}
+\DeclareOptionX{specification}{\@shouldmakespecificationtrue}
+\DeclareOptionX{annotation}{\@shouldmakeannotationtrue}
+\DeclareOptionX{languages}{\renewcommand{\@babeloptions}{#1}}
+
+\ProcessOptionsX\relax
+
+\if@shouldusexelatex
+    \RequirePackage{fontspec}
+    \defaultfontfeatures{Ligatures={TeX},Renderer=Basic}
+    \setmainfont[Ligatures={TeX,Historic}]{Times New Roman}
+    \setsansfont{Arial}
+    \setmonofont{Courier New}
+\else
+    \RequirePackage{paratype}
+\fi
+
+%% Конфигурируем babel
+
+\RequirePackage[\@babeloptions]{babel}
 \RequirePackage{csquotes}
 
 %% Формируем отступы
@@ -870,25 +899,3 @@
 \DeclareGraphicsRule{.19}{mps}{*}{}
 \DeclareGraphicsRule{.20}{mps}{*}{}
 \fi
-
-%% Обработка опций пакета
-
-\newif\if@shouldusexelatex
-\newif\if@shouldmakespecification
-\newif\if@shouldmakeannotation
-
-\DeclareOption{times}{\@shouldusexelatextrue}
-\DeclareOption{specification}{\@shouldmakespecificationtrue}
-\DeclareOption{annotation}{\@shouldmakeannotationtrue}
-
-\ProcessOptions
-
-\if@shouldusexelatex
-    \RequirePackage{fontspec}
-    \defaultfontfeatures{Ligatures={TeX},Renderer=Basic}
-    \setmainfont[Ligatures={TeX,Historic}]{Times New Roman}
-    \setsansfont{Arial}
-    \setmonofont{Courier New}
-\else
-    \RequirePackage{paratype}
-\fi	
