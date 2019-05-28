@@ -1,16 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2019/05/04 v1.3.rc2.1]
+\ProvidesClass{itmo-student-thesis}[2019/05/28 v1.3.b4]
 
 \LoadClass[14pt,a4paper]{extreport}
 
-%% Russian language in UTF-8
-
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T2A]{fontenc}
-\RequirePackage[english,german,russian]{babel}
+\RequirePackage[russian,english]{babel}
 \RequirePackage{csquotes}
-
-%% Теперь можно писать по-русски.
 
 %% Формируем отступы
 
@@ -602,17 +596,14 @@
 
 %% Контентные команды пополнения списков
 
+%%% Добавить консультанта: (Фамилия И.О.) (звание, степень)
 \newbool{hasconsultants}
 \newcommand{\thelistofconsultants}{}
-\newcounter{numofstages}
-
-%%% Добавить консультанта: (Фамилия И.О.) (звание, степень)
 \newcommand{\addconsultant}[2]{\booltrue{hasconsultants}\appto{\thelistofconsultants}{\item #1, #2 \hfill\signatureplace\par\bigskip}}
 
+%%% Добавить пакет программ: (Название) (Ссылки на разделы)
 \newbool{hasadvancedsoftware}
 \newcommand{\thelistofadvancedsoftware}{}
-
-%%% Добавить пакет программ: (Название) (Ссылки на разделы)
 \newcommand{\addadvancedsoftware}[2]{\booltrue{hasadvancedsoftware}\appto{\thelistofadvancedsoftware}{#1 & #2 \\\hline}}
 
 %% Создание титульной страницы, задания и аннотации
