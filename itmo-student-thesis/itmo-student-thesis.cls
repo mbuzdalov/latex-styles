@@ -34,6 +34,10 @@
 
 \RequirePackage[\@babeloptions]{babel}
 \RequirePackage{csquotes}
+\RequirePackage{iflang}
+
+\providecommand{\IfLanguageFamilyEnglish}[2]{\iflanguage{english}{#1}{#2}}
+\newcommand{\@iflfe}[2]{\IfLanguageFamilyEnglish{#1}{#2}}
 
 %% Формируем отступы
 
@@ -627,71 +631,158 @@
 
 %% Контентные команды со значениями по умолчанию
 
-\newcommand{\theuniversity}{{\small\bfseries Министерство науки и высшего образования Российской Федерации\par
+%%% \university
+
+\newcommand{\theuniversity@ru}{{\small\bfseries Министерство науки и высшего образования Российской Федерации\par
 \MakeUppercase{\scriptsize федеральное государственное автономное образовательное учреждение высшего образования}\par
 \begin{singlespace}\MakeUppercase{<<Санкт-Петербургский национальный исследовательский университет информационных технологий,}\par\MakeUppercase{механики и оптики>>}\end{singlespace}}}
-\newcommand{\university}[1]{\renewcommand{\theuniversity}{#1}}
 
-\newcommand{\thedegreehost}{Университет ИТМО}
-\newcommand{\degreehost}[1]{\renewcommand{\thedegreehost}{#1}}
+\newcommand{\theuniversity@en}{{\small\bfseries Ministry of Science and Higher Education\par
+\MakeUppercase{\scriptsize federal state autonomous educational institution of higher education}\par
+\begin{singlespace}\MakeUppercase{``Saint Petersburg National Research University of Information Technologies,}\par\MakeUppercase{Mechanics and Optics''}\end{singlespace}}}
 
-\newcommand{\thefaculty}{ИТиП}
-\newcommand{\faculty}[1]{\renewcommand{\thefaculty}{#1}}
+\newcommand{\theuniversity}{\@iflfe{\theuniversity@en}{\theuniversity@ru}}
+\newcommand{\university}[1]{\@iflfe{\renewcommand{\theuniversity@en}{#1}}{\renewcommand{\theuniversity@ru}{#1}}}
 
-\newcommand{\specialty}[1]{\newcommand{\thespecialty}{#1}}
+%%% \degreehost
 
-\newcommand{\specialization}[1]{\newcommand{\thespecialization}{#1}}
+\newcommand{\thedegreehost@ru}{Университет ИТМО}
+\newcommand{\thedegreehost@en}{ITMO University}
+\newcommand{\thedegreehost}{\@iflfe{\thedegreehost@en}{\thedegreehost@ru}}
+\newcommand{\degreehost}[1]{\@iflfe{\renewcommand{\thedegreehost@en}{#1}}{\renewcommand{\thedegreehost@ru}{#1}}}
 
-\newcommand{\theprogramhead}{Парфенов В.Г.}
-\newcommand{\theprogramheaddegree}{проф., д.т.н.}
-\newcommand{\programhead}[2]{\renewcommand{\theprogramhead}{#1}
-                             \renewcommand{\theprogramheaddegree}{#2}}
+%%% \faculty
 
-\newcommand{\thecity}{Санкт-Петербург}
-\newcommand{\city}[1]{\renewcommand{\thecity}{#1}}
+\newcommand{\thefaculty@ru}{ИТиП}
+\newcommand{\thefaculty@en}{IT\&P}
+\newcommand{\thefaculty}{\@iflfe{\thefaculty@en}{\thefaculty@ru}}
+\newcommand{\faculty}[1]{\@iflfe{\renewcommand{\thefaculty@en}{#1}}{\renewcommand{\thefaculty@ru}{#1}}}
+
+%%% \specialty
+
+\newcommand{\specialty}[1]{\@iflfe{\newcommand{\thespecialty@en}{#1}}{\newcommand{\thespecialty@ru}{#1}}}
+\newcommand{\thespecialty}{\@iflfe{\thespecialty@en}{\thespecialty@ru}}
+
+%%% \specialization
+
+\newcommand{\specialization}[1]{\@iflfe{\newcommand{\thespecialization@en}{#1}}{\newcommand{\thespecialization@ru}{#1}}}
+\newcommand{\thespecialization}{\@iflfe{\thespecialization@en}{\thespecialization@ru}}
+
+%%% \programhead
+
+\newcommand{\theprogramhead@ru}{Парфенов В.Г.}
+\newcommand{\theprogramhead@en}{Parfenov V.G.}
+\newcommand{\theprogramhead}{\@iflfe{\theprogramhead@en}{\theprogramhead@ru}}
+
+\newcommand{\theprogramheaddegree@ru}{проф., д.т.н.}
+\newcommand{\theprogramheaddegree@en}{prof., doct.}
+\newcommand{\theprogramheaddegree}{\@iflfe{\theprogramheaddegree@en}{\theprogramheaddegree@ru}}
+
+\newcommand{\programhead}[2]{\@iflfe{\renewcommand{\theprogramhead@en}{#1}\renewcommand{\theprogramheaddegree@en}{#2}
+                                                    }{\renewcommand{\theprogramhead@ru}{#1}\renewcommand{\theprogramheaddegree@ru}{#2}}}
+
+%%% \city
+
+\newcommand{\thecity@ru}{Санкт-Петербург}
+\newcommand{\thecity@en}{Санкт-Петербург}
+\newcommand{\thecity}{\@iflfe{\thecity@en}{\thecity@ru}}
+\newcommand{\city}[1]{\@iflfe{\renewcommand{\thecity@en}{#1}}{\renewcommand{\thecity@ru}{#1}}}
 
 %%% Перечень графического материала
-\newcommand{\theplannedgraphics}{Графические материалы и чертежи работой не предусмотрены}
-\newcommand{\plannedgraphics}[1]{\renewcommand{\theplannedgraphics}{#1}}
+
+\newcommand{\theplannedgraphics@ru}{Графические материалы и чертежи работой не предусмотрены}
+\newcommand{\theplannedgraphics@en}{Supplementary materials and blueprints not required}
+\newcommand{\theplannedgraphics}{\@iflfe{\theplannedgraphics@en}{\theplannedgraphics@ru}}
+\newcommand{\plannedgraphics}[1]{\@iflfe{\renewcommand{\theplannedgraphics@en}{#1}}{\renewcommand{\theplannedgraphics@ru}{#1}}}
 
 %%% Даты
+\newcommand{\@localizeddate@ru}[3]{<<#1>>~#2~#3~г.}
+\newcommand{\@localizeddate@en}[3]{``#1''~#2~#3}
+\newcommand{\@localizeddate}[3]{\@iflfe{\@localizeddate@en{#1}{#2}{#3}}{\@localizeddate@ru{#1}{#2}{#3}}}
+
 \newcommand{\thestartdate}{\unknowndate}
-\newcommand{\startdate}[3]{\renewcommand{\thestartdate}{<<#1>>~#2~#3~г.}}
+\newcommand{\startdate}[3]{\renewcommand{\thestartdate}{\@localizeddate{#1}{#2}{#3}}}
 \newcommand{\thefinishdate}{\unknowndate}
-\newcommand{\finishdate}[3]{\renewcommand{\thefinishdate}{<<#1>>~#2~#3~г.}}
+\newcommand{\finishdate}[3]{\renewcommand{\thefinishdate}{\@localizeddate{#1}{#2}{#3}}}
 \newcommand{\thedefencedate}{\unknowndate}
-\newcommand{\defencedate}[3]{\renewcommand{\thedefencedate}{<<#1>>~#2~#3~г.}}
+\newcommand{\defencedate}[3]{\renewcommand{\thedefencedate}{\@localizeddate{#1}{#2}{#3}}}
 
 %% Контентные команды без значений по умолчанию
 
 \newcommand{\studygroup}[1]{\newcommand{\thestudygroup}{#1}}
-\renewcommand{\title}[1]{\newcommand{\thetitle}{#1}}
-\renewcommand{\author}[2]{\providecommand{\theauthor}{~}  % some distributions have it, some not
-                          \renewcommand{\theauthor}{#1}
-                          \newcommand{\theauthorshort}{#2}}
-\newcommand{\supervisor}[4]{\newcommand{\thesupervisor}{#1}
-                            \newcommand{\thesupervisorshort}{#2}
-                            \newcommand{\thesupervisordegree}{#3}
-                            \newcommand{\thesupervisorwork}{#4}}
+
+%%% \title
+
+\newcommand{\thetitle}{\@iflfe{\thetitle@en}{\thetitle@ru}}
+\renewcommand{\title}[1]{\@iflfe{\newcommand{\thetitle@en}{#1}}{\newcommand{\thetitle@ru}{#1}}}
+
+%%% \author
+
+\providecommand{\theauthor}{~} % some distributions have it, some not
+\renewcommand{\theauthor}{\@iflfe{\theauthor@en}{\theauthor@ru}}
+\newcommand{\theauthorshort}{\@iflfe{\theauthorshort@en}{\theauthorshort@ru}}
+
+\renewcommand{\author}[2]{\@iflfe{\newcommand{\theauthor@en}{#1}\newcommand{\theauthorshort@en}{#2}}
+                                 {\newcommand{\theauthor@ru}{#1}\newcommand{\theauthorshort@ru}{#2}}}
+
+%%% \supervisor
+
+\newcommand{\thesupervisor}{\@iflfe{\thesupervisor@en}{\thesupervisor@ru}}
+\newcommand{\thesupervisorshort}{\@iflfe{\thesupervisorshort@en}{\thesupervisorshort@ru}}
+\newcommand{\thesupervisordegree}{\@iflfe{\thesupervisordegree@en}{\thesupervisordegree@ru}}
+\newcommand{\thesupervisorwork}{\@iflfe{\thesupervisorwork@en}{\thesupervisorwork@ru}}
+
+\newcommand{\supervisor}[4]{\@iflfe{\newcommand{\thesupervisor@en}{#1}\newcommand{\thesupervisorshort@en}{#2}\newcommand{\thesupervisordegree@en}{#3}\newcommand{\thesupervisorwork@en}{#4}}
+                                                    {\newcommand{\thesupervisor@ru}{#1}\newcommand{\thesupervisorshort@ru}{#2}\newcommand{\thesupervisordegree@ru}{#3}\newcommand{\thesupervisorwork@ru}{#4}}}
+
+%%% \secretary
+
+\newcommand{\thesecretary}{\@iflfe{\thesecretary@en}{\thesecretary@ru}}
+\newcommand{\secretary}[1]{\@iflfe{\newcommand{\thesecretary@en}{#1}}{\newcommand{\thesecretary@ru}{#1}}}
+
+%%% \publishyear
+
 \newcommand{\publishyear}[1]{\newcommand{\theyear}{#1}}
-\newcommand{\secretary}[1]{\newcommand{\thesecretary}{#1}}
 
 %%% Техническое задание и исходные данные к работе
-\newcommand{\technicalspec}[1]{\newcommand{\thetechnicalspec}{#1}}
+
+\newcommand{\thetechnicalspec}{\@iflfe{\thetechnicalspec@en}{\thetechnicalspec@ru}}
+\newcommand{\technicalspec}[1]{\@iflfe{\newcommand{\thetechnicalspec@en}{#1}}{\newcommand{\thetechnicalspec@ru}{#1}}}
+
 %%% Содержание работы
-\newcommand{\plannedcontents}[1]{\newcommand{\theplannedcontents}{#1}}
+
+\newcommand{\theplannedcontents}{\@iflfe{\theplannedcontents@en}{\theplannedcontents@ru}}
+\newcommand{\plannedcontents}[1]{\@iflfe{\newcommand{\theplannedcontents@en}{#1}}{\newcommand{\theplannedcontents@ru}{#1}}}
+
 %%% Исходные материалы и пособия
-\newcommand{\plannedsources}[1]{\newcommand{\theplannedsources}{#1}}
+
+\newcommand{\theplannedsources}{\@iflfe{\theplannedsources@en}{\theplannedsources@ru}}
+\newcommand{\plannedsources}[1]{\@iflfe{\newcommand{\theplannedsources@en}{#1}}{\newcommand{\theplannedsources@ru}{#1}}}
+
 %%% Цель исследования
-\newcommand{\researchaim}[1]{\newcommand{\theresearchaim}{#1}}
+
+\newcommand{\theresearchaim}{\@iflfe{\theresearchaim@en}{\theresearchaim@ru}}
+\newcommand{\researchaim}[1]{\@iflfe{\newcommand{\theresearchaim@en}{#1}}{\newcommand{\theresearchaim@ru}{#1}}}
+
 %%% Задачи, решаемые в ВКР
-\newcommand{\researchtargets}[1]{\newcommand{\theresearchtargets}{#1}}
+
+\newcommand{\theresearchtargets}{\@iflfe{\theresearchtargets@en}{\theresearchtargets@ru}}
+\newcommand{\researchtargets}[1]{\@iflfe{\newcommand{\theresearchtargets@en}{#1}}{\newcommand{\theresearchtargets@ru}{#1}}}
+
 %%% Краткая характеристика полученных результатов
-\newcommand{\researchsummary}[1]{\newcommand{\theresearchsummary}{#1}}
+
+\newcommand{\theresearchsummary}{\@iflfe{\theresearchsummary@en}{\theresearchsummary@ru}}
+\newcommand{\researchsummary}[1]{\@iflfe{\newcommand{\theresearchsummary@en}{#1}}{\newcommand{\theresearchsummary@ru}{#1}}}
+
 %%% Гранты, полученные при выполнении работы
-\newcommand{\researchfunding}[1]{\newcommand{\theresearchfunding}{#1}}
+
+\newcommand{\theresearchfunding}{\@iflfe{\theresearchfunding@en}{\theresearchfunding@ru}}
+\newcommand{\researchfunding}[1]{\@iflfe{\newcommand{\theresearchfunding@en}{#1}}{\newcommand{\theresearchfunding@ru}{#1}}}
+
 %%% Наличие публикаций и выступлений на конференциях
-\newcommand{\researchpublications}[1]{\newcommand{\theresearchpublications}{#1}}
+
+\newcommand{\theresearchpublications}{\@iflfe{\theresearchpublications@en}{\theresearchpublications@ru}}
+\newcommand{\researchpublications}[1]{\@iflfe{\newcommand{\theresearchpublications@en}{#1}}{\newcommand{\theresearchpublications@ru}{#1}}}
 
 %% Контентные команды пополнения списков
 
@@ -710,12 +801,12 @@
 %%% Параметр: Бакалавр/Магистр
 \renewcommand{\maketitle}[1]{
     \ifstrequal{#1}{Магистр}{
-        \providecommand{\thespecialization}{Технологии разработки программного обеспечения}
-        \providecommand{\thespecialty}{01.04.02~Прикладная математика и информатика}
+        \providecommand{\thespecialization@ru}{Технологии разработки программного обеспечения}
+        \providecommand{\thespecialty@ru}{01.04.02~Прикладная математика и информатика}
     }{
         \ifstrequal{#1}{Бакалавр}{
-            \providecommand{\thespecialization}{Математические модели и алгоритмы в разработке программного обеспечения}
-            \providecommand{\thespecialty}{01.03.02~Прикладная математика и информатика}
+            \providecommand{\thespecialization@ru}{Математические модели и алгоритмы в разработке программного обеспечения}
+            \providecommand{\thespecialty@ru}{01.03.02~Прикладная математика и информатика}
         }{
             \ClassError{Unknown maketitle argument: #1, expected Магистр or Бакалавр}
         }
