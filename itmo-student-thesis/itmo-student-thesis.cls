@@ -684,7 +684,7 @@
 %%% \city
 
 \newcommand{\thecity@ru}{Санкт-Петербург}
-\newcommand{\thecity@en}{Санкт-Петербург}
+\newcommand{\thecity@en}{Saint Petersburg}
 \newcommand{\thecity}{\@iflfe{\thecity@en}{\thecity@ru}}
 \newcommand{\city}[1]{\@iflfe{\renewcommand{\thecity@en}{#1}}{\renewcommand{\thecity@ru}{#1}}}
 
@@ -798,44 +798,63 @@
 
 %% Создание титульной страницы, задания и аннотации
 
-%%% Параметр: Бакалавр/Магистр
-\renewcommand{\maketitle}[1]{
-    \ifstrequal{#1}{Магистр}{
-        \providecommand{\thespecialization@ru}{Технологии разработки программного обеспечения}
-        \providecommand{\thespecialty@ru}{01.04.02~Прикладная математика и информатика}
-    }{
-        \ifstrequal{#1}{Бакалавр}{
-            \providecommand{\thespecialization@ru}{Математические модели и алгоритмы в разработке программного обеспечения}
-            \providecommand{\thespecialty@ru}{01.03.02~Прикладная математика и информатика}
-        }{
-            \ClassError{Unknown maketitle argument: #1, expected Магистр or Бакалавр}
-        }
-    }
+\newcommand{\@strings@ThesisName@en}{Graduation Thesis}
+\newcommand{\@strings@ThesisName@ru}{Выпускная квалификационная работа}
+\newcommand{\@strings@ThesisName}{\@iflfe{\@strings@ThesisName@en}{\@strings@ThesisName@ru}}
 
-	\pagenumbering{gobble}
-    \begin{titlepage}
-        \banhyphens
-        \begin{center}\theuniversity\end{center}
-        \vspace{0cm plus 0.66fill minus 0cm}
-        {\centering\bfseries\MakeUppercase{Выпускная квалификационная работа}\par}
-        \vspace{0cm plus 0.66fill minus 0cm}
-        {\centering\MakeUppercase{\thetitle}\par}
-        \vspace{0cm plus 1fill minus 0cm}
-        {\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.5}
-         \noindent\begin{tabularx}{\textwidth}{Xl}
-            & Автор: \theauthor \hfilll \signatureplace \\
-            & Направление подготовки:\;
-                \begin{minipage}[t]{0.4\textwidth}\begin{flushleft}\thespecialty\end{flushleft}\end{minipage} \\
-            & Квалификация: #1 \\
-            & Руководитель: \thesupervisorshort, \thesupervisordegree~ \hfilll \signatureplace \\
-            & \textbf{К защите допустить} \\
-            & Руководитель ОП \theprogramhead, \theprogramheaddegree~ \hfilll \signatureplace \\
-        \end{tabularx}\par}
-        \begin{flushright}\unknowndate\end{flushright}
-        \vspace{0cm plus 1fill minus 0cm}
-        \begin{center}\thecity, \theyear~г.\end{center}
-    \end{titlepage}
-    \begin{titlepage}
+\newcommand{\@strings@Author@en}{Author}
+\newcommand{\@strings@Author@ru}{Автор}
+\newcommand{\@strings@Author}{\@iflfe{\@strings@Author@en}{\@strings@Author@ru}}
+
+\newcommand{\@strings@SubjectArea@en}{Subject area}
+\newcommand{\@strings@SubjectArea@ru}{Направление подготовки}
+\newcommand{\@strings@SubjectArea}{\@iflfe{\@strings@SubjectArea@en}{\@strings@SubjectArea@ru}}
+
+\newcommand{\@strings@DegreeLevel@en}{Degree level}
+\newcommand{\@strings@DegreeLevel@ru}{Квалификация}
+\newcommand{\@strings@DegreeLevel}{\@iflfe{\@strings@DegreeLevel@en}{\@strings@DegreeLevel@ru}}
+
+\newcommand{\@strings@DegreeName}{\@iflfe{\@strings@DegreeName@en}{\@strings@DegreeName@ru}}
+
+\newcommand{\@strings@ThesisSupervisor@en}{Thesis supervisor}
+\newcommand{\@strings@ThesisSupervisor@ru}{Руководитель}
+\newcommand{\@strings@ThesisSupervisor}{\@iflfe{\@strings@ThesisSupervisor@en}{\@strings@ThesisSupervisor@ru}}
+
+\newcommand{\@strings@ApprovedForDefense@en}{Approved for defense}
+\newcommand{\@strings@ApprovedForDefense@ru}{К защите допустить}
+\newcommand{\@strings@ApprovedForDefense}{\@iflfe{\@strings@ApprovedForDefense@en}{\@strings@ApprovedForDefense@ru}}
+
+\newcommand{\@strings@HeadOfProgram@en}{Head of program}
+\newcommand{\@strings@HeadOfProgram@ru}{Руководитель ОП}
+\newcommand{\@strings@HeadOfProgram}{\@iflfe{\@strings@HeadOfProgram@en}{\@strings@HeadOfProgram@ru}}
+
+\newcommand{\@strings@yearend@en}{}
+\newcommand{\@strings@yearend@ru}{~г.}
+\newcommand{\@strings@yearend}{\@iflfe{\@strings@yearend@en}{\@strings@yearend@ru}}
+
+%%% Локализуемый шаблон титульной страницы
+\newcommand{\typeoutTitlePage}{\begin{titlepage}
+    \banhyphens
+    \begin{center}\theuniversity\end{center}
+    \vspace{0cm plus 0.66fill minus 0cm}
+    {\centering\bfseries\MakeUppercase{\@strings@ThesisName}\par}
+    \vspace{0cm plus 0.66fill minus 0cm}
+    {\centering\MakeUppercase{\thetitle}\par}
+    \vspace{0cm plus 1fill minus 0cm}
+    {\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.5}
+    \noindent\begin{tabularx}{\textwidth}{Xl}
+    & \@strings@Author: \theauthor \hfilll \signatureplace \\
+    & \@strings@SubjectArea:\;
+       \begin{minipage}[t]{0.4\textwidth}\begin{flushleft}\thespecialty\end{flushleft}\end{minipage} \\
+    & \@strings@DegreeLevel: \@strings@DegreeName \\
+    & \@strings@ThesisSupervisor: \thesupervisorshort, \thesupervisordegree~ \hfilll \signatureplace \\
+    & \textbf{\@strings@ApprovedForDefense} \\
+    & \@strings@HeadOfProgram\ \theprogramhead, \theprogramheaddegree~ \hfilll \signatureplace \\
+    \end{tabularx}\par}
+    \begin{flushright}\unknowndate\end{flushright}
+    \vspace{0cm plus 1fill minus 0cm}
+    \begin{center}\thecity, \theyear\@strings@yearend\end{center}
+\end{titlepage}\begin{titlepage}
         \banhyphens
         \noindent Студент~\theauthorshort\;\hfilll Группа~\thestudygroup\; Факультет~\thefaculty\par\bigskip\par
         \noindent Направленность (профиль), специализация\par
@@ -851,7 +870,28 @@
         \noindent Секретарь ГЭК~\thesecretary\hfill\signatureplace\par\bigskip\par
         \noindent Листов хранения \infiniteuhspace\par\bigskip\par
         \noindent Демонстрационных материалов/Чертежей хранения \infiniteuhspace\par\bigskip\par
-    \end{titlepage}
+\end{titlepage}}
+
+%%% Параметр: Бакалавр/Магистр
+\renewcommand{\maketitle}[1]{
+    \ifstrequal{#1}{Магистр}{
+        \providecommand{\thespecialization@ru}{Технологии разработки программного обеспечения}
+        \providecommand{\thespecialty@ru}{01.04.02~Прикладная математика и информатика}
+        \providecommand{\@strings@DegreeName@ru}{Магистр}
+        \providecommand{\@strings@DegreeName@en}{Master}
+    }{
+        \ifstrequal{#1}{Бакалавр}{
+            \providecommand{\thespecialization@ru}{Математические модели и алгоритмы в разработке программного обеспечения}
+            \providecommand{\thespecialty@ru}{01.03.02~Прикладная математика и информатика}
+            \providecommand{\@strings@DegreeName@ru}{Бакалавр}
+            \providecommand{\@strings@DegreeName@en}{Bachelor}
+        }{
+            \ClassError{Unknown maketitle argument: #1, expected Магистр or Бакалавр}
+        }
+    }
+
+	\pagenumbering{gobble}
+	\typeoutTitlePage
     \if@shouldmakespecification
     \begin{titlepage}
     \begin{center}\theuniversity\end{center}
