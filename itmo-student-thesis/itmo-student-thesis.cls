@@ -807,6 +807,10 @@
 \newcommand{\@strings@ThesisName@ru}{Выпускная квалификационная работа}
 \newcommand{\@strings@ThesisName}{\@iflfe{\@strings@ThesisName@en}{\@strings@ThesisName@ru}}
 
+\newcommand{\@strings@ThesisTitle@en}{Title of thesis}
+\newcommand{\@strings@ThesisTitle@ru}{Наименование темы}
+\newcommand{\@strings@ThesisTitle}{\@iflfe{\@strings@ThesisTitle@en}{\@strings@ThesisTitle@ru}}
+
 \newcommand{\@strings@Author@en}{Author}
 \newcommand{\@strings@Author@ru}{Автор}
 \newcommand{\@strings@Author}{\@iflfe{\@strings@Author@en}{\@strings@Author@ru}}
@@ -814,6 +818,14 @@
 \newcommand{\@strings@SubjectArea@en}{Subject area}
 \newcommand{\@strings@SubjectArea@ru}{Направление подготовки}
 \newcommand{\@strings@SubjectArea}{\@iflfe{\@strings@SubjectArea@en}{\@strings@SubjectArea@ru}}
+
+\newcommand{\@strings@SubjectAreaBig@en}{Subject area}
+\newcommand{\@strings@SubjectAreaBig@ru}{Направление подготовки (специальность)}
+\newcommand{\@strings@SubjectAreaBig}{\@iflfe{\@strings@SubjectAreaBig@en}{\@strings@SubjectAreaBig@ru}}
+
+\newcommand{\@strings@ProgramMajor@en}{Program/Major}
+\newcommand{\@strings@ProgramMajor@ru}{Направленность (профиль)}
+\newcommand{\@strings@ProgramMajor}{\@iflfe{\@strings@ProgramMajor@en}{\@strings@ProgramMajor@ru}}
 
 \newcommand{\@strings@DegreeLevel@en}{Degree level}
 \newcommand{\@strings@DegreeLevel@ru}{Квалификация}
@@ -825,11 +837,19 @@
 \newcommand{\@strings@ThesisSupervisor@ru}{Руководитель}
 \newcommand{\@strings@ThesisSupervisor}{\@iflfe{\@strings@ThesisSupervisor@en}{\@strings@ThesisSupervisor@ru}}
 
+\newcommand{\@strings@ThesisSupervisorLong@en}{Thesis supervisor}
+\newcommand{\@strings@ThesisSupervisorLong@ru}{Руководитель ВКР}
+\newcommand{\@strings@ThesisSupervisorLong}{\@iflfe{\@strings@ThesisSupervisorLong@en}{\@strings@ThesisSupervisorLong@ru}}
+
+\newcommand{\@strings@APPROVED@en}{APPROVED}
+\newcommand{\@strings@APPROVED@ru}{УТВЕРЖДАЮ}
+\newcommand{\@strings@APPROVED}{\@iflfe{\@strings@APPROVED@en}{\@strings@APPROVED@ru}}
+
 \newcommand{\@strings@ApprovedForDefense@en}{Approved for defense}
 \newcommand{\@strings@ApprovedForDefense@ru}{К защите допустить}
 \newcommand{\@strings@ApprovedForDefense}{\@iflfe{\@strings@ApprovedForDefense@en}{\@strings@ApprovedForDefense@ru}}
 
-\newcommand{\@strings@HeadOfProgram@en}{Head of program}
+\newcommand{\@strings@HeadOfProgram@en}{Head of educational program}
 \newcommand{\@strings@HeadOfProgram@ru}{Руководитель ОП}
 \newcommand{\@strings@HeadOfProgram}{\@iflfe{\@strings@HeadOfProgram@en}{\@strings@HeadOfProgram@ru}}
 
@@ -881,6 +901,42 @@
 \newcommand{\@strings@NumberOfSupplementary@ru}{Демонстрационных материалов/Чертежей хранения}
 \newcommand{\@strings@NumberOfSupplementary}{\@iflfe{\@strings@NumberOfSupplementary@en}{\@strings@NumberOfSupplementary@ru}}
 
+\newcommand{\@strings@OBJECTIVES@first@en}{OBJECTIVES}
+\newcommand{\@strings@OBJECTIVES@first@ru}{ЗАДАНИЕ}
+\newcommand{\@strings@OBJECTIVES@first}{\@iflfe{\@strings@OBJECTIVES@first@en}{\@strings@OBJECTIVES@first@ru}}
+
+\newcommand{\@strings@OBJECTIVES@second@en}{FOR A GRADUATION THESIS}
+\newcommand{\@strings@OBJECTIVES@second@ru}{НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ}
+\newcommand{\@strings@OBJECTIVES@second}{\@iflfe{\@strings@OBJECTIVES@second@en}{\@strings@OBJECTIVES@second@ru}}
+
+\newcommand{\@strings@DeadlineForSubmission@en}{Deadline for submission of complete thesis}
+\newcommand{\@strings@DeadlineForSubmission@ru}{Срок сдачи студентом законченной работы}
+\newcommand{\@strings@DeadlineForSubmission}{\@iflfe{\@strings@DeadlineForSubmission@en}{\@strings@DeadlineForSubmission@ru}}
+
+\newcommand{\@strings@RequirementsAndPremise@en}{Requirements and premise for the thesis}
+\newcommand{\@strings@RequirementsAndPremise@ru}{Техническое задание и исходные данные к работе}
+\newcommand{\@strings@RequirementsAndPremise}{\@iflfe{\@strings@RequirementsAndPremise@en}{\@strings@RequirementsAndPremise@ru}}
+
+\newcommand{\@strings@ContentOfTheThesis@en}{Content of the thesis (list of key issues)}
+\newcommand{\@strings@ContentOfTheThesis@ru}{Содержание выпускной работы (перечень подлежащих разработке вопросов)}
+\newcommand{\@strings@ContentOfTheThesis}{\@iflfe{\@strings@ContentOfTheThesis@en}{\@strings@ContentOfTheThesis@ru}}
+
+\newcommand{\@strings@ListOfGraphic@en}{List of graphic materials (with a list of required materials)}
+\newcommand{\@strings@ListOfGraphic@ru}{Перечень графического материала (с указанием обязательного материала)}
+\newcommand{\@strings@ListOfGraphic}{\@iflfe{\@strings@ListOfGraphic@en}{\@strings@ListOfGraphic@ru}}
+
+\newcommand{\@strings@SourceMaterials@en}{Source materials and publications}
+\newcommand{\@strings@SourceMaterials@ru}{Исходные материалы и пособия}
+\newcommand{\@strings@SourceMaterials}{\@iflfe{\@strings@SourceMaterials@en}{\@strings@SourceMaterials@ru}}
+
+\newcommand{\@strings@ObjectivesIssuedOn@en}{Objectives issued on}
+\newcommand{\@strings@ObjectivesIssuedOn@ru}{Дата выдачи задания}
+\newcommand{\@strings@ObjectivesIssuedOn}{\@iflfe{\@strings@ObjectivesIssuedOn@en}{\@strings@ObjectivesIssuedOn@ru}}
+
+\newcommand{\@strings@ObjectivesAssumed@en}{Objectives assumed by}
+\newcommand{\@strings@ObjectivesAssumed@ru}{Задание принял к исполнению}
+\newcommand{\@strings@ObjectivesAssumed}{\@iflfe{\@strings@ObjectivesAssumed@en}{\@strings@ObjectivesAssumed@ru}}
+
 %%% Локализуемый шаблон титульной страницы
 \newcommand{\typeoutTitlePage}{\begin{titlepage}
     \banhyphens
@@ -918,6 +974,44 @@
     \noindent\@strings@NumberOfSupplementary~\infiniteuhspace\par\bigskip\par
 \end{titlepage}}
 
+\newcommand{\typeoutSpecification}{\begin{titlepage}
+\begin{center}\theuniversity\end{center}
+\begin{small}
+    \noindent\begin{tabularx}{\textwidth}{Xl}
+        & \hfilll \textbf{\@strings@APPROVED} \hfilll\ \\
+        & \@strings@HeadOfProgram\\
+        & \theprogramheaddegree\ \theprogramhead\ \signatureplace \\
+        & \unknowndate \\
+    \end{tabularx}
+    \bigskip
+    \begin{center}\bfseries{\normalsize\@strings@OBJECTIVES@first}\\\@strings@OBJECTIVES@second\end{center}
+    \bigskip
+    \begingroup\banhyphens
+    \noindent \textbf{\@strings@Student}~\theauthorshort\;\hfilll \textbf{\@strings@Group}~\thestudygroup\; \textbf{\@strings@FacultyOf}~\thefaculty\;\par
+    \noindent \textbf{\@strings@ThesisSupervisor}~\thesupervisorshort, \thesupervisordegree, \thesupervisorwork\par
+    \noindent \textbf{1~\@strings@ThesisTitle:} \thetitle\par
+    \noindent \textbf{\@strings@SubjectAreaBig:} \thespecialty\par
+    \noindent \textbf{\@strings@ProgramMajor:} \thespecialization\par
+    \noindent \textbf{\@strings@DegreeLevel:} \@strings@DegreeName\par
+    \endgroup
+    \noindent \textbf{2~\@strings@DeadlineForSubmission:} \thefinishdate \par
+    \noindent \textbf{3~\@strings@RequirementsAndPremise}\par \thetechnicalspec\par
+    \pagebreak[3]
+    \noindent \textbf{4~\@strings@ContentOfTheThesis}\par \theplannedcontents\par
+    \pagebreak[3]
+    \noindent \textbf{5~\@strings@ListOfGraphic}\par \theplannedgraphics\par
+    \pagebreak[3]
+    \noindent \textbf{6~\@strings@SourceMaterials}\par \theplannedsources\par
+    \pagebreak[3]
+    \noindent \textbf{7~\@strings@ObjectivesIssuedOn} \thestartdate\par\bigskip\par
+    \noindent\begingroup\renewcommand{\arraystretch}{1.5}\begin{tabular}{ll}
+        \@strings@ThesisSupervisorLong & \signatureplace \\
+        \@strings@ObjectivesAssumed    & \signatureplace \\
+        & \thestartdate
+    \end{tabular}\endgroup
+\end{small}
+\end{titlepage}}
+
 %%% Параметр: Бакалавр/Магистр
 \renewcommand{\maketitle}[1]{
     \ifstrequal{#1}{Магистр}{
@@ -938,45 +1032,7 @@
 
 	\pagenumbering{gobble}
 	\typeoutTitlePage
-    \if@shouldmakespecification
-    \begin{titlepage}
-    \begin{center}\theuniversity\end{center}
-    \begin{small}
-        \noindent\begin{tabularx}{\textwidth}{Xl}
-            & \hfilll \textbf{УТВЕРЖДАЮ} \hfilll\ \\
-            & Руководитель ОП \\
-            & \theprogramheaddegree\ \theprogramhead\ \signatureplace \\
-            & \unknowndate \\
-        \end{tabularx}
-        \bigskip
-        \begin{center}\bfseries {\normalsize ЗАДАНИЕ} \\ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ\end{center}
-        \bigskip
-        \begingroup\banhyphens
-        \noindent \textbf{\@strings@Student}~\theauthorshort\;\hfilll \textbf{\@strings@Group}~\thestudygroup\; \textbf{\@strings@FacultyOf}~\thefaculty\;\par
-        \noindent \textbf{Руководитель}~\thesupervisorshort, \thesupervisordegree, \thesupervisorwork\par
-        \noindent \textbf{1 Наименование темы:} \thetitle\par
-        \noindent \textbf{Направление подготовки (специальность):} \thespecialty\par
-        \noindent \textbf{Направленность (профиль):} \thespecialization\par
-        \noindent \textbf{Квалификация:} #1\par
-        \endgroup
-        \noindent \textbf{2 Срок сдачи студентом законченной работы:} \thefinishdate \par
-        \noindent \textbf{3 Техническое задание и исходные данные к работе}\par \thetechnicalspec\par
-        \pagebreak[3]
-        \noindent \textbf{4 Содержание выпускной работы (перечень подлежащих разработке вопросов)}\par \theplannedcontents\par
-        \pagebreak[3]
-        \noindent \textbf{5 Перечень графического материала (с указанием обязательного материала)}\par \theplannedgraphics\par
-        \pagebreak[3]
-        \noindent \textbf{6 Исходные материалы и пособия}\par \theplannedsources\par
-        \pagebreak[3]
-        \noindent \textbf{7 Дата выдачи задания} \thestartdate\par\bigskip\par
-        \noindent\begingroup\renewcommand{\arraystretch}{1.5}\begin{tabular}{ll}
-            Руководитель ВКР & \signatureplace \\
-            Задание принял к исполнению & \signatureplace \\
-            & \thestartdate
-        \end{tabular}\endgroup
-    \end{small}
-    \end{titlepage}
-    \fi
+    \if@shouldmakespecification\typeoutSpecification\fi
     \if@shouldmakeannotation
     \begin{titlepage}
     \begin{center}\theuniversity\end{center}
