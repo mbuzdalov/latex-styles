@@ -8,6 +8,9 @@
 \newif\if@shouldusexelatex
 \newif\if@shouldmakespecification
 \newif\if@shouldmakeannotation
+\newif\if@shouldmaketitlepage@ru
+\newif\if@shouldmakespecification@ru
+\newif\if@shouldmakeannotation@ru
 
 \newcommand{\@babeloptions}{english,russian}
 
@@ -16,6 +19,9 @@
 \DeclareOptionX{times}{\@shouldusexelatextrue}
 \DeclareOptionX{specification}{\@shouldmakespecificationtrue}
 \DeclareOptionX{annotation}{\@shouldmakeannotationtrue}
+\DeclareOptionX{specification-extra-ru}{\@shouldmakespecification@rutrue}
+\DeclareOptionX{annotation-extra-ru}{\@shouldmakeannotation@rutrue}
+\DeclareOptionX{titlepage-extra-ru}{\@shouldmaketitlepage@rutrue}
 \DeclareOptionX{languages}{\renewcommand{\@babeloptions}{#1}}
 
 \ProcessOptionsX\relax
@@ -1155,8 +1161,11 @@
     }
 
 	\pagenumbering{gobble}
+    \if@shouldmaketitlepage@ru\foreignlanguage{russian}{\typeoutTitlePage}\fi
 	\typeoutTitlePage
+    \if@shouldmakespecification@ru\foreignlanguage{russian}{\typeoutSpecification}\fi
     \if@shouldmakespecification\typeoutSpecification\fi
+    \if@shouldmakeannotation@ru\foreignlanguage{russian}{\typeoutAnnotation}\fi
     \if@shouldmakeannotation\typeoutAnnotation\fi
     \pagenumbering{arabic}
 
