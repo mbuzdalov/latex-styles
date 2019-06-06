@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2019/05/28 v1.3.b6]
+\ProvidesClass{itmo-student-thesis}[2019/06/06 v1.4]
 \RequirePackage{xkvltxp}
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -41,9 +41,6 @@
 \RequirePackage[\@babeloptions]{babel}
 \RequirePackage{csquotes}
 \RequirePackage{iflang}
-
-\providecommand{\IfLanguageFamilyEnglish}[2]{\iflanguage{english}{#1}{#2}}
-\newcommand{\@iflfe}[2]{\IfLanguageFamilyEnglish{#1}{#2}}
 
 %% Формируем отступы
 
@@ -120,6 +117,8 @@
 \renewcommand\labelenumii{\arabic{enumii})}
 \renewcommand\theenumii{\arabic{enumii}}
 
+\newcommand{\@iflfe}[2]{#1}
+
 \newcommand*{\@tablecontinuation}[1]{Table~#1, continued}
 \newcommand*{\@chaptername}{CHAPTER}
 \newcommand*{\@introductionname}{INTRODUCTION}
@@ -144,6 +143,7 @@
 \newcommand*{\@theorem@example}{Example}
 
 \addto{\captionsenglish}{%
+\renewcommand{\@iflfe}[2]{#1}%
 \renewcommand*{\figurename}{Figure}%
 \renewcommand*{\contentsname}{Contents}%
 \renewcommand*{\labelenumi}{\alph{enumi})}%
@@ -172,6 +172,7 @@
 }
 
 \addto{\captionsrussian}{%
+\renewcommand{\@iflfe}[2]{#2}%
 \renewcommand*{\figurename}{Рисунок}%
 \renewcommand*{\contentsname}{Содержание}%
 \renewcommand*{\labelenumi}{\asbukx{enumi})}%
@@ -504,7 +505,8 @@
 \newcommand{\foreignsourcesfiveyears}{\total{c@foreignsourcesfiveyears}}
 \newcommand{\foreignsourcestenyears}{\total{c@foreignsourcestenyears}}
 \newcommand{\foreignsourcesveryold}{\total{c@foreignsourcesveryold}}
-\newcommand{\internetsources}{\ifthenelse{\equal{\totvalue{c@internetsources}}{0}}{нет}{да, число ресурсов: \total{c@internetsources}}}
+\newcommand{\internetsources}{\@iflfe{\ifthenelse{\equal{\totvalue{c@internetsources}}{0}}{none}{yes, \total{c@internetsources} resource(s)}}
+                                     {\ifthenelse{\equal{\totvalue{c@internetsources}}{0}}{нет}{да, число ресурсов: \total{c@internetsources}}}}
 
 %%% Команды для начала и конца секции с обзором
 \newcommand{\startrelatedwork}{\newrefsegment}
@@ -631,9 +633,9 @@
 
 \newcommand{\uhspace}[1]{\uline{\hspace{#1}}}
 \newcommand{\signatureplace}{\uhspace{7em}}
-\newcommand{\datequoteplace}{<<\uhspace{5ex}>>}
+\newcommand{\datequoteplace}{\@iflfe{``\uhspace{5ex}''}{<<\uhspace{5ex}>>}}
 \newcommand{\infiniteuhspace}{\uhspace{0 cm plus 1fill}}
-\newcommand{\unknowndate}{\datequoteplace~\uhspace{13ex}~20\uhspace{3ex}~г.}
+\newcommand{\unknowndate}{\datequoteplace~\uhspace{13ex}~20\uhspace{3ex}\@iflfe{~}{~г.}}
 
 %% Контентные команды со значениями по умолчанию
 
@@ -739,7 +741,7 @@
 \newcommand{\thesupervisorwork}{\@iflfe{\thesupervisorwork@en}{\thesupervisorwork@ru}}
 
 \newcommand{\supervisor}[4]{\@iflfe{\newcommand{\thesupervisor@en}{#1}\newcommand{\thesupervisorshort@en}{#2}\newcommand{\thesupervisordegree@en}{#3}\newcommand{\thesupervisorwork@en}{#4}}
-                                                    {\newcommand{\thesupervisor@ru}{#1}\newcommand{\thesupervisorshort@ru}{#2}\newcommand{\thesupervisordegree@ru}{#3}\newcommand{\thesupervisorwork@ru}{#4}}}
+                                   {\newcommand{\thesupervisor@ru}{#1}\newcommand{\thesupervisorshort@ru}{#2}\newcommand{\thesupervisordegree@ru}{#3}\newcommand{\thesupervisorwork@ru}{#4}}}
 
 %%% \secretary
 
@@ -1147,12 +1149,16 @@
     \ifstrequal{#1}{Магистр}{
         \providecommand{\thespecialization@ru}{Технологии разработки программного обеспечения}
         \providecommand{\thespecialty@ru}{01.04.02~Прикладная математика и информатика}
+        \providecommand{\thespecialization@en}{Technologies of software engineering}
+        \providecommand{\thespecialty@en}{01.04.02~Applied mathematics and informatics}
         \providecommand{\@strings@DegreeName@ru}{Магистр}
         \providecommand{\@strings@DegreeName@en}{Master}
     }{
         \ifstrequal{#1}{Бакалавр}{
             \providecommand{\thespecialization@ru}{Математические модели и алгоритмы в разработке программного обеспечения}
             \providecommand{\thespecialty@ru}{01.03.02~Прикладная математика и информатика}
+            \providecommand{\thespecialization@en}{Mathematical models and algorithms in software engineering}
+            \providecommand{\thespecialty@en}{01.03.02~Applied mathematics and informatics}
             \providecommand{\@strings@DegreeName@ru}{Бакалавр}
             \providecommand{\@strings@DegreeName@en}{Bachelor}
         }{
@@ -1161,12 +1167,12 @@
     }
 
 	\pagenumbering{gobble}
-    \if@shouldmaketitlepage@ru\foreignlanguage{russian}{\typeoutTitlePage}\fi
 	\typeoutTitlePage
-    \if@shouldmakespecification@ru\foreignlanguage{russian}{\typeoutSpecification}\fi
+    \if@shouldmaketitlepage@ru\begin{otherlanguage}{russian}\typeoutTitlePage\end{otherlanguage}\fi
     \if@shouldmakespecification\typeoutSpecification\fi
-    \if@shouldmakeannotation@ru\foreignlanguage{russian}{\typeoutAnnotation}\fi
+    \if@shouldmakespecification@ru\begin{otherlanguage}{russian}\typeoutSpecification\end{otherlanguage}\fi
     \if@shouldmakeannotation\typeoutAnnotation\fi
+    \if@shouldmakeannotation@ru\begin{otherlanguage}{russian}\typeoutAnnotation\end{otherlanguage}\fi
     \pagenumbering{arabic}
 
     %% Ставим номер страницы сверху по центру
