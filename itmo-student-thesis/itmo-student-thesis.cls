@@ -787,9 +787,14 @@
 %% Контентные команды пополнения списков
 
 %%% Добавить консультанта: (Фамилия И.О.) (звание, степень)
-\newbool{hasconsultants}
-\newcommand{\thelistofconsultants}{}
-\newcommand{\addconsultant}[2]{\booltrue{hasconsultants}\appto{\thelistofconsultants}{\item #1, #2 \hfill\signatureplace\par\bigskip}}
+\newbool{hasconsultants@en}
+\newbool{hasconsultants@ru}
+\newcommand{\thelistofconsultants@en}{}
+\newcommand{\thelistofconsultants@ru}{}
+\newcommand{\addconsultant}[2]{\@iflfe{\booltrue{hasconsultants@en}\appto{\thelistofconsultants@en}{\item #1, #2 \hfill\signatureplace\par\bigskip}}
+                                      {\booltrue{hasconsultants@ru}\appto{\thelistofconsultants@ru}{\item #1, #2 \hfill\signatureplace\par\bigskip}}}
+\newcommand{\displayconsultants}{\@iflfe{\ifbool{hasconsultants@en}{\noindent Consultant(s): \begin{enumerate}\thelistofconsultants@en\end{enumerate}\par}{}}
+                                        {\ifbool{hasconsultants@ru}{\noindent Консультанты:  \begin{enumerate}\thelistofconsultants@ru\end{enumerate}\par}{}}}
 
 %%% Добавить пакет программ: (Название) (Ссылки на разделы)
 \newbool{hasadvancedsoftware}
@@ -832,6 +837,50 @@
 \newcommand{\@strings@yearend@ru}{~г.}
 \newcommand{\@strings@yearend}{\@iflfe{\@strings@yearend@en}{\@strings@yearend@ru}}
 
+\newcommand{\@strings@Student@en}{Student}
+\newcommand{\@strings@Student@ru}{Студент}
+\newcommand{\@strings@Student}{\@iflfe{\@strings@Student@en}{\@strings@Student@ru}}
+
+\newcommand{\@strings@Group@en}{Group}
+\newcommand{\@strings@Group@ru}{Группа}
+\newcommand{\@strings@Group}{\@iflfe{\@strings@Group@en}{\@strings@Group@ru}}
+
+\newcommand{\@strings@FacultyOf@en}{Faculty of}
+\newcommand{\@strings@FacultyOf@ru}{Факультет}
+\newcommand{\@strings@FacultyOf}{\@iflfe{\@strings@FacultyOf@en}{\@strings@FacultyOf@ru}}
+
+\newcommand{\@strings@SubjectAreaProgramMajor@en}{Subject area, program/major}
+\newcommand{\@strings@SubjectAreaProgramMajor@ru}{Направленность (профиль), специализация}
+\newcommand{\@strings@SubjectAreaProgramMajor}{\@iflfe{\@strings@SubjectAreaProgramMajor@en}{\@strings@SubjectAreaProgramMajor@ru}}
+
+\newcommand{\@strings@ThesisReceived@en}{Thesis received}
+\newcommand{\@strings@ThesisReceived@ru}{ВКР принята}
+\newcommand{\@strings@ThesisReceived}{\@iflfe{\@strings@ThesisReceived@en}{\@strings@ThesisReceived@ru}}
+
+\newcommand{\@strings@OriginalityOfThesis@en}{Originality of thesis}
+\newcommand{\@strings@OriginalityOfThesis@ru}{Оригинальность ВКР}
+\newcommand{\@strings@OriginalityOfThesis}{\@iflfe{\@strings@OriginalityOfThesis@en}{\@strings@OriginalityOfThesis@ru}}
+
+\newcommand{\@strings@ThesisCompletedWithGrade@en}{Thesis completed with grade}
+\newcommand{\@strings@ThesisCompletedWithGrade@ru}{ВКР выполнена с оценкой}
+\newcommand{\@strings@ThesisCompletedWithGrade}{\@iflfe{\@strings@ThesisCompletedWithGrade@en}{\@strings@ThesisCompletedWithGrade@ru}}
+
+\newcommand{\@strings@DateOfDefense@en}{Date of defense}
+\newcommand{\@strings@DateOfDefense@ru}{Дата защиты}
+\newcommand{\@strings@DateOfDefense}{\@iflfe{\@strings@DateOfDefense@en}{\@strings@DateOfDefense@ru}}
+
+\newcommand{\@strings@SecretaryOfCommission@en}{Secretary of State Exam Commission}
+\newcommand{\@strings@SecretaryOfCommission@ru}{Секретарь ГЭК}
+\newcommand{\@strings@SecretaryOfCommission}{\@iflfe{\@strings@SecretaryOfCommission@en}{\@strings@SecretaryOfCommission@ru}}
+
+\newcommand{\@strings@NumberOfPages@en}{Number of pages}
+\newcommand{\@strings@NumberOfPages@ru}{Листов хранения}
+\newcommand{\@strings@NumberOfPages}{\@iflfe{\@strings@NumberOfPages@en}{\@strings@NumberOfPages@ru}}
+
+\newcommand{\@strings@NumberOfSupplementary@en}{Number of supplementary materials/Blueprints}
+\newcommand{\@strings@NumberOfSupplementary@ru}{Демонстрационных материалов/Чертежей хранения}
+\newcommand{\@strings@NumberOfSupplementary}{\@iflfe{\@strings@NumberOfSupplementary@en}{\@strings@NumberOfSupplementary@ru}}
+
 %%% Локализуемый шаблон титульной страницы
 \newcommand{\typeoutTitlePage}{\begin{titlepage}
     \banhyphens
@@ -855,21 +904,18 @@
     \vspace{0cm plus 1fill minus 0cm}
     \begin{center}\thecity, \theyear\@strings@yearend\end{center}
 \end{titlepage}\begin{titlepage}
-        \banhyphens
-        \noindent Студент~\theauthorshort\;\hfilll Группа~\thestudygroup\; Факультет~\thefaculty\par\bigskip\par
-        \noindent Направленность (профиль), специализация\par
-        \noindent \thespecialization \par\bigskip\par
-        \ifbool{hasconsultants}{
-            \noindent Консультанты:
-            \begin{enumerate}\thelistofconsultants\end{enumerate}\par
-        }{}\bigskip\par\bigskip\par
-        \noindent ВКР принята \unknowndate\par\bigskip\par
-        \noindent Оригинальность ВКР \uhspace{5ex}\%\par\bigskip\par
-        \noindent ВКР выполнена с оценкой \infiniteuhspace\par\bigskip\par
-        \noindent Дата защиты \unknowndate\par\bigskip\par
-        \noindent Секретарь ГЭК~\thesecretary\hfill\signatureplace\par\bigskip\par
-        \noindent Листов хранения \infiniteuhspace\par\bigskip\par
-        \noindent Демонстрационных материалов/Чертежей хранения \infiniteuhspace\par\bigskip\par
+    \banhyphens
+    \noindent\@strings@Student~\theauthorshort\;\hfilll \@strings@Group~\thestudygroup\; \@strings@FacultyOf~\thefaculty\par\bigskip\par
+    \noindent\@strings@SubjectAreaProgramMajor\par
+    \noindent\thespecialization \par\bigskip\par
+    \displayconsultants\bigskip\par\bigskip\par
+    \noindent\@strings@ThesisReceived~\unknowndate\par\bigskip\par
+    \noindent\@strings@OriginalityOfThesis~\uhspace{5ex}\%\par\bigskip\par
+    \noindent\@strings@ThesisCompletedWithGrade~\infiniteuhspace\par\bigskip\par
+    \noindent\@strings@DateOfDefense~\unknowndate\par\bigskip\par
+    \noindent\@strings@SecretaryOfCommission~\thesecretary\hfill\signatureplace\par\bigskip\par
+    \noindent\@strings@NumberOfPages~\infiniteuhspace\par\bigskip\par
+    \noindent\@strings@NumberOfSupplementary~\infiniteuhspace\par\bigskip\par
 \end{titlepage}}
 
 %%% Параметр: Бакалавр/Магистр
@@ -906,7 +952,7 @@
         \begin{center}\bfseries {\normalsize ЗАДАНИЕ} \\ НА ВЫПУСКНУЮ КВАЛИФИКАЦИОННУЮ РАБОТУ\end{center}
         \bigskip
         \begingroup\banhyphens
-        \noindent \textbf{Студент}~\theauthorshort\;\hfilll \textbf{Группа}~\thestudygroup\; \textbf{Факультет}~\thefaculty\;\par
+        \noindent \textbf{\@strings@Student}~\theauthorshort\;\hfilll \textbf{\@strings@Group}~\thestudygroup\; \textbf{\@strings@FacultyOf}~\thefaculty\;\par
         \noindent \textbf{Руководитель}~\thesupervisorshort, \thesupervisordegree, \thesupervisorwork\par
         \noindent \textbf{1 Наименование темы:} \thetitle\par
         \noindent \textbf{Направление подготовки (специальность):} \thespecialty\par
@@ -938,7 +984,7 @@
     \begin{small}
         {\centering\bfseries ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ \par}
         \bigskip
-        \noindent \textbf{Студент:} \theauthor\par
+        \noindent \textbf{\@strings@Student:} \theauthor\par
         \noindent \textbf{Наименование темы ВКР:} \thetitle\par
         \noindent \textbf{Наименование организации, где выполнена ВКР:} \thedegreehost\par
         \bigskip
