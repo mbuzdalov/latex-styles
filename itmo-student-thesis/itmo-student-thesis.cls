@@ -678,8 +678,8 @@
 \newcommand{\theprogramheaddegree@en}{prof., doct.}
 \newcommand{\theprogramheaddegree}{\@iflfe{\theprogramheaddegree@en}{\theprogramheaddegree@ru}}
 
-\newcommand{\programhead}[2]{\@iflfe{\renewcommand{\theprogramhead@en}{#1}\renewcommand{\theprogramheaddegree@en}{#2}
-                                                    }{\renewcommand{\theprogramhead@ru}{#1}\renewcommand{\theprogramheaddegree@ru}{#2}}}
+\newcommand{\programhead}[2]{\@iflfe{\renewcommand{\theprogramhead@en}{#1}\renewcommand{\theprogramheaddegree@en}{#2}}
+                                    {\renewcommand{\theprogramhead@ru}{#1}\renewcommand{\theprogramheaddegree@ru}{#2}}}
 
 %%% \city
 
@@ -797,9 +797,44 @@
                                         {\ifbool{hasconsultants@ru}{\noindent Консультанты:  \begin{enumerate}\thelistofconsultants@ru\end{enumerate}\par}{}}}
 
 %%% Добавить пакет программ: (Название) (Ссылки на разделы)
-\newbool{hasadvancedsoftware}
-\newcommand{\thelistofadvancedsoftware}{}
-\newcommand{\addadvancedsoftware}[2]{\booltrue{hasadvancedsoftware}\appto{\thelistofadvancedsoftware}{#1 & #2 \\\hline}}
+\newbool{hasadvancedsoftware@en}
+\newbool{hasadvancedsoftware@ru}
+\newcommand{\thelistofadvancedsoftware@en}{}
+\newcommand{\thelistofadvancedsoftware@ru}{}
+\newcommand{\addadvancedsoftware}[2]{\@iflfe{\booltrue{hasadvancedsoftware@en}\appto{\thelistofadvancedsoftware@en}{#1 & #2 \\\hline}}
+                                            {\booltrue{hasadvancedsoftware@ru}\appto{\thelistofadvancedsoftware@ru}{#1 & #2 \\\hline}}}
+
+\newcommand{\displayadvancedsoftware@ru}{\ifbool{hasadvancedsoftware@ru}
+{\par\vspace{3pt}\noindent\begin{tabularx}{\textwidth}{|X|p{0.25\textwidth}|}\hline
+ \multicolumn{1}{|c|}{\textbf{Пакеты компьютерных программ и технологий}} & \multicolumn{1}{c|}{\textbf{Раздел работы}} \\\hline
+ \thelistofadvancedsoftware@ru
+\end{tabularx}\par\vspace{6pt}}{нет\par}}
+
+\newcommand{\displayadvancedsoftware@en}{\ifbool{hasadvancedsoftware@en}
+{\par\vspace{3pt}\noindent\begin{tabularx}{\textwidth}{|X|p{0.25\textwidth}|}\hline
+ \multicolumn{1}{|c|}{\textbf{Software suites and technologies}} & \multicolumn{1}{c|}{\textbf{Thesis section}} \\\hline
+ \thelistofadvancedsoftware@en
+\end{tabularx}\par\vspace{6pt}}{none\par}}
+
+\newcommand{\displayadvancedsoftware}{\@iflfe{\displayadvancedsoftware@en}{\displayadvancedsoftware@ru}}
+
+\newcommand{\displaysourcepartition@ru}{\begin{tabularx}{\textwidth}{|*{6}{>{\centering\arraybackslash}X|}}\hline
+  \multicolumn{3}{|c|}{\textbf{Отечественных}} & \multicolumn{3}{c|}{\textbf{Иностранных}} \\\hline
+  Последние & От 5      & Более  & Последние & От 5 & Более \\
+  5 лет     & до 10 лет & 10 лет & 5 лет     & до 10 лет & 10 лет \\\hline
+  \russiansourcesfiveyears & \russiansourcestenyears & \russiansourcesveryold &
+  \foreignsourcesfiveyears & \foreignsourcestenyears & \foreignsourcesveryold \\\hline
+\end{tabularx}}
+
+\newcommand{\displaysourcepartition@en}{\begin{tabularx}{\textwidth}{|*{6}{>{\centering\arraybackslash}X|}}\hline
+  \multicolumn{3}{|c|}{\textbf{Russian}} & \multicolumn{3}{c|}{\textbf{Foreign}} \\\hline
+  In the last & 5 to 10 & More than  & In the last & 5 to 10 & More than \\
+  5 years     & years   & 10 years   & 5 years     & years   & 10 years  \\\hline
+  \russiansourcesfiveyears & \russiansourcestenyears & \russiansourcesveryold &
+  \foreignsourcesfiveyears & \foreignsourcestenyears & \foreignsourcesveryold \\\hline
+\end{tabularx}}
+
+\newcommand{\displaysourcepartition}{\@iflfe{\displaysourcepartition@en}{\displaysourcepartition@ru}}
 
 %% Создание титульной страницы, задания и аннотации
 
@@ -810,6 +845,10 @@
 \newcommand{\@strings@ThesisTitle@en}{Title of thesis}
 \newcommand{\@strings@ThesisTitle@ru}{Наименование темы}
 \newcommand{\@strings@ThesisTitle}{\@iflfe{\@strings@ThesisTitle@en}{\@strings@ThesisTitle@ru}}
+
+\newcommand{\@strings@ThesisTitleLong@en}{Title of the thesis}
+\newcommand{\@strings@ThesisTitleLong@ru}{Наименование темы ВКР}
+\newcommand{\@strings@ThesisTitleLong}{\@iflfe{\@strings@ThesisTitleLong@en}{\@strings@ThesisTitleLong@ru}}
 
 \newcommand{\@strings@Author@en}{Author}
 \newcommand{\@strings@Author@ru}{Автор}
@@ -937,6 +976,62 @@
 \newcommand{\@strings@ObjectivesAssumed@ru}{Задание принял к исполнению}
 \newcommand{\@strings@ObjectivesAssumed}{\@iflfe{\@strings@ObjectivesAssumed@en}{\@strings@ObjectivesAssumed@ru}}
 
+\newcommand{\@strings@ANNOTATION@first@en}{SUMMARY}
+\newcommand{\@strings@ANNOTATION@first@ru}{АННОТАЦИЯ}
+\newcommand{\@strings@ANNOTATION@first}{\@iflfe{\@strings@ANNOTATION@first@en}{\@strings@ANNOTATION@first@ru}}
+
+\newcommand{\@strings@ANNOTATION@second@en}{OF A GRADUATION THESIS}
+\newcommand{\@strings@ANNOTATION@second@ru}{ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ}
+\newcommand{\@strings@ANNOTATION@second}{\@iflfe{\@strings@ANNOTATION@second@en}{\@strings@ANNOTATION@second@ru}}
+
+\newcommand{\@strings@NameOfOrganization@en}{Name of organization}
+\newcommand{\@strings@NameOfOrganization@ru}{Наименование организации, в которой выполнена ВКР}
+\newcommand{\@strings@NameOfOrganization}{\@iflfe{\@strings@NameOfOrganization@en}{\@strings@NameOfOrganization@ru}}
+
+\newcommand{\@strings@DescriptionOfThesis@en}{DESCRIPTION OF THE GRADUATION THESIS}
+\newcommand{\@strings@DescriptionOfThesis@ru}{ХАРАКТЕРИСТИКА ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ}
+\newcommand{\@strings@DescriptionOfThesis}{\@iflfe{\@strings@DescriptionOfThesis@en}{\@strings@DescriptionOfThesis@ru}}
+
+\newcommand{\@strings@ResearchObjective@en}{Research objective}
+\newcommand{\@strings@ResearchObjective@ru}{Цель исследования}
+\newcommand{\@strings@ResearchObjective}{\@iflfe{\@strings@ResearchObjective@en}{\@strings@ResearchObjective@ru}}
+
+\newcommand{\@strings@ResearchTasks@en}{Research tasks}
+\newcommand{\@strings@ResearchTasks@ru}{Задачи, решаемые в ВКР}
+\newcommand{\@strings@ResearchTasks}{\@iflfe{\@strings@ResearchTasks@en}{\@strings@ResearchTasks@ru}}
+
+\newcommand{\@strings@SourcesReview@en}{Number of sources listed in the review section}
+\newcommand{\@strings@SourcesReview@ru}{Число источников, использованных при составлении обзора}
+\newcommand{\@strings@SourcesReview}{\@iflfe{\@strings@SourcesReview@en}{\@strings@SourcesReview@ru}}
+
+\newcommand{\@strings@SourcesTotal@en}{Total number of sources used in the thesis}
+\newcommand{\@strings@SourcesTotal@ru}{Полное число источников, использованных в работе}
+\newcommand{\@strings@SourcesTotal}{\@iflfe{\@strings@SourcesTotal@en}{\@strings@SourcesTotal@ru}}
+
+\newcommand{\@strings@SourcesByYear@ru}{В том числе источников по годам}
+\newcommand{\@strings@SourcesByYear@en}{Sources by years}
+\newcommand{\@strings@SourcesByYear}{\@iflfe{\@strings@SourcesByYear@en}{\@strings@SourcesByYear@ru}}
+
+\newcommand{\@strings@OnlineResources@en}{Use of online (internet) resources}
+\newcommand{\@strings@OnlineResources@ru}{Использование информационных ресурсов Internet}
+\newcommand{\@strings@OnlineResources}{\@iflfe{\@strings@OnlineResources@en}{\@strings@OnlineResources@ru}}
+
+\newcommand{\@strings@UseOfSoftware@en}{Use of modern computer software suites and technologies}
+\newcommand{\@strings@UseOfSoftware@ru}{Использование современных пакетов компьютерных программ и технологий}
+\newcommand{\@strings@UseOfSoftware}{\@iflfe{\@strings@UseOfSoftware@en}{\@strings@UseOfSoftware@ru}}
+
+\newcommand{\@strings@ShortSummary@en}{Short summary of results/conclusions}
+\newcommand{\@strings@ShortSummary@ru}{Краткая характеристика полученных результатов}
+\newcommand{\@strings@ShortSummary}{\@iflfe{\@strings@ShortSummary@en}{\@strings@ShortSummary@ru}}
+
+\newcommand{\@strings@GrantsReceived@en}{Grants received while working on the thesis}
+\newcommand{\@strings@GrantsReceived@ru}{Гранты, полученные при выполнении работы}
+\newcommand{\@strings@GrantsReceived}{\@iflfe{\@strings@GrantsReceived@en}{\@strings@GrantsReceived@ru}}
+
+\newcommand{\@strings@ThesisPublications@en}{Have you produced any publications or conference reports on the topic of the thesis?}
+\newcommand{\@strings@ThesisPublications@ru}{Наличие публикаций и выступлений на конференциях по теме работы}
+\newcommand{\@strings@ThesisPublications}{\@iflfe{\@strings@ThesisPublications@en}{\@strings@ThesisPublications@ru}}
+
 %%% Локализуемый шаблон титульной страницы
 \newcommand{\typeoutTitlePage}{\begin{titlepage}
     \banhyphens
@@ -974,6 +1069,7 @@
     \noindent\@strings@NumberOfSupplementary~\infiniteuhspace\par\bigskip\par
 \end{titlepage}}
 
+%%% Локализуемый шаблон задания
 \newcommand{\typeoutSpecification}{\begin{titlepage}
 \begin{center}\theuniversity\end{center}
 \begin{small}
@@ -994,22 +1090,50 @@
     \noindent \textbf{\@strings@ProgramMajor:} \thespecialization\par
     \noindent \textbf{\@strings@DegreeLevel:} \@strings@DegreeName\par
     \endgroup
-    \noindent \textbf{2~\@strings@DeadlineForSubmission:} \thefinishdate \par
-    \noindent \textbf{3~\@strings@RequirementsAndPremise}\par \thetechnicalspec\par
-    \pagebreak[3]
-    \noindent \textbf{4~\@strings@ContentOfTheThesis}\par \theplannedcontents\par
-    \pagebreak[3]
-    \noindent \textbf{5~\@strings@ListOfGraphic}\par \theplannedgraphics\par
-    \pagebreak[3]
-    \noindent \textbf{6~\@strings@SourceMaterials}\par \theplannedsources\par
-    \pagebreak[3]
-    \noindent \textbf{7~\@strings@ObjectivesIssuedOn} \thestartdate\par\bigskip\par
+    \noindent \textbf{2~\@strings@DeadlineForSubmission:}     \thefinishdate     \par
+    \noindent \textbf{3~\@strings@RequirementsAndPremise}\par \thetechnicalspec  \par\pagebreak[3]
+    \noindent \textbf{4~\@strings@ContentOfTheThesis}    \par \theplannedcontents\par\pagebreak[3]
+    \noindent \textbf{5~\@strings@ListOfGraphic}         \par \theplannedgraphics\par\pagebreak[3]
+    \noindent \textbf{6~\@strings@SourceMaterials}       \par \theplannedsources \par\pagebreak[3]
+    \noindent \textbf{7~\@strings@ObjectivesIssuedOn}         \thestartdate      \par\bigskip\par
     \noindent\begingroup\renewcommand{\arraystretch}{1.5}\begin{tabular}{ll}
         \@strings@ThesisSupervisorLong & \signatureplace \\
         \@strings@ObjectivesAssumed    & \signatureplace \\
         & \thestartdate
     \end{tabular}\endgroup
 \end{small}
+\end{titlepage}}
+
+%%% Локализуемый шаблон аннотации
+\newcommand{\typeoutAnnotation}{\begin{titlepage}
+    \begin{center}\theuniversity\end{center}
+    {\centering\bfseries\@strings@ANNOTATION@first\par}
+    \begin{small}
+    {\centering\bfseries\@strings@ANNOTATION@second\par}
+    \bigskip
+    \noindent\textbf{\@strings@Student:} \theauthor\par
+    \noindent\textbf{\@strings@ThesisTitleLong:} \thetitle\par
+    \noindent\textbf{\@strings@NameOfOrganization:} \thedegreehost\par
+    \bigskip
+    {\centering\bfseries\@strings@DescriptionOfThesis\par}
+    \bigskip
+    \noindent1~\@strings@ResearchObjective: \theresearchaim\par\pagebreak[3]
+    \noindent2~\@strings@ResearchTasks: \theresearchtargets\par\pagebreak[3]
+    \noindent3~\@strings@SourcesReview: \relatedworksourcecount\par
+    \noindent4~\@strings@SourcesTotal: \total{citnum}\par
+    \noindent5~\@strings@SourcesByYear: \par\vspace{3pt}
+    \noindent\displaysourcepartition\par\vspace{6pt}
+    \noindent6~\@strings@OnlineResources: \internetsources\par\pagebreak[3]
+    \noindent7~\@strings@UseOfSoftware: \displayadvancedsoftware\pagebreak[3]
+    \noindent8~\@strings@ShortSummary\par\theresearchsummary\par\pagebreak[3]\vspace{1ex minus 1ex}
+    \noindent9~\@strings@GrantsReceived\par\theresearchfunding\par\pagebreak[3]\vspace{1ex minus 1ex}
+    \noindent10~\@strings@ThesisPublications\par\theresearchpublications\par\bigskip
+    \noindent\begingroup\renewcommand{\arraystretch}{1.5}\begin{tabular}{lll}
+        \@strings@Student & \theauthorshort & \signatureplace \\
+        \@strings@ThesisSupervisor & \thesupervisorshort &  \signatureplace \\
+        \multicolumn{3}{l}{\unknowndate}
+    \end{tabular}\endgroup
+    \end{small}
 \end{titlepage}}
 
 %%% Параметр: Бакалавр/Магистр
@@ -1033,58 +1157,7 @@
 	\pagenumbering{gobble}
 	\typeoutTitlePage
     \if@shouldmakespecification\typeoutSpecification\fi
-    \if@shouldmakeannotation
-    \begin{titlepage}
-    \begin{center}\theuniversity\end{center}
-    {\centering\bfseries АННОТАЦИЯ \par}
-    \begin{small}
-        {\centering\bfseries ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ \par}
-        \bigskip
-        \noindent \textbf{\@strings@Student:} \theauthor\par
-        \noindent \textbf{Наименование темы ВКР:} \thetitle\par
-        \noindent \textbf{Наименование организации, где выполнена ВКР:} \thedegreehost\par
-        \bigskip
-        {\centering\bfseries ХАРАКТЕРИСТИКА ВЫПУСКНОЙ КВАЛИФИКАЦИОННОЙ РАБОТЫ \par}
-        \bigskip
-        \noindent 1 Цель исследования: \theresearchaim \par
-        \pagebreak[3]
-        \noindent 2 Задачи, решаемые в ВКР: \theresearchtargets \par
-        \pagebreak[3]
-        \noindent 3 Число источников, использованных при составлении обзора: \relatedworksourcecount \par
-        \noindent 4 Полное число источников, использованных в работе: \total{citnum} \par
-        \noindent 5 В том числе источников по годам: \par\vspace{3pt}
-        \noindent\begin{tabularx}{\textwidth}{|*{6}{>{\centering\arraybackslash}X|}}\hline
-            \multicolumn{3}{|c|}{\textbf{Отечественных}} & \multicolumn{3}{c|}{\textbf{Иностранных}} \\\hline
-            Последние & От 5      & Более  & Последние & От 5 & Более \\
-            5 лет     & до 10 лет & 10 лет & 5 лет     & до 10 лет & 10 лет \\\hline
-            \russiansourcesfiveyears & \russiansourcestenyears & \russiansourcesveryold &
-            \foreignsourcesfiveyears & \foreignsourcestenyears & \foreignsourcesveryold \\\hline
-        \end{tabularx}\par\vspace{6pt}
-        \noindent 6 Использование информационных ресурсов Internet: \internetsources \par
-        \pagebreak[3]
-        \noindent 7 Использование современных пакетов компьютерных программ и технологий:
-        \ifbool{hasadvancedsoftware}{
-            \par\vspace{3pt}
-            \noindent\begin{tabularx}{\textwidth}{|X|p{0.25\textwidth}|}\hline
-                \multicolumn{1}{|c|}{\textbf{Пакеты компьютерных программ и технологий}} & \multicolumn{1}{c|}{\textbf{Раздел работы}} \\\hline
-                \thelistofadvancedsoftware
-            \end{tabularx}\par\vspace{6pt}
-        }{нет\par}
-        \pagebreak[3]
-        \noindent 8 Краткая характеристика полученных результатов\par\theresearchsummary\par
-        \pagebreak[3]\vspace{1ex minus 1ex}
-        \noindent 9 Гранты, полученные при выполнении работы\par\theresearchfunding\par
-        \pagebreak[3]\vspace{1ex minus 1ex}
-        \noindent 10 Наличие публикаций и выступлений на конференциях по теме работы\par\theresearchpublications\par
-        \bigskip
-        \noindent\begingroup\renewcommand{\arraystretch}{1.5}\begin{tabular}{lll}
-        Студент & \theauthorshort & \signatureplace \\
-        Руководитель & \thesupervisorshort &  \signatureplace \\
-        \multicolumn{3}{l}{\unknowndate}
-        \end{tabular}\endgroup
-    \end{small}
-    \end{titlepage}
-    \fi
+    \if@shouldmakeannotation\typeoutAnnotation\fi
     \pagenumbering{arabic}
 
     %% Ставим номер страницы сверху по центру
