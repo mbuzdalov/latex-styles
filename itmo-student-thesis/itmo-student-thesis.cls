@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2019/06/06 v1.4]
+\ProvidesClass{itmo-student-thesis}[2020/05/26 v1.4.1]
 \RequirePackage{xkvltxp}
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -1073,7 +1073,7 @@
     \noindent\@strings@ThesisReceived~\unknowndate\par\bigskip\par
     \noindent\@strings@OriginalityOfThesis~\uhspace{5ex}\%\par\bigskip\par
     \noindent\@strings@ThesisCompletedWithGrade~\infiniteuhspace\par\bigskip\par
-    \noindent\@strings@DateOfDefense~\unknowndate\par\bigskip\par
+    \noindent\@strings@DateOfDefense~\thedefencedate\par\bigskip\par
     \noindent\@strings@SecretaryOfCommission~\thesecretary\hfill\signatureplace\par\bigskip\par
     \noindent\@strings@NumberOfPages~\infiniteuhspace\par\bigskip\par
     \noindent\@strings@NumberOfSupplementary~\infiniteuhspace\par\bigskip\par
