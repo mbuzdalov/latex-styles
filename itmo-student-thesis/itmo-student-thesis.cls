@@ -647,9 +647,8 @@
 \MakeUppercase{\scriptsize федеральное государственное автономное образовательное учреждение высшего образования}\par
 \begin{singlespace}\MakeUppercase{<<Национальный исследовательский университет ИТМО>>}\end{singlespace}}}
 
-\newcommand{\theuniversity@en}{{\small\bfseries Ministry of Science and Higher Education\par
-\MakeUppercase{\scriptsize federal state autonomous educational institution of higher education}\par
-\begin{singlespace}\MakeUppercase{``Saint Petersburg National Research University of Information Technologies,}\par\MakeUppercase{Mechanics and Optics''}\end{singlespace}}}
+\newcommand{\theuniversity@en}{{\small\bfseries Ministry of Science and Higher Education of the Russian Federation\par
+\MakeUppercase{ITMO University}}}
 
 \newcommand{\theuniversity}{\@iflfe{\theuniversity@en}{\theuniversity@ru}}
 \newcommand{\university}[1]{\@iflfe{\renewcommand{\theuniversity@en}{#1}}{\renewcommand{\theuniversity@ru}{#1}}}
@@ -868,7 +867,7 @@
 \newcommand{\@strings@SubjectArea@ru}{Направление подготовки}
 \newcommand{\@strings@SubjectArea}{\@iflfe{\@strings@SubjectArea@en}{\@strings@SubjectArea@ru}}
 
-\newcommand{\@strings@ProgramMajor@en}{Program/Major}
+\newcommand{\@strings@ProgramMajor@en}{Major}
 \newcommand{\@strings@ProgramMajor@ru}{Направленность (профиль) образовательной программы}
 \newcommand{\@strings@ProgramMajor}{\@iflfe{\@strings@ProgramMajor@en}{\@strings@ProgramMajor@ru}}
 
