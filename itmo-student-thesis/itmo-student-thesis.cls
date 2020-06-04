@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2020/05/26 v1.4.1]
+\ProvidesClass{itmo-student-thesis}[2020/06/04 v1.4.2]
 \RequirePackage{xkvltxp}
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -645,11 +645,10 @@
 
 \newcommand{\theuniversity@ru}{{\small\bfseries Министерство науки и высшего образования Российской Федерации\par
 \MakeUppercase{\scriptsize федеральное государственное автономное образовательное учреждение высшего образования}\par
-\begin{singlespace}\MakeUppercase{<<Санкт-Петербургский национальный исследовательский университет информационных технологий,}\par\MakeUppercase{механики и оптики>>}\end{singlespace}}}
+\begin{singlespace}\MakeUppercase{<<Национальный исследовательский университет ИТМО>>}\end{singlespace}}}
 
-\newcommand{\theuniversity@en}{{\small\bfseries Ministry of Science and Higher Education\par
-\MakeUppercase{\scriptsize federal state autonomous educational institution of higher education}\par
-\begin{singlespace}\MakeUppercase{``Saint Petersburg National Research University of Information Technologies,}\par\MakeUppercase{Mechanics and Optics''}\end{singlespace}}}
+\newcommand{\theuniversity@en}{{\small\bfseries Ministry of Science and Higher Education of the Russian Federation\par
+\MakeUppercase{ITMO University}}}
 
 \newcommand{\theuniversity}{\@iflfe{\theuniversity@en}{\theuniversity@ru}}
 \newcommand{\university}[1]{\@iflfe{\renewcommand{\theuniversity@en}{#1}}{\renewcommand{\theuniversity@ru}{#1}}}
@@ -852,8 +851,8 @@
 \newcommand{\@strings@ThesisName@ru}{Выпускная квалификационная работа}
 \newcommand{\@strings@ThesisName}{\@iflfe{\@strings@ThesisName@en}{\@strings@ThesisName@ru}}
 
-\newcommand{\@strings@ThesisTitle@en}{Title of thesis}
-\newcommand{\@strings@ThesisTitle@ru}{Наименование темы}
+\newcommand{\@strings@ThesisTitle@en}{Thesis topic}
+\newcommand{\@strings@ThesisTitle@ru}{Тема ВКР}
 \newcommand{\@strings@ThesisTitle}{\@iflfe{\@strings@ThesisTitle@en}{\@strings@ThesisTitle@ru}}
 
 \newcommand{\@strings@ThesisTitleLong@en}{Title of the thesis}
@@ -868,13 +867,13 @@
 \newcommand{\@strings@SubjectArea@ru}{Направление подготовки}
 \newcommand{\@strings@SubjectArea}{\@iflfe{\@strings@SubjectArea@en}{\@strings@SubjectArea@ru}}
 
-\newcommand{\@strings@SubjectAreaBig@en}{Subject area}
-\newcommand{\@strings@SubjectAreaBig@ru}{Направление подготовки (специальность)}
-\newcommand{\@strings@SubjectAreaBig}{\@iflfe{\@strings@SubjectAreaBig@en}{\@strings@SubjectAreaBig@ru}}
-
-\newcommand{\@strings@ProgramMajor@en}{Program/Major}
-\newcommand{\@strings@ProgramMajor@ru}{Направленность (профиль)}
+\newcommand{\@strings@ProgramMajor@en}{Major}
+\newcommand{\@strings@ProgramMajor@ru}{Направленность (профиль) образовательной программы}
 \newcommand{\@strings@ProgramMajor}{\@iflfe{\@strings@ProgramMajor@en}{\@strings@ProgramMajor@ru}}
+
+\newcommand{\@strings@Specialization@en}{Specialization}
+\newcommand{\@strings@Specializationr@ru}{Специализация}
+\newcommand{\@strings@Specialization}{\@iflfe{\@strings@Specialization@en}{\@strings@Specialization@ru}}
 
 \newcommand{\@strings@DegreeLevel@en}{Degree level}
 \newcommand{\@strings@DegreeLevel@ru}{Квалификация}
@@ -907,7 +906,7 @@
 \newcommand{\@strings@yearend}{\@iflfe{\@strings@yearend@en}{\@strings@yearend@ru}}
 
 \newcommand{\@strings@Student@en}{Student}
-\newcommand{\@strings@Student@ru}{Студент}
+\newcommand{\@strings@Student@ru}{Обучающийся}
 \newcommand{\@strings@Student}{\@iflfe{\@strings@Student@en}{\@strings@Student@ru}}
 
 \newcommand{\@strings@Group@en}{Group}
@@ -959,7 +958,7 @@
 \newcommand{\@strings@OBJECTIVES@second}{\@iflfe{\@strings@OBJECTIVES@second@en}{\@strings@OBJECTIVES@second@ru}}
 
 \newcommand{\@strings@DeadlineForSubmission@en}{Deadline for submission of complete thesis}
-\newcommand{\@strings@DeadlineForSubmission@ru}{Срок сдачи студентом законченной работы}
+\newcommand{\@strings@DeadlineForSubmission@ru}{Срок сдачи студентом законченной работы до}
 \newcommand{\@strings@DeadlineForSubmission}{\@iflfe{\@strings@DeadlineForSubmission@en}{\@strings@DeadlineForSubmission@ru}}
 
 \newcommand{\@strings@RequirementsAndPremise@en}{Requirements and premise for the thesis}
@@ -967,7 +966,7 @@
 \newcommand{\@strings@RequirementsAndPremise}{\@iflfe{\@strings@RequirementsAndPremise@en}{\@strings@RequirementsAndPremise@ru}}
 
 \newcommand{\@strings@ContentOfTheThesis@en}{Content of the thesis (list of key issues)}
-\newcommand{\@strings@ContentOfTheThesis@ru}{Содержание выпускной работы (перечень подлежащих разработке вопросов)}
+\newcommand{\@strings@ContentOfTheThesis@ru}{Содержание выпускной квалификационной работы (перечень подлежащих разработке вопросов)}
 \newcommand{\@strings@ContentOfTheThesis}{\@iflfe{\@strings@ContentOfTheThesis@en}{\@strings@ContentOfTheThesis@ru}}
 
 \newcommand{\@strings@ListOfGraphic@en}{List of graphic materials (with a list of required materials)}
@@ -1039,7 +1038,7 @@
 \newcommand{\@strings@GrantsReceived}{\@iflfe{\@strings@GrantsReceived@en}{\@strings@GrantsReceived@ru}}
 
 \newcommand{\@strings@ThesisPublications@en}{Have you produced any publications or conference reports on the topic of the thesis?}
-\newcommand{\@strings@ThesisPublications@ru}{Наличие публикаций и выступлений на конференциях по теме работы}
+\newcommand{\@strings@ThesisPublications@ru}{Наличие публикаций и выступлений на конференциях по теме выпускной работы}
 \newcommand{\@strings@ThesisPublications}{\@iflfe{\@strings@ThesisPublications@en}{\@strings@ThesisPublications@ru}}
 
 %%% Локализуемый шаблон титульной страницы
@@ -1057,16 +1056,14 @@
     & \@strings@SubjectArea:\;
        \begin{minipage}[t]{0.4\textwidth}\begin{flushleft}\thespecialty\end{flushleft}\end{minipage} \\
     & \@strings@DegreeLevel: \@strings@DegreeName \\
-    & \@strings@ThesisSupervisor: \thesupervisorshort, \thesupervisordegree~ \hfilll \signatureplace \\
-    & \textbf{\@strings@ApprovedForDefense} \\
-    & \@strings@HeadOfProgram\ \theprogramhead, \theprogramheaddegree~ \hfilll \signatureplace \\
+    & \@strings@ThesisSupervisorLong: \thesupervisorshort, \thesupervisordegree~ \hfilll \signatureplace \\
     \end{tabularx}\par}
-    \begin{flushright}\unknowndate\end{flushright}
     \vspace{0cm plus 1fill minus 0cm}
     \begin{center}\thecity, \theyear\@strings@yearend\end{center}
 \end{titlepage}\begin{titlepage}
     \banhyphens
-    \noindent\@strings@Student~\theauthorshort\;\hfilll \@strings@Group~\thestudygroup\; \@strings@FacultyOf~\thefaculty\par\bigskip\par
+    \noindent\@strings@Student~\theauthor\;\par
+    \noindent\@strings@Group~\thestudygroup\; \@strings@FacultyOf~\thefaculty\par\bigskip\par
     \noindent\@strings@SubjectAreaProgramMajor\par
     \noindent\thespecialization \par\bigskip\par
     \displayconsultants\bigskip\par\bigskip\par
@@ -1093,12 +1090,13 @@
     \begin{center}\bfseries{\normalsize\@strings@OBJECTIVES@first}\\\@strings@OBJECTIVES@second\end{center}
     \bigskip
     \begingroup\banhyphens
-    \noindent \textbf{\@strings@Student}~\theauthorshort\;\hfilll \textbf{\@strings@Group}~\thestudygroup\; \textbf{\@strings@FacultyOf}~\thefaculty\;\par
-    \noindent \textbf{\@strings@ThesisSupervisor}~\thesupervisorshort, \thesupervisordegree, \thesupervisorwork\par
-    \noindent \textbf{1~\@strings@ThesisTitle:} \thetitle\par
-    \noindent \textbf{\@strings@SubjectAreaBig:} \thespecialty\par
-    \noindent \textbf{\@strings@ProgramMajor:} \thespecialization\par
+    \noindent \textbf{\@strings@Student}~\theauthor\;\par 
+    \noindent \textbf{\@strings@Group}~\thestudygroup\; \textbf{\@strings@FacultyOf}~\thefaculty\;\par
     \noindent \textbf{\@strings@DegreeLevel:} \@strings@DegreeName\par
+    \noindent \textbf{\@strings@SubjectArea:} \thespecialty\par
+    \noindent \textbf{\@strings@ProgramMajor:} \thespecialization\par
+    \noindent \textbf{\@strings@ThesisTitle:} \thetitle\par
+    \noindent \textbf{\@strings@ThesisSupervisor}~\thesupervisorshort, \thesupervisordegree, \thesupervisorwork\par
     \endgroup
     \noindent \textbf{2~\@strings@DeadlineForSubmission:}     \thefinishdate     \par
     \noindent \textbf{3~\@strings@RequirementsAndPremise}\par \thetechnicalspec  \par\pagebreak[3]
@@ -1108,8 +1106,7 @@
     \noindent \textbf{7~\@strings@ObjectivesIssuedOn}         \thestartdate      \par\bigskip\par
     \noindent\begingroup\renewcommand{\arraystretch}{1.5}\begin{tabular}{ll}
         \@strings@ThesisSupervisorLong & \signatureplace \\
-        \@strings@ObjectivesAssumed    & \signatureplace \\
-        & \thestartdate
+        \@strings@ObjectivesAssumed    & \signatureplace ~ \thestartdate
     \end{tabular}\endgroup
 \end{small}
 \end{titlepage}}
@@ -1140,7 +1137,7 @@
     \noindent10~\@strings@ThesisPublications\par\theresearchpublications\par\bigskip
     \noindent\begingroup\renewcommand{\arraystretch}{1.5}\begin{tabular}{lll}
         \@strings@Student & \theauthorshort & \signatureplace \\
-        \@strings@ThesisSupervisor & \thesupervisorshort &  \signatureplace \\
+        \@strings@ThesisSupervisorLong & \thesupervisorshort &  \signatureplace \\
         \multicolumn{3}{l}{\unknowndate}
     \end{tabular}\endgroup
     \end{small}
