@@ -868,12 +868,8 @@
 \newcommand{\@strings@SubjectArea@ru}{Направление подготовки}
 \newcommand{\@strings@SubjectArea}{\@iflfe{\@strings@SubjectArea@en}{\@strings@SubjectArea@ru}}
 
-\newcommand{\@strings@SubjectAreaBig@en}{Subject area}
-\newcommand{\@strings@SubjectAreaBig@ru}{Направление подготовки (специальность)}
-\newcommand{\@strings@SubjectAreaBig}{\@iflfe{\@strings@SubjectAreaBig@en}{\@strings@SubjectAreaBig@ru}}
-
 \newcommand{\@strings@ProgramMajor@en}{Program/Major}
-\newcommand{\@strings@ProgramMajor@ru}{Направленность (профиль)}
+\newcommand{\@strings@ProgramMajor@ru}{Направленность (профиль) образовательной программы}
 \newcommand{\@strings@ProgramMajor}{\@iflfe{\@strings@ProgramMajor@en}{\@strings@ProgramMajor@ru}}
 
 \newcommand{\@strings@DegreeLevel@en}{Degree level}
@@ -1094,7 +1090,7 @@
     \noindent \textbf{\@strings@Student}~\theauthor\;\par 
     \noindent \textbf{\@strings@Group}~\thestudygroup\; \textbf{\@strings@FacultyOf}~\thefaculty\;\par
     \noindent \textbf{\@strings@DegreeLevel:} \@strings@DegreeName\par
-    \noindent \textbf{\@strings@SubjectAreaBig:} \thespecialty\par
+    \noindent \textbf{\@strings@SubjectArea:} \thespecialty\par
     \noindent \textbf{\@strings@ProgramMajor:} \thespecialization\par
     \noindent \textbf{\@strings@ThesisTitle:} \thetitle\par
     \noindent \textbf{\@strings@ThesisSupervisor}~\thesupervisorshort, \thesupervisordegree, \thesupervisorwork\par
