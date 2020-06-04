@@ -995,7 +995,7 @@
 \newcommand{\@strings@ANNOTATION@second}{\@iflfe{\@strings@ANNOTATION@second@en}{\@strings@ANNOTATION@second@ru}}
 
 \newcommand{\@strings@NameOfOrganization@en}{Name of organization}
-\newcommand{\@strings@NameOfOrganization@ru}{Наименование организации, где выполнена ВКР}
+\newcommand{\@strings@NameOfOrganization@ru}{Наименование организации, в которой выполнена ВКР}
 \newcommand{\@strings@NameOfOrganization}{\@iflfe{\@strings@NameOfOrganization@en}{\@strings@NameOfOrganization@ru}}
 
 \newcommand{\@strings@DescriptionOfThesis@en}{DESCRIPTION OF THE GRADUATION THESIS}
