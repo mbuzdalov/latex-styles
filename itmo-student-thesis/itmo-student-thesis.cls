@@ -871,6 +871,10 @@
 \newcommand{\@strings@ProgramMajor@ru}{Направленность (профиль) образовательной программы}
 \newcommand{\@strings@ProgramMajor}{\@iflfe{\@strings@ProgramMajor@en}{\@strings@ProgramMajor@ru}}
 
+\newcommand{\@strings@Specialization@en}{Specialization}
+\newcommand{\@strings@Specializationr@ru}{Специализация}
+\newcommand{\@strings@Specialization}{\@iflfe{\@strings@Specialization@en}{\@strings@Specialization@ru}}
+
 \newcommand{\@strings@DegreeLevel@en}{Degree level}
 \newcommand{\@strings@DegreeLevel@ru}{Квалификация}
 \newcommand{\@strings@DegreeLevel}{\@iflfe{\@strings@DegreeLevel@en}{\@strings@DegreeLevel@ru}}
