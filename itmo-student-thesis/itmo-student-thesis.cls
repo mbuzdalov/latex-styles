@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{itmo-student-thesis}[2021/06/03 v1.4.3]
+\ProvidesClass{itmo-student-thesis}[2023/01/28 v1.4.4]
 \RequirePackage{xkvltxp}
 \LoadClass[14pt,a4paper]{extreport}
 
@@ -644,7 +644,7 @@
 %%% \university
 
 \newcommand{\theuniversity@ru}{{\small\bfseries Министерство науки и высшего образования Российской Федерации\par
-\MakeUppercase{\scriptsize федеральное государственное автономное образовательное учреждение высшего образования}\par
+{\scriptsize \MakeUppercase{федеральное государственное автономное образовательное учреждение высшего образования}}\par
 \begin{singlespace}\MakeUppercase{<<Национальный исследовательский университет ИТМО>>}\end{singlespace}}}
 
 \newcommand{\theuniversity@en}{{\small\bfseries Ministry of Science and Higher Education of the Russian Federation\par
