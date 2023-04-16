@@ -1154,9 +1154,9 @@
         \providecommand{\@strings@DegreeName@en}{Master}
     }{
         \ifstrequal{#1}{Бакалавр}{
-            \providecommand{\thespecialization@ru}{Математические модели и алгоритмы в разработке программного обеспечения}
+            \providecommand{\thespecialization@ru}{Информатика и программирование}
             \providecommand{\thespecialty@ru}{01.03.02~Прикладная математика и информатика}
-            \providecommand{\thespecialization@en}{Mathematical models and algorithms in software engineering}
+            \providecommand{\thespecialization@en}{Computer science and programming}
             \providecommand{\thespecialty@en}{01.03.02~Applied mathematics and informatics}
             \providecommand{\@strings@DegreeName@ru}{Бакалавр}
             \providecommand{\@strings@DegreeName@en}{Bachelor}
